@@ -1,3 +1,9 @@
-[gd_scene format=3 uid="uid://srvr8rv3t0or"]
+[gd_scene load_steps=2 format=3 uid="uid://srvr8rv3t0or"]
+
+[ext_resource type="Texture2D" uid="uid://cncl8dqx1lmtm" path="res://assets/2d/onibus 1 prototipo-Recovered.png" id="1_pfxg8"]
 
 [node name="loja" type="Node2D"]
+
+[node name="Onibus1PrototipoRecovered" type="Sprite2D" parent="."]
+position = Vector2(397, 160)
+texture = ExtResource("1_pfxg8")

@@ -1,3 +1,9 @@
-[gd_scene format=3 uid="uid://1d1tieml4doc"]
+[gd_scene load_steps=2 format=3 uid="uid://1d1tieml4doc"]
+
+[ext_resource type="Texture2D" uid="uid://ctwg5ahvpgamx" path="res://assets/2d/onibus 1 -002.png" id="1_6ahf1"]
 
 [node name="progresso" type="Node2D"]
+
+[node name="Onibus1002" type="Sprite2D" parent="."]
+position = Vector2(459, 184)
+texture = ExtResource("1_6ahf1")
