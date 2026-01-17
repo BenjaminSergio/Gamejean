@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=3 uid="uid://7tw63fwknjm1"]
+
+[ext_resource type="Script" uid="uid://866dcnpb1y4s" path="res://inventory grid/Scripts/inventory.gd" id="1_21xkr"]
+[ext_resource type="Script" uid="uid://b6fqslawjrene" path="res://inventory grid/Scripts/item_grid.gd" id="1_bo1nx"]
+[ext_resource type="Script" uid="uid://cuppmy2b1ulx7" path="res://inventory grid/Scripts/iten_data.gd" id="2_6bp64"]
+[ext_resource type="PackedScene" uid="uid://dgqk5k4qnpl6i" path="res://inventory grid/Scenes/inventory_slot.tscn" id="2_8gbba"]
+[ext_resource type="Texture2D" uid="uid://cexlbgcbbqob4" path="res://icon.svg" id="3_344ge"]
+[ext_resource type="PackedScene" uid="uid://coxlhccnj2t66" path="res://inventory grid/Scenes/inventory_item.tscn" id="4_ynf5e"]
+
+[sub_resource type="Resource" id="Resource_21xkr"]
+script = ExtResource("2_6bp64")
+name = "itemtest"
+texture = ExtResource("3_344ge")
+dimensions = Vector2i(8, 8)
+metadata/_custom_type_script = "uid://cuppmy2b1ulx7"
+
+[sub_resource type="Resource" id="Resource_6bp64"]
+script = ExtResource("2_6bp64")
+name = "wdad"
+texture = ExtResource("3_344ge")
+dimensions = Vector2i(8, 8)
+metadata/_custom_type_script = "uid://cuppmy2b1ulx7"
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Inventory" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_21xkr")
+item = Array[ExtResource("2_6bp64")]([SubResource("Resource_21xkr"), SubResource("Resource_6bp64")])
+inventory_item_scene = ExtResource("4_ynf5e")
+
+[node name="itemGrid" type="GridContainer" parent="Inventory"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+script = ExtResource("1_bo1nx")
+Inventory_Slot_scene = ExtResource("2_8gbba")
+dimensions = Vector2i(16, 16)
