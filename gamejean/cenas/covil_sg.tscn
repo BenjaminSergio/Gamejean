@@ -1,14 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://b4hq0qkn0celp"]
+[gd_scene load_steps=10 format=3 uid="uid://b4hq0qkn0celp"]
 
 [ext_resource type="Texture2D" uid="uid://h0u51iebg3mr" path="res://assets/UI/botão_vançar_dia_001.png" id="1_a58vu"]
 [ext_resource type="Texture2D" uid="uid://cdt04vj7w1btn" path="res://assets/2d/covil_bg_001.png" id="1_gmejt"]
+[ext_resource type="Script" uid="uid://df760qkb26aoi" path="res://cenas/variaveisGLobais.gd" id="1_lu6o8"]
 [ext_resource type="Script" uid="uid://dbwp0gx7l15dm" path="res://cenas/next_day_button.gd" id="2_865lq"]
 [ext_resource type="Texture2D" uid="uid://3f6achcqllbh" path="res://assets/UI/botão_avisos_011.png" id="2_mp8ij"]
 [ext_resource type="Script" uid="uid://1qgl4w6mx35u" path="res://cenas/upgrades_button.gd" id="3_edoy7"]
+[ext_resource type="Script" uid="uid://bldsa3h7lb6tr" path="res://cenas/contador_dia.gd" id="5_4adyp"]
 [ext_resource type="Texture2D" uid="uid://c4rjtq7ic4ny2" path="res://assets/2d/porta_covil_0001.png" id="5_gmejt"]
 [ext_resource type="Script" uid="uid://dvgqh37b75th3" path="res://cenas/progresso.gd" id="5_qyqxq"]
 
 [node name="covil SG" type="Node2D"]
+script = ExtResource("1_lu6o8")
 
 [node name="Panel" type="Panel" parent="."]
 offset_left = 2.0
@@ -50,13 +53,14 @@ offset_bottom = 49.06833
 scale = Vector2(0.6456232, -0.98130405)
 text = "proximo dia"
 
-[node name="Label" type="Label" parent="Control"]
+[node name="contador_dia" type="Label" parent="Control"]
 layout_mode = 0
 offset_left = 38.0
 offset_top = 17.0
 offset_right = 440.0
 offset_bottom = 86.0
 text = "DIA:"
+script = ExtResource("5_4adyp")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control"]
 layout_mode = 0

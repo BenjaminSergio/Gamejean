@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=4 uid="uid://c7un1vt8ychiw"]
+[gd_scene load_steps=14 format=4 uid="uid://c7un1vt8ychiw"]
 
+[ext_resource type="Script" uid="uid://b8tvmjr6y1klf" path="res://jodo_2d.gd" id="1_ipf4p"]
 [ext_resource type="Texture2D" uid="uid://cskbc0fbu0pf7" path="res://assets/2d/asfalto 2.png" id="1_phvb6"]
 [ext_resource type="Texture2D" uid="uid://bnvg4olhitacr" path="res://assets/2d/asfalto.png" id="2_yem4t"]
 [ext_resource type="Texture2D" uid="uid://bkenf3yxlx7ow" path="res://assets/2d/asfalto 3.png" id="3_ipf4p"]
@@ -42,6 +43,7 @@ sources/9 = SubResource("TileSetAtlasSource_btngk")
 
 [node name="onibus" type="Node2D"]
 position = Vector2(1, -3)
+script = ExtResource("1_ipf4p")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(0, -2)
@@ -52,3 +54,18 @@ tile_set = SubResource("TileSet_poal5")
 position = Vector2(427.99997, 286)
 scale = Vector2(2.24, 1.3199999)
 texture = ExtResource("6_yem4t")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 869.0
+offset_right = 1038.0
+offset_bottom = 52.0
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 72.0
+offset_top = 16.0
+offset_right = 376.0
+offset_bottom = 80.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
