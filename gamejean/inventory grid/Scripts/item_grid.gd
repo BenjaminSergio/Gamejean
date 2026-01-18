@@ -1,22 +1,23 @@
 extends GridContainer
 
 const SLOT_SIZE: int = 16
-@export var Inventory_Slot_scene: PackedScene
+#@export var Inventory_Slot_scene: PackedScene
 @export var dimensions: Vector2i 
 var slot_data: Array = []
 var held_item_intersects: bool = false
 
 
 func _ready() -> void:
-	create_slots()
+	# create_slots()
+	self.columns = dimensions.x
 	init_slot_data()
 
-func create_slots() -> void:
-	self.columns = dimensions.x 
-	for x in dimensions.x:
-		for y in dimensions.y:
-			var inventory_slot = Inventory_Slot_scene.instantiate()
-			add_child(inventory_slot)
+# func create_slots() -> void:
+# 	self.columns = dimensions.x 
+# 	for x in dimensions.x:
+# 		for y in dimensions.y:
+# 			var inventory_slot = Inventory_Slot_scene.instantiate()
+# 			add_child(inventory_slot)
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -35,9 +36,15 @@ func _gui_input(event: InputEvent) -> void:
 					return
 				var offset = Vector2(SLOT_SIZE, SLOT_SIZE) / 2
 				var index = get_slot_index_from_coords(held_item.anchor_point + offset)
-				var items = items_in_area(index, held_item.data.dimensions)
+				
+				if !is_within_bounds(index, held_item.data):
+					return
+				
+				var items = items_in_area(index, held_item.data)
+
 				if items.size():
 					if items.size() == 1:
+						held_item.reparent(self)
 						held_item.get_placed(get_coords_from_slot_index(index))
 						remove_item_from_slot_data(items[0])
 						add_item_to_slot_data(held_item, index)
@@ -65,13 +72,38 @@ func remove_item_from_slot_data(item: Node) -> void:
 func add_item_to_slot_data(item: Node, index: int) -> void:
 	for x in item.data.dimensions.x:
 		for y in item.data.dimensions.y:
-			slot_data[index + x + y * columns] = item
+			if item.data.is_solid(x, y):
+				slot_data[index + x + y * columns] = item
 
-func items_in_area(index: int, item_dimensions: Vector2i) -> Array:
+func is_within_bounds(index: int, data: ItemData) -> bool:
+	if index < 0 or index >= slot_data.size():
+		return false
+
+	for x in data.dimensions.x:
+		for y in data.dimensions.y:
+			if data and !data.is_solid(x, y):
+				continue
+
+			var curr_index = index + x + y * columns
+			
+			if curr_index >= slot_data.size():
+				return false
+
+			if (index + x) / columns != index / columns:
+				return false
+				
+	return true
+
+func items_in_area(index: int, item_data: ItemData) -> Array:
 	var items: Dictionary = {}
+	var item_dimensions = item_data.dimensions
 	for y in item_dimensions.y:
 		for x in item_dimensions.x:
 			var slot_index = index + x + y * columns
+			if slot_index < 0 or slot_index >= slot_data.size():
+				continue
+			if (index + x) / columns != index / columns:
+				continue
 			var item = slot_data[slot_index]
 			if !item:
 				continue
@@ -80,13 +112,21 @@ func items_in_area(index: int, item_dimensions: Vector2i) -> Array:
 	return items.keys() if items.size() else []
 
 func init_slot_data() -> void:
-	slot_data.resize(dimensions.x * dimensions.y)
+	var child_count = get_child_count()
+	slot_data.resize(child_count)
 	slot_data.fill(null)
+
+	if child_count != slot_data.size():
+			printerr("ERRO: O numero de slots manuais (" + str(child_count) + ") difere das dimensoes configuradas (" + str(slot_data.size()) + ")!")
+	for i in range(child_count):
+		var child = get_child(i)
+		if "is_blocked" in child and child.is_blocked:
+			slot_data[i] = "BLOCKED"
 
 func attempt_to_add_item_data(item: Node) -> bool:
 	var slot_index:int = 0
 	while slot_index < slot_data.size():
-		if item_fits(slot_index, item.data.dimensions):
+		if item_fits(slot_index, item.data.dimensions,item.data):
 			break
 		slot_index += 1
 	if slot_index >= slot_data.size():
@@ -98,16 +138,20 @@ func attempt_to_add_item_data(item: Node) -> bool:
 	item.set_init_position(get_coords_from_slot_index(slot_index))
 	return true
 
-func item_fits(index: int, dimensions: Vector2i) -> bool:
+func item_fits(index: int, dimensions: Vector2i, data: ItemData = null) -> bool:
+	if index < 0 or index >= slot_data.size(): return false
 	for x in dimensions.x:
 		for y in dimensions.y:
+			if data and !data.is_solid(x, y):
+				continue
 			var curr_index = index + x + y * columns
 			if curr_index >= slot_data.size():
 				return false
 			if slot_data[curr_index] != null:
 				return false
-			var split = index / columns != (index + x) / columns
-			if split:
+			var splitX = index / columns != (index + x) / columns
+
+			if splitX:
 				return false
 	return true
 func get_slot_index_from_coords(coords: Vector2i) -> int:

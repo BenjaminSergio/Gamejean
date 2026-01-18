@@ -14,4 +14,4 @@ func _process(_delta):
 
 func _on_timer_timeout():
 	VariaveisGLobais.avancar_dia()
-	get_tree().change_scene_to_file("res://cenas/covil_sg.tscn")
+	#get_tree().change_scene_to_file("res://cenas/covil_sg.tscn")

@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 VariaveisGLobais="*res://cenas/variaveisGLobais.gd"
 
+[dotnet]
+
+project/assembly_name="Gamejean"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
