@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://4sk05b233aov"]
+[gd_scene load_steps=14 format=3 uid="uid://4sk05b233aov"]
 
 [ext_resource type="PackedScene" uid="uid://c7un1vt8ychiw" path="res://inventory grid/Scenes/onibus.tscn" id="1_4h8s1"]
 [ext_resource type="PackedScene" uid="uid://2fv2w8q5jfui" path="res://inventory grid/Scenes/inventory.tscn" id="2_4h8s1"]
 [ext_resource type="Script" uid="uid://cuppmy2b1ulx7" path="res://inventory grid/Scripts/iten_data.gd" id="3_bskvx"]
 [ext_resource type="Texture2D" uid="uid://cexlbgcbbqob4" path="res://icon.svg" id="4_gwcje"]
 [ext_resource type="Texture2D" uid="uid://dc6rbox5inh1i" path="res://assets/UI/voltar_001.png" id="5_e0cli"]
+[ext_resource type="Texture2D" uid="uid://dpwunu3cjvvk4" path="res://assets/alunos/aluna_2x1-0001.png" id="6_r3qk8"]
+[ext_resource type="Texture2D" uid="uid://dojeo16f8dj2a" path="res://assets/alunos/aluno_3x1.png" id="7_m6ych"]
+[ext_resource type="Texture2D" uid="uid://bnrxpdebjdc71" path="res://assets/alunos/aluno_2x2_L.png" id="8_16bn2"]
 
 [sub_resource type="Resource" id="Resource_21xkr"]
 script = ExtResource("3_bskvx")
@@ -20,22 +23,42 @@ dimensions = Vector2i(3, 2)
 grid_pattern = Array[bool]([true, true, true, false, false, true])
 metadata/_custom_type_script = "uid://cuppmy2b1ulx7"
 
+[sub_resource type="Resource" id="Resource_32eyk"]
+script = ExtResource("3_bskvx")
+texture = ExtResource("6_r3qk8")
+dimensions = Vector2i(1, 2)
+metadata/_custom_type_script = "uid://cuppmy2b1ulx7"
+
+[sub_resource type="Resource" id="Resource_byy8d"]
+script = ExtResource("3_bskvx")
+texture = ExtResource("7_m6ych")
+dimensions = Vector2i(1, 3)
+metadata/_custom_type_script = "uid://cuppmy2b1ulx7"
+
+[sub_resource type="Resource" id="Resource_ieacc"]
+script = ExtResource("3_bskvx")
+texture = ExtResource("8_16bn2")
+dimensions = Vector2i(2, 2)
+grid_pattern = Array[bool]([true, true, false, true])
+metadata/_custom_type_script = "uid://cuppmy2b1ulx7"
+
 [node name="parada" type="Node"]
 
 [node name="onibus" parent="." instance=ExtResource("1_4h8s1")]
-position = Vector2(-213, 82)
+position = Vector2(-23, 6)
 
 [node name="Onibus" parent="." instance=ExtResource("2_4h8s1")]
-offset_left = 59.0
-offset_top = 219.0
-offset_right = 315.0
-offset_bottom = 379.0
+offset_left = 220.0
+offset_top = 209.0
+offset_right = 476.0
+offset_bottom = 369.0
 item = Array[ExtResource("3_bskvx")]([SubResource("Resource_21xkr"), SubResource("Resource_1hc28")])
 
 [node name="ponto e onibus" type="Node" parent="."]
 
 [node name="ponto de onibus" parent="ponto e onibus" instance=ExtResource("2_4h8s1")]
-offset_left = 420.0
-offset_top = 225.0
-offset_right = 676.0
-offset_bottom = 385.0
+offset_left = 541.0
+offset_top = 288.0
+offset_right = 797.0
+offset_bottom = 448.0
+item = Array[ExtResource("3_bskvx")]([SubResource("Resource_32eyk"), SubResource("Resource_byy8d"), SubResource("Resource_ieacc")])
