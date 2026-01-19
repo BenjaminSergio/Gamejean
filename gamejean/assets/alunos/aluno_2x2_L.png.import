@@ -2,20 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD
-uid="uid://q6k70obpbcrl"
-=======
-uid="uid://cdew660nvum1u"
->>>>>>> 87451c9e639bf7d1c808da58c6ddaac915a7388a
-path="res://.godot/imported/onibus_top-down_1_001.png-65617b8e661372d86c0f644c7642e8b7.ctex"
+uid="uid://bnrxpdebjdc71"
+path="res://.godot/imported/aluno_2x2_L.png-5516f100dff49a38817a5b586c1b7556.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/2d/onibus_top-down_1_001.png"
-dest_files=["res://.godot/imported/onibus_top-down_1_001.png-65617b8e661372d86c0f644c7642e8b7.ctex"]
+source_file="res://assets/alunos/aluno_2x2_L.png"
+dest_files=["res://.godot/imported/aluno_2x2_L.png-5516f100dff49a38817a5b586c1b7556.ctex"]
 
 [params]
 

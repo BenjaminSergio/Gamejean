@@ -2,20 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD
-uid="uid://q6k70obpbcrl"
-=======
-uid="uid://cdew660nvum1u"
->>>>>>> 87451c9e639bf7d1c808da58c6ddaac915a7388a
-path="res://.godot/imported/onibus_top-down_1_001.png-65617b8e661372d86c0f644c7642e8b7.ctex"
+uid="uid://dlqm4lky2jey3"
+path="res://.godot/imported/dialogo textura aaaaaaaaaaa.png-bdf5b70f4030bb2444ecfef9aa5507ad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/2d/onibus_top-down_1_001.png"
-dest_files=["res://.godot/imported/onibus_top-down_1_001.png-65617b8e661372d86c0f644c7642e8b7.ctex"]
+source_file="res://assets/UI/dialogo textura aaaaaaaaaaa.png"
+dest_files=["res://.godot/imported/dialogo textura aaaaaaaaaaa.png-bdf5b70f4030bb2444ecfef9aa5507ad.ctex"]
 
 [params]
 

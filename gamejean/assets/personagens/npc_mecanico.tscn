@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://n2kh3n763gdx"]
+[gd_scene load_steps=4 format=3 uid="uid://n2kh3n763gdx"]
 
 [ext_resource type="Script" uid="uid://bx823u7jtp1ly" path="res://npc_mecanico.gd" id="1_ptr5x"]
+[ext_resource type="Texture2D" uid="uid://dlqm4lky2jey3" path="res://assets/UI/dialogo textura aaaaaaaaaaa.png" id="2_drape"]
 [ext_resource type="Texture2D" uid="uid://d1wimborrvl11" path="res://assets/personagens/mecanico_002.png" id="2_xgypf"]
 
 [node name="NPC_mecanico" type="Node2D"]
@@ -39,20 +40,42 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/PanelContainer"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/PanelContainer"]
 layout_mode = 2
+texture = ExtResource("2_drape")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/PanelContainer/TextureRect"]
+layout_mode = 0
+offset_right = 814.9761
+offset_bottom = 300.0
 theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_top = 1
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/PanelContainer/MarginContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/PanelContainer/TextureRect/MarginContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
 horizontal_alignment = 3
 vertical_alignment = 3
 autowrap_mode = 2
 justification_flags = 35
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/TextureRect/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="sim" type="Button" parent="CanvasLayer/Control/PanelContainer/TextureRect/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 31
+text = "SIM"
+
+[node name="não" type="Button" parent="CanvasLayer/Control/PanelContainer/TextureRect/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 31
+text = "NÃO"
 
 [node name="Mecanico002" type="Sprite2D" parent="."]
 position = Vector2(137, 136)
