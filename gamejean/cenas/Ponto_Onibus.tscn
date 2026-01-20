@@ -14,9 +14,10 @@
 
 [node name="Node" type="Node"]
 
-[node name="onibus" parent="." instance=ExtResource("1_ttexq")]
+[node name="onibus" parent="." node_paths=PackedStringArray("grid_onibus") instance=ExtResource("1_ttexq")]
 position = Vector2(-23.000002, 5.0000005)
 scale = Vector2(0.999, 1)
+grid_onibus = NodePath("../Onibus/itemGrid")
 
 [node name="Onibus" type="PanelContainer" parent="."]
 offset_left = 121.0
@@ -34,6 +35,8 @@ theme_override_constants/v_separation = 0
 columns = 5
 script = ExtResource("4_cqpo5")
 dimensions = Vector2i(5, 9)
+e_o_grid_do_onibus = true
+scene_item = ExtResource("3_jwc1q")
 
 [node name="InventorySlot" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
 layout_mode = 2
