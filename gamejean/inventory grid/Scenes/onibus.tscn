@@ -1,0 +1,77 @@
+[gd_scene load_steps=15 format=3 uid="uid://c7un1vt8ychiw"]
+
+[ext_resource type="Script" uid="uid://b8tvmjr6y1klf" path="res://jodo_2d.gd" id="1_ipf4p"]
+[ext_resource type="Texture2D" uid="uid://cskbc0fbu0pf7" path="res://assets/2d/asfalto 2.png" id="1_phvb6"]
+[ext_resource type="Texture2D" uid="uid://bnvg4olhitacr" path="res://assets/2d/asfalto.png" id="2_yem4t"]
+[ext_resource type="Texture2D" uid="uid://bkenf3yxlx7ow" path="res://assets/2d/asfalto 3.png" id="3_ipf4p"]
+[ext_resource type="Texture2D" uid="uid://qfkn2bejnwu8" path="res://assets/2d/calçada 1.png" id="4_0u4r3"]
+[ext_resource type="Texture2D" uid="uid://cjuq33ipfnx4w" path="res://assets/2d/calçada 2.png" id="5_lj7cq"]
+[ext_resource type="Texture2D" uid="uid://dlvtgi5sejbld" path="res://assets/2d/ponto_onibus-0001_completo.png" id="7_clokt"]
+[ext_resource type="Texture2D" uid="uid://c04e713xp531e" path="res://assets/2d/onibus_top-down_assentos_1_001.png" id="8_gx2py"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qokkh"]
+texture = ExtResource("1_phvb6")
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_34m47"]
+texture = ExtResource("2_yem4t")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uk2nc"]
+texture = ExtResource("3_ipf4p")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j0i0w"]
+texture = ExtResource("4_0u4r3")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_btngk"]
+texture = ExtResource("5_lj7cq")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_poal5"]
+tile_size = Vector2i(32, 32)
+sources/5 = SubResource("TileSetAtlasSource_qokkh")
+sources/6 = SubResource("TileSetAtlasSource_34m47")
+sources/7 = SubResource("TileSetAtlasSource_uk2nc")
+sources/8 = SubResource("TileSetAtlasSource_j0i0w")
+sources/9 = SubResource("TileSetAtlasSource_btngk")
+
+[node name="onibus" type="Node2D"]
+position = Vector2(-23.000002, 5)
+scale = Vector2(2.0575676, 2.0602882)
+script = ExtResource("1_ipf4p")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(-491.5, 65)
+tile_map_data = PackedByteArray(0, 0, 39, 0, 10, 0, 5, 0, 0, 0, 0, 0, 0, 0, 40, 0, 9, 0, 5, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_poal5")
+
+[node name="PontoOnibus0001Completo" type="Sprite2D" parent="."]
+position = Vector2(294.03653, 159.6864)
+texture = ExtResource("7_clokt")
+
+[node name="Button" type="Button" parent="."]
+offset_top = 2.5
+offset_right = 169.0
+offset_bottom = 54.5
+scale = Vector2(0.34000015, 0.6799998)
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 72.0
+offset_top = 16.0
+offset_right = 376.0
+offset_bottom = 80.0
+
+[node name="OnibusTopDownAssentos1001" type="Sprite2D" parent="."]
+position = Vector2(185.5, 168)
+texture = ExtResource("8_gx2py")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

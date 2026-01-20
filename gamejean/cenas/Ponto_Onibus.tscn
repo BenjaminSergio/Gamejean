@@ -1,0 +1,442 @@
+[gd_scene load_steps=12 format=3 uid="uid://cidltcw73lyru"]
+
+[ext_resource type="PackedScene" uid="uid://c7un1vt8ychiw" path="res://inventory grid/Scenes/onibus.tscn" id="1_ttexq"]
+[ext_resource type="Script" uid="uid://866dcnpb1y4s" path="res://inventory grid/Scripts/inventory.gd" id="2_vctj1"]
+[ext_resource type="PackedScene" uid="uid://coxlhccnj2t66" path="res://inventory grid/Scenes/inventory_item.tscn" id="3_jwc1q"]
+[ext_resource type="Script" uid="uid://cuppmy2b1ulx7" path="res://inventory grid/Scripts/iten_data.gd" id="3_tgjpl"]
+[ext_resource type="Script" uid="uid://b6fqslawjrene" path="res://inventory grid/Scripts/item_grid.gd" id="4_cqpo5"]
+[ext_resource type="PackedScene" uid="uid://dgqk5k4qnpl6i" path="res://inventory grid/Scenes/inventory_slot.tscn" id="5_g6dwh"]
+[ext_resource type="Script" uid="uid://b4b2etgmrwukj" path="res://inventory grid/Scripts/ponto_spawner.gd" id="11_gunce"]
+[ext_resource type="Resource" uid="uid://bvdbq3ffeq2hb" path="res://inventory grid/Alunos/Aluna_normal.tres" id="12_0en8i"]
+[ext_resource type="Resource" uid="uid://b76i1eglijis3" path="res://inventory grid/Alunos/Aluno_Alto.tres" id="13_grjg4"]
+[ext_resource type="Resource" uid="uid://b7s70kmpoapj1" path="res://inventory grid/Alunos/Aluno_curvado.tres" id="14_4pg33"]
+[ext_resource type="Resource" uid="uid://vl41k4yw73ft" path="res://inventory grid/Alunos/Aluno_Gordo.tres" id="15_8ekag"]
+
+[node name="Node" type="Node"]
+
+[node name="onibus" parent="." node_paths=PackedStringArray("grid_onibus") instance=ExtResource("1_ttexq")]
+position = Vector2(-23.000002, 5.0000005)
+scale = Vector2(0.999, 1)
+grid_onibus = NodePath("../Onibus/itemGrid")
+
+[node name="Onibus" type="PanelContainer" parent="."]
+offset_left = 121.0
+offset_top = 85.0
+offset_right = 202.0
+offset_bottom = 229.0
+script = ExtResource("2_vctj1")
+inventory_item_scene = ExtResource("3_jwc1q")
+
+[node name="itemGrid" type="GridContainer" parent="Onibus"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 5
+script = ExtResource("4_cqpo5")
+dimensions = Vector2i(5, 9)
+e_o_grid_do_onibus = true
+scene_item = ExtResource("3_jwc1q")
+
+[node name="InventorySlot" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+is_blocked = true
+
+[node name="InventorySlot41" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+is_blocked = true
+
+[node name="InventorySlot42" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot43" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot44" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot45" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+is_blocked = true
+
+[node name="InventorySlot28" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+is_blocked = true
+
+[node name="InventorySlot29" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot30" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot31" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot32" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot33" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot34" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot35" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot36" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot37" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot38" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot39" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot40" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot16" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot17" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot18" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot19" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot20" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot21" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot22" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot23" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot24" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot25" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot26" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot27" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot8" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot9" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot10" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot11" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot12" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot13" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot14" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot15" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot2" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot3" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot4" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot5" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot6" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot7" parent="Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="Ponto de Onibus" type="PanelContainer" parent="."]
+offset_left = 236.0
+offset_top = 114.0
+offset_right = 364.0
+offset_bottom = 274.0
+script = ExtResource("2_vctj1")
+inventory_item_scene = ExtResource("3_jwc1q")
+
+[node name="itemGrid" type="GridContainer" parent="Ponto de Onibus"]
+layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 8
+script = ExtResource("4_cqpo5")
+dimensions = Vector2i(8, 10)
+
+[node name="InventorySlot" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot13" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot14" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot15" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot16" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot17" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot18" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot19" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot20" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot21" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot22" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot23" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot24" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot25" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot26" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot27" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot28" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot29" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot30" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot31" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot32" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot33" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot34" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot35" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot36" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot37" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot38" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot39" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot40" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot41" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot42" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot43" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot44" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot45" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot46" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot47" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot48" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot49" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot50" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot51" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot52" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot53" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot54" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot55" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot56" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot57" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot58" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot59" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot60" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot61" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot62" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot63" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot64" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot65" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot66" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot67" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot68" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot69" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot70" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot71" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot72" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot73" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot74" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot75" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot76" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot77" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot78" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot79" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot80" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot2" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot3" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot4" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot5" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot6" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot7" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot8" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot9" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot10" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot11" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="InventorySlot12" parent="Ponto de Onibus/itemGrid" instance=ExtResource("5_g6dwh")]
+layout_mode = 2
+
+[node name="Aluno Spawner" type="Node" parent="." node_paths=PackedStringArray("grid_ponto")]
+script = ExtResource("11_gunce")
+scene_aluno = ExtResource("3_jwc1q")
+tipos_alunos = Array[ExtResource("3_tgjpl")]([ExtResource("12_0en8i"), ExtResource("13_grjg4"), ExtResource("14_4pg33"), ExtResource("15_8ekag")])
+grid_ponto = NodePath("../Ponto de Onibus/itemGrid")
+
+[editable path="Onibus/itemGrid/InventorySlot"]
