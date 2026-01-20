@@ -1,6 +1,6 @@
 extends Label
 
-@onready var label_dia = $"."
+@onready var label_dnheiro = $"."
 
 func _ready():
-	label_dia.text = "Dia: " + str(VariaveisGLobais.dia_atual)
+	label_dnheiro.text = "DINHEIRO: R$" + str(VariaveisGLobais.dinheiro_total)

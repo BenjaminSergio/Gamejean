@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b4hq0qkn0celp"]
+[gd_scene load_steps=11 format=3 uid="uid://b4hq0qkn0celp"]
 
 [ext_resource type="Texture2D" uid="uid://h0u51iebg3mr" path="res://assets/UI/botão_vançar_dia_001.png" id="1_a58vu"]
 [ext_resource type="Texture2D" uid="uid://cdt04vj7w1btn" path="res://assets/2d/covil_bg_001.png" id="1_gmejt"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bldsa3h7lb6tr" path="res://cenas/contador_dia.gd" id="5_4adyp"]
 [ext_resource type="Texture2D" uid="uid://c4rjtq7ic4ny2" path="res://assets/2d/porta_covil_0001.png" id="5_gmejt"]
 [ext_resource type="Script" uid="uid://dvgqh37b75th3" path="res://cenas/progresso.gd" id="5_qyqxq"]
+[ext_resource type="Script" uid="uid://dnhgc5ayingmy" path="res://cenas/contador_dinheiro.gd" id="9_b68ho"]
 
 [node name="covil SG" type="Node2D"]
 script = ExtResource("1_lu6o8")
@@ -29,8 +30,9 @@ offset_bottom = 649.0
 
 [node name="TextureRect2" type="TextureRect" parent="Control"]
 layout_mode = 0
+offset_top = -1.0
 offset_right = 1151.0
-offset_bottom = 646.0
+offset_bottom = 645.0
 texture = ExtResource("1_gmejt")
 
 [node name="next_day" type="TextureButton" parent="Control"]
@@ -52,15 +54,6 @@ offset_right = 126.189285
 offset_bottom = 49.06833
 scale = Vector2(0.6456232, -0.98130405)
 text = "proximo dia"
-
-[node name="contador_dia" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = 38.0
-offset_top = 17.0
-offset_right = 440.0
-offset_bottom = 86.0
-text = "DIA:"
-script = ExtResource("5_4adyp")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control"]
 layout_mode = 0
@@ -97,6 +90,24 @@ size_flags_horizontal = 3
 texture_normal = ExtResource("5_gmejt")
 stretch_mode = 0
 script = ExtResource("3_edoy7")
+
+[node name="contador_dia" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 23.0
+offset_right = 448.0
+offset_bottom = 92.0
+text = "DIA:"
+script = ExtResource("9_b68ho")
+
+[node name="contador_dinheiro" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 60.0
+offset_right = 451.0
+offset_bottom = 129.0
+text = "DINHEIRO:"
+script = ExtResource("5_4adyp")
 
 [connection signal="pressed" from="Control/next_day" to="Control/next_day" method="_on_pressed"]
 [connection signal="pressed" from="Control/HBoxContainer/progresso" to="Control/HBoxContainer/progresso" method="_on_pressed"]

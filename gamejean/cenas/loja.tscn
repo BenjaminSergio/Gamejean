@@ -1,9 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://srvr8rv3t0or"]
+[gd_scene load_steps=5 format=3 uid="uid://srvr8rv3t0or"]
 
-[ext_resource type="Texture2D" uid="uid://cncl8dqx1lmtm" path="res://assets/2d/onibus 1 prototipo-Recovered.png" id="1_pfxg8"]
+[ext_resource type="Texture2D" uid="uid://cbd4y5ad5chnm" path="res://assets/2d/caixa loja.png" id="1_pfxg8"]
+[ext_resource type="Texture2D" uid="uid://dc6rbox5inh1i" path="res://assets/UI/voltar_001.png" id="2_ixwyd"]
+[ext_resource type="Texture2D" uid="uid://b8apoa6h5d8ol" path="res://assets/UI/voltar_out_001.png" id="3_uux2s"]
+[ext_resource type="Script" uid="uid://c8uflpmcldv40" path="res://cenas/lova_volta.gd" id="4_ixwyd"]
 
 [node name="loja" type="Node2D"]
+scale = Vector2(2, 2)
 
-[node name="Onibus1PrototipoRecovered" type="Sprite2D" parent="."]
-position = Vector2(397, 160)
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 575.5
+offset_bottom = 324.5
 texture = ExtResource("1_pfxg8")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_left = 9.5
+offset_top = 246.5
+offset_right = 137.5
+offset_bottom = 310.5
+texture_normal = ExtResource("2_ixwyd")
+texture_pressed = ExtResource("3_uux2s")
+texture_hover = ExtResource("3_uux2s")
+script = ExtResource("4_ixwyd")
+
+[connection signal="pressed" from="TextureButton" to="TextureButton" method="_on_pressed"]

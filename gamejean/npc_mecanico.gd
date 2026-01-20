@@ -13,6 +13,8 @@ extends Node2D
 	3: "O tempo passa rápido..."
 }
 
+
+
 var dialogo_visivel := false
 var aguardando_resposta := false
 
@@ -55,6 +57,8 @@ func fechar_dialogo():
 
 func _on_sim_pressed():
 	# Abrir loja
+	label_dialogo.text= "vem ca ver a minha ferramenta"
+	
 	fechar_dialogo()
 	abrir_loja()
 
@@ -63,7 +67,7 @@ func _on_nao_pressed():
 
 func abrir_loja():
 	# Exemplo
-	print("Abrindo loja de aprimoramentos")
-	# Aqui você pode:
-	# get_tree().change_scene_to_file("res://loja.tscn")
-	# ou mostrar um Control da loja
+	
+	label_dialogo.text= "vem ca ver a minha ferramenta"
+	get_tree().change_scene_to_file("res://cenas/loja.tscn")
+	# ou mostrar um Control da loja"res://cenas/loja.tscn"
