@@ -7,11 +7,17 @@ var slot_data: Array = []
 var held_item_intersects: bool = false
 var highlighted_slots: Array[Node] = []
 
+@export var e_o_grid_do_onibus: bool = false
+@export var scene_item: PackedScene
+
 func _ready() -> void:
-	# create_slots()
 	self.columns = dimensions.x
 	init_slot_data()
 	mouse_exited.connect(clear_highlights)
+
+	if e_o_grid_do_onibus:
+		await get_tree().process_frame
+		carregar_dados_do_global()
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -24,7 +30,7 @@ func _gui_input(event: InputEvent) -> void:
 				if !item:
 					return 
 
-				if item.sentado:
+				if "sentado" in item and item.sentado:
 					return
 				
 				item.get_picked_up()
@@ -92,6 +98,9 @@ func highlight_preview(held_item: Node) -> void:
 				
 			var slot_index = index + x + y * columns
 			
+			if slot_index < 0 or slot_index >= slot_data.size():
+				continue
+
 			if slot_index >= get_child_count():
 				continue
 
@@ -239,3 +248,64 @@ func consolidar_viagem() -> void:
 	for child in get_children():
 		if "sentado" in child:
 			child.travar_no_assento()
+
+
+func salvar_dados_no_global():
+	if !e_o_grid_do_onibus: return # O Ponto de ônibus não salva nada
+	
+	VariaveisGLobais.persistencia_onibus.clear()
+	
+	# Percorre todos os slots para achar itens
+	# Usamos um array auxiliar para não salvar o mesmo item múltiplas vezes (já que ele ocupa vários slots)
+	var itens_salvos: Array[Node] = []
+	
+	for i in range(slot_data.size()):
+		var item = slot_data[i]
+		
+		# Verifica se é um item válido e se já não foi salvo
+		if item and (item is Node) and not (item in itens_salvos):
+			itens_salvos.append(item)
+			
+			# Salva as informações cruciais
+			var info = {
+				"posicao_index": i, # O índice onde o "canto superior esquerdo" do item está
+				"resource_data": item.data, # O arquivo .tres (com rotação e tudo)
+				"sentado": item.sentado # Se já estava travado
+			}
+			
+			# Usa o índice como chave no dicionário global
+			VariaveisGLobais.persistencia_onibus[i] = info
+	consolidar_viagem()
+	print("Dados do ônibus salvos no Global!")
+
+func carregar_dados_do_global():
+	if !e_o_grid_do_onibus: return
+	if VariaveisGLobais.persistencia_onibus.is_empty(): return
+	
+	print("Carregando alunos do Global...")
+	
+	for index in VariaveisGLobais.persistencia_onibus:
+			var info = VariaveisGLobais.persistencia_onibus[index]
+			
+			var novo_aluno = scene_item.instantiate()
+			
+			# 1. PASSA OS DADOS (O Resource já vem com dimensions trocado e is_rotated=true)
+			novo_aluno.data = info["resource_data"]
+			
+			# 2. ADICIONA NA ÁRVORE (Aqui roda o _ready e aplica rotation_degrees = 90)
+			add_child(novo_aluno)
+			
+			# 3. POSICIONA
+			# Como o aluno já girou no passo 2, o tamanho (size) agora reflete a altura/largura corretas
+			var coords = get_coords_from_slot_index(info["posicao_index"])
+			novo_aluno.get_placed(coords)
+			
+			add_item_to_slot_data(novo_aluno, info["posicao_index"])
+			
+			if info.get("sentado", false):
+				novo_aluno.travar_no_assento()
+			
+
+func _exit_tree():
+	if e_o_grid_do_onibus:
+		salvar_dados_no_global()
