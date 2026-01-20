@@ -15,15 +15,16 @@
 [node name="Node" type="Node"]
 
 [node name="onibus" parent="." node_paths=PackedStringArray("grid_onibus") instance=ExtResource("1_ttexq")]
-position = Vector2(-23.000002, 5.0000005)
-scale = Vector2(0.999, 1)
+position = Vector2(-15, 5)
+scale = Vector2(1.998, 2)
 grid_onibus = NodePath("../Onibus/itemGrid")
 
 [node name="Onibus" type="PanelContainer" parent="."]
-offset_left = 121.0
-offset_top = 85.0
-offset_right = 202.0
-offset_bottom = 229.0
+offset_left = 280.0
+offset_top = 223.0
+offset_right = 361.0
+offset_bottom = 367.0
+scale = Vector2(1.9200013, 1.5199994)
 script = ExtResource("2_vctj1")
 inventory_item_scene = ExtResource("3_jwc1q")
 
@@ -178,10 +179,11 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Ponto de Onibus" type="PanelContainer" parent="."]
-offset_left = 236.0
-offset_top = 114.0
-offset_right = 364.0
-offset_bottom = 274.0
+offset_left = 516.00006
+offset_top = 235.0
+offset_right = 644.00006
+offset_bottom = 395.0
+scale = Vector2(1.75, 1.75)
 script = ExtResource("2_vctj1")
 inventory_item_scene = ExtResource("3_jwc1q")
 
