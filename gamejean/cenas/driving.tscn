@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://mk177ru3qcdd"]
+[gd_scene load_steps=50 format=4 uid="uid://mk177ru3qcdd"]
 
 [ext_resource type="PackedScene" uid="uid://d063iuc30x7b8" path="res://assets/models/labs.glb" id="3_fx61g"]
 [ext_resource type="PackedScene" uid="uid://b7q557r62ruqg" path="res://assets/models/quadra.glb" id="3_qm8n8"]
@@ -22,6 +22,9 @@
 [ext_resource type="PackedScene" uid="uid://bl5xeilbunxjs" path="res://assets/models/arvore3.glb" id="21_dlmq2"]
 [ext_resource type="Script" uid="uid://cl8yq1ixqjnca" path="res://cenas/PathFollow3d.cs" id="22_64xg6"]
 [ext_resource type="PackedScene" uid="uid://bpenu5digg4y1" path="res://assets/models/arvore4.glb" id="22_wit5h"]
+[ext_resource type="PackedScene" uid="uid://cidltcw73lyru" path="res://cenas/Ponto_Onibus.tscn" id="23_wit5h"]
+[ext_resource type="Script" uid="uid://crikgrue8o68i" path="res://inventory grid/Scripts/ponto_onibus.gd" id="24_4xmh2"]
+[ext_resource type="Script" uid="uid://dd3d6sj1j6dlh" path="res://cenas/painel_controler.gd" id="25_gtd4h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mc62g"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -36,7 +39,6 @@ sky = SubResource("Sky_qmf8j")
 tonemap_mode = 2
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qhq13"]
-load_path = "res://.godot/imported/mapa_UFES Map - Almost Finished.png-f39346a5209658a70344df90fca6d378.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28kmg"]
 resource_name = "UFES Map - Almost Finished"
@@ -759,3 +761,19 @@ transform = Transform3D(-1, -2.5229694e-08, -9.543894e-08, -7.5689066e-08, 0.816
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 161.24484, 0.48004073, 30.057)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Node" parent="UI" instance=ExtResource("23_wit5h")]
+position = Vector2(2, 0)
+script = ExtResource("24_4xmh2")
+
+[node name="onibus" parent="UI/Node/Node" index="0"]
+position = Vector2(-15, 0)
+
+[node name="painel controler" type="Node" parent="." node_paths=PackedStringArray("painel_ponto")]
+script = ExtResource("25_gtd4h")
+painel_ponto = NodePath("../UI/Node")
+
+[editable path="UI/Node"]
+[editable path="UI/Node/Node/Onibus/itemGrid/InventorySlot"]

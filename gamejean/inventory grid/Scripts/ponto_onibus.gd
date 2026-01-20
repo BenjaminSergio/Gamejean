@@ -1,23 +1,99 @@
 extends Node2D
 
-@export var grid_ponto: GridContainer # Arraste o Grid do Ponto aqui
-@export var alunos_resources: Array[ItemData] # Arraste seus resources de alunos aqui
-@export var scene_item: PackedScene # Arraste a cena inventory_item.tscn
+# --- MOVIMENTAÇÃO (CANVAS LAYER) ---
+@onready var canvas_pai = get_parent()
+@export var posicao_escondida: float = -720.0 
+@export var posicao_final: float = 0.0
+
+# --- REFERÊNCIAS DO JOGO ---
+@export var timer: Timer
+@export var grid_ponto: GridContainer
+@export var alunos_resources: Array[ItemData] 
+@export var scene_item: PackedScene 
+
+# --- ESTADOS ---
+var esta_aberto: bool = false
+var em_animacao: bool = false
 
 func _ready():
-	encher_ponto()
+	# Configura a posição inicial do CanvasLayer imediatamente
+	if canvas_pai is CanvasLayer:
+		canvas_pai.offset.y = posicao_escondida
+	else:
+		printerr("ERRO CRÍTICO: O pai do PontoDeOnibus DEVE ser um CanvasLayer!")
 
+	if timer: timer.stop()
+
+# --- FUNÇÃO MESTRA (CHAMADA PELO 'Q') ---
+func alternar_painel():
+	if em_animacao: return
+	
+	if esta_aberto:
+		subir_painel()
+	else:
+		descer_painel()
+
+# --- ANIMAÇÃO DE DESCIDA ---
+func descer_painel():
+	if not (canvas_pai is CanvasLayer): return
+	
+	em_animacao = true
+	var tween = create_tween().set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
+	
+	# Move o CanvasLayer inteiro
+	tween.tween_property(canvas_pai, "offset:y", posicao_final, 1.0)
+	
+	# CALLBACK: O que acontece quando o painel termina de descer?
+	tween.tween_callback(func():
+		print("Painel desceu. Iniciando jogo...")
+		encher_ponto() # Gera os alunos
+		if timer: timer.start() # Inicia a contagem
+		esta_aberto = true
+		em_animacao = false
+	)
+
+# --- ANIMAÇÃO DE SUBIDA ---
+func subir_painel():
+	if not (canvas_pai is CanvasLayer): return
+
+	em_animacao = true
+	if timer: timer.stop() # Para o tempo se fechar manualmente
+	
+	var tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	
+	# Move o CanvasLayer de volta pra cima
+	tween.tween_property(canvas_pai, "offset:y", posicao_escondida, 1.0)
+	
+	# CALLBACK: O que acontece quando o painel termina de subir?
+	tween.tween_callback(func():
+		print("Painel subiu.")
+		esta_aberto = false
+		em_animacao = false
+		
+		# Limpa os alunos para economizar memória (opcional)
+		limpar_alunos()
+	)
+
+# --- LÓGICA DE ALUNOS ---
 func encher_ponto():
-	# Tenta adicionar alunos até encher o grid do ponto
-	for i in range(10): # Tenta colocar 10 alunos
+	limpar_alunos()
+	
+	# Pequeno delay para garantir limpeza
+	await get_tree().process_frame
+	
+	if not grid_ponto: return
+
+	for i in range(10): 
 		var novo_aluno = scene_item.instantiate()
-		novo_aluno.data = alunos_resources.pick_random()
+		if alunos_resources.size() > 0:
+			novo_aluno.data = alunos_resources.pick_random()
 		
-		# Adiciona visualmente primeiro para o código do grid funcionar
 		grid_ponto.add_child(novo_aluno)
-		
-		# Tenta encaixar no grid logicamente
 		var conseguiu = grid_ponto.attempt_to_add_item_data(novo_aluno)
-		
 		if not conseguiu:
-			novo_aluno.queue_free() # Se não couber, deleta
+			novo_aluno.queue_free()
+
+func limpar_alunos():
+	if grid_ponto:
+		for child in grid_ponto.get_children():
+			child.queue_free()
