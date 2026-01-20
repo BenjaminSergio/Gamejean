@@ -5,35 +5,37 @@ const SLOT_SIZE: int = 16
 @export var dimensions: Vector2i 
 var slot_data: Array = []
 var held_item_intersects: bool = false
-
+var highlighted_slots: Array[Node] = []
 
 func _ready() -> void:
 	# create_slots()
 	self.columns = dimensions.x
 	init_slot_data()
-
-# func create_slots() -> void:
-# 	self.columns = dimensions.x 
-# 	for x in dimensions.x:
-# 		for y in dimensions.y:
-# 			var inventory_slot = Inventory_Slot_scene.instantiate()
-# 			add_child(inventory_slot)
+	mouse_exited.connect(clear_highlights)
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 			var held_item = get_tree().get_first_node_in_group("held_items")
 			if !held_item:
-				var index = get_slot_index_from_coords(get_global_mouse_position())
+				#var index = get_slot_index_from_coords(get_global_mouse_position())
 				var slot_index = get_slot_index_from_coords(get_global_mouse_position())
 				var item = slot_data[slot_index]
 				if !item:
 					return 
+
+				if item.sentado:
+					return
+				
 				item.get_picked_up()
 				remove_item_from_slot_data(item)
 			else:
+
 				if !held_item_intersects:
 					return
+
+				clear_highlights()
+				
 				var offset = Vector2(SLOT_SIZE, SLOT_SIZE) / 2
 				var index = get_slot_index_from_coords(held_item.anchor_point + offset)
 				
@@ -42,20 +44,77 @@ func _gui_input(event: InputEvent) -> void:
 				
 				var items = items_in_area(index, held_item.data)
 
-				if items.size():
-					if items.size() == 1:
-						held_item.reparent(self)
-						held_item.get_placed(get_coords_from_slot_index(index))
-						remove_item_from_slot_data(items[0])
-						add_item_to_slot_data(held_item, index)
-						items[0].get_picked_up()
+				if items.size()>0:
+					# if items.size() == 1:
+					# 	held_item.reparent(self)
+					# 	held_item.get_placed(get_coords_from_slot_index(index))
+					# 	remove_item_from_slot_data(items[0])
+					# 	add_item_to_slot_data(held_item, index)
+					# 	items[0].get_picked_up()
 					return
+				held_item.reparent(self)
 				held_item.get_placed(get_coords_from_slot_index(index))
 				add_item_to_slot_data(held_item, index)
 	if event is InputEventMouseMotion:
 		var held_item = get_tree().get_first_node_in_group("held_items")
 		if held_item:
 			detect_held_item_intersection(held_item)
+			highlight_preview(held_item)
+
+func clear_highlights() -> void:
+	for slot in highlighted_slots:
+		if "is_blocked" in slot and slot.is_blocked:
+			slot.modulate = Color(0, 0, 0, 0) 
+		else:
+			slot.modulate = Color.WHITE 
+			
+	highlighted_slots.clear()
+
+func highlight_preview(held_item: Node) -> void:
+	clear_highlights()
+	
+	# Calcula onde o "canto superior esquerdo" do item estaria
+	var offset = Vector2(SLOT_SIZE, SLOT_SIZE) / 2
+	var index = get_slot_index_from_coords(held_item.anchor_point + offset)
+	
+	# Se o mouse estiver muito fora do grid, nem desenha
+	if index == -1: return
+
+	var item_dim = held_item.data.dimensions
+	
+	# Itera sobre cada pedaço do item (respeitando a forma real)
+	for x in item_dim.x:
+		for y in item_dim.y:
+			
+			# Se o item tiver um "buraco" aqui (formato em L ou U), não pinta o slot
+			if !held_item.data.is_solid(x, y):
+				continue
+				
+			var slot_index = index + x + y * columns
+			
+			if slot_index >= get_child_count():
+				continue
+
+			# Verifica se o slot existe
+			if slot_index >= 0 and slot_index < get_child_count():
+				# Verifica se não quebrou a linha (wrap around)
+				if (index + x) / columns != index / columns:
+					continue
+				
+				var slot_visual = get_child(slot_index)
+				
+				# Lógica de Cor:
+				# Verde (Green) se estiver livre.
+				# Vermelho (Red) se estiver ocupado ou bloqueado.
+				var is_occupied = slot_data[slot_index] != null
+				
+				if is_occupied:
+					slot_visual.modulate = Color(1, 0, 0, 0.5) # Vermelho meio transparente
+				else:
+					slot_visual.modulate = Color(0, 1, 0, 0.5) # Verde meio transparente
+				
+				highlighted_slots.append(slot_visual)
+
 
 func detect_held_item_intersection(held_item : Node) -> void:
 	var h_rect = Rect2(held_item.anchor_point, held_item.size)
@@ -66,6 +125,9 @@ func detect_held_item_intersection(held_item : Node) -> void:
 
 func remove_item_from_slot_data(item: Node) -> void:
 	for i in slot_data.size():
+		var slot_valor = slot_data[i]
+		if not (slot_valor is Node):
+			continue
 		if slot_data[i] == item:
 			slot_data[i] = null
 
@@ -99,13 +161,19 @@ func items_in_area(index: int, item_data: ItemData) -> Array:
 	var item_dimensions = item_data.dimensions
 	for y in item_dimensions.y:
 		for x in item_dimensions.x:
+
+			if !item_data.is_solid(x, y):
+				continue
+
 			var slot_index = index + x + y * columns
+
 			if slot_index < 0 or slot_index >= slot_data.size():
 				continue
+
 			if (index + x) / columns != index / columns:
 				continue
 			var item = slot_data[slot_index]
-			if !item:
+			if !item or (item is String):
 				continue
 			if !items.has(item):
 				items[item] = true
@@ -166,3 +234,8 @@ func get_coords_from_slot_index(index: int) -> Vector2i:
 	var row = index / columns
 	var column = index % columns
 	return Vector2i(global_position) + Vector2i(column * SLOT_SIZE, row * SLOT_SIZE)
+
+func consolidar_viagem() -> void:
+	for child in get_children():
+		if "sentado" in child:
+			child.travar_no_assento()
