@@ -19,4 +19,4 @@ func _on_timer_timeout():
 		grid_onibus.salvar_dados_no_global()
 
 	VariaveisGLobais.avancar_dia()
-	get_tree().change_scene_to_file("res://cenas/covil_sg.tscn")
+	#get_tree().change_scene_to_file("res://cenas/covil_sg.tscn")

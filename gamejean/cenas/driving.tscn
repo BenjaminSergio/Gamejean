@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=4 uid="uid://mk177ru3qcdd"]
+[gd_scene load_steps=56 format=4 uid="uid://mk177ru3qcdd"]
 
 [ext_resource type="PackedScene" uid="uid://d063iuc30x7b8" path="res://assets/models/labs.glb" id="3_fx61g"]
 [ext_resource type="PackedScene" uid="uid://b7q557r62ruqg" path="res://assets/models/quadra.glb" id="3_qm8n8"]
@@ -25,6 +25,15 @@
 [ext_resource type="PackedScene" uid="uid://bpenu5digg4y1" path="res://assets/models/arvore4.glb" id="22_wit5h"]
 [ext_resource type="PackedScene" uid="uid://btp7vyh5akaxt" path="res://assets/models/placa_ponto.glb" id="24_wit5h"]
 [ext_resource type="Script" uid="uid://dxolvnvmspeuu" path="res://scripts/ObstacleSpawner.cs" id="25_4xmh2"]
+[ext_resource type="PackedScene" uid="uid://cidltcw73lyru" path="res://cenas/Ponto_Onibus.tscn" id="23_wit5h"]
+[ext_resource type="Script" uid="uid://crikgrue8o68i" path="res://inventory grid/Scripts/ponto_onibus.gd" id="24_4xmh2"]
+[ext_resource type="Script" uid="uid://dd3d6sj1j6dlh" path="res://cenas/painel_controler.gd" id="25_gtd4h"]
+[ext_resource type="Resource" uid="uid://bvdbq3ffeq2hb" path="res://inventory grid/Alunos/Aluna_normal.tres" id="25_j1fcb"]
+[ext_resource type="Script" uid="uid://cuppmy2b1ulx7" path="res://inventory grid/Scripts/iten_data.gd" id="25_p7so1"]
+[ext_resource type="Resource" uid="uid://b76i1eglijis3" path="res://inventory grid/Alunos/Aluno_Alto.tres" id="26_uel1p"]
+[ext_resource type="Resource" uid="uid://b7s70kmpoapj1" path="res://inventory grid/Alunos/Aluno_curvado.tres" id="27_p7so1"]
+[ext_resource type="Resource" uid="uid://vl41k4yw73ft" path="res://inventory grid/Alunos/Aluno_Gordo.tres" id="28_nla6i"]
+[ext_resource type="PackedScene" uid="uid://coxlhccnj2t66" path="res://inventory grid/Scenes/inventory_item.tscn" id="29_uel1p"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mc62g"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -39,7 +48,6 @@ sky = SubResource("Sky_qmf8j")
 tonemap_mode = 2
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qhq13"]
-load_path = "res://.godot/imported/mapa_UFES Map - Almost Finished.png-f39346a5209658a70344df90fca6d378.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28kmg"]
 resource_name = "UFES Map - Almost Finished"
@@ -799,5 +807,41 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.822243, 1.6, 102.70497)
 [node name="Spawn 5" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.4429, 1.6, 102.70497)
 
+
 [node name="Spawn 6" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45658112, 1.6, 102.70497)
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 161.24484, 0.48004073, 30.057)
+
+[node name="UI" type="CanvasLayer" parent="."]
+offset = Vector2(175, -750)
+scale = Vector2(1.5, 1.5)
+transform = Transform2D(1.5, 0, 0, 1.5, 175, -750)
+
+[node name="Node" parent="UI" node_paths=PackedStringArray("grid_onibus", "grid_ponto") instance=ExtResource("23_wit5h")]
+position = Vector2(2, 0)
+script = ExtResource("24_4xmh2")
+grid_onibus = NodePath("Node/Onibus/itemGrid")
+grid_ponto = NodePath("Node/Ponto de Onibus/itemGrid")
+alunos_resources = Array[ExtResource("25_p7so1")]([ExtResource("25_j1fcb"), ExtResource("26_uel1p"), ExtResource("27_p7so1"), ExtResource("28_nla6i")])
+scene_item = ExtResource("29_uel1p")
+
+[node name="onibus" parent="UI/Node/Node" index="0"]
+position = Vector2(-15, 0)
+
+[node name="ReferenceRect" type="ReferenceRect" parent="UI"]
+offset_left = -9.333336
+offset_top = -4.0
+offset_right = 566.66675
+offset_bottom = 324.66666
+border_color = Color(0.7122476, 0.48108792, 0.12648025, 1)
+border_width = 5.0
+editor_only = false
+
+[node name="painel controler" type="Node" parent="." node_paths=PackedStringArray("painel_ponto")]
+script = ExtResource("25_gtd4h")
+painel_ponto = NodePath("../UI/Node")
+
+[editable path="UI/Node"]
+[editable path="UI/Node/Node/Onibus/itemGrid/InventorySlot"]
