@@ -1,5 +1,8 @@
 [gd_scene load_steps=8 format=4 uid="uid://f6xtar0xhmt4"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_rc624"]
+size = Vector3(1.1162109, 1.6762695, 1.4536743)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y3xax"]
 resource_name = "White"
 cull_mode = 2
@@ -122,20 +125,14 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_o3r2w")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_rc624"]
-size = Vector3(2.1603088, 1.6474609, 1.6234894)
-
 [node name="Obstaculo" type="Node3D"]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-skeleton = NodePath("../..")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04736328, -0.33813477, -0.2911682)
+shape = SubResource("BoxShape3D_rc624")
 
-[node name="Cavalete" type="MeshInstance3D" parent="StaticBody3D/MeshInstance3D"]
+[node name="Cavalete" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_kojr2")
 skeleton = NodePath("")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5553131, -0.32373047, -0.25232697)
-shape = SubResource("BoxShape3D_rc624")

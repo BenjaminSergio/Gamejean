@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://df760qkb26aoi" path="res://cenas/variaveisGLobais.gd" id="1_lu6o8"]
 [ext_resource type="Script" uid="uid://dbwp0gx7l15dm" path="res://cenas/next_day_button.gd" id="2_865lq"]
 [ext_resource type="Texture2D" uid="uid://3f6achcqllbh" path="res://assets/UI/botão_avisos_011.png" id="2_mp8ij"]
-[ext_resource type="Script" uid="uid://1qgl4w6mx35u" path="res://cenas/upgrades_button.gd" id="3_edoy7"]
+[ext_resource type="Script" path="res://cenas/upgrades_button.gd" id="3_edoy7"]
 [ext_resource type="Script" uid="uid://bldsa3h7lb6tr" path="res://cenas/contador_dia.gd" id="5_4adyp"]
 [ext_resource type="Texture2D" uid="uid://c4rjtq7ic4ny2" path="res://assets/2d/porta_covil_0001.png" id="5_gmejt"]
 [ext_resource type="Script" path="res://cenas/contador_dinheiro.gd" id="9_b68ho"]

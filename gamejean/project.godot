@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Gamejean"
-run/main_scene="uid://mk177ru3qcdd"
+run/main_scene="uid://bjc5koh8o4xw3"
 config/features=PackedStringArray("4.5", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
