@@ -8,8 +8,8 @@
 [ext_resource type="Script" uid="uid://1qgl4w6mx35u" path="res://cenas/upgrades_button.gd" id="3_edoy7"]
 [ext_resource type="Script" uid="uid://bldsa3h7lb6tr" path="res://cenas/contador_dia.gd" id="5_4adyp"]
 [ext_resource type="Texture2D" uid="uid://c4rjtq7ic4ny2" path="res://assets/2d/porta_covil_0001.png" id="5_gmejt"]
-[ext_resource type="Script" uid="uid://dvgqh37b75th3" path="res://cenas/progresso.gd" id="5_qyqxq"]
-[ext_resource type="Script" uid="uid://dnhgc5ayingmy" path="res://cenas/contador_dinheiro.gd" id="9_b68ho"]
+[ext_resource type="Script" path="res://cenas/contador_dinheiro.gd" id="9_b68ho"]
+[ext_resource type="Texture2D" uid="uid://c3gg0031ulwuy" path="res://assets/UI/label dia.png" id="10_66uvi"]
 
 [node name="covil SG" type="Node2D"]
 script = ExtResource("1_lu6o8")
@@ -21,6 +21,7 @@ offset_right = 1155.0
 offset_bottom = 643.0
 
 [node name="Control" type="Control" parent="."]
+clip_contents = true
 layout_mode = 3
 anchors_preset = 0
 offset_left = 2.0
@@ -34,6 +35,44 @@ offset_top = -1.0
 offset_right = 1151.0
 offset_bottom = 645.0
 texture = ExtResource("1_gmejt")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control"]
+clip_contents = true
+layout_mode = 0
+offset_left = 595.0
+offset_top = 69.0
+offset_right = 695.0
+offset_bottom = 378.0
+scale = Vector2(5.12, 0.88000065)
+
+[node name="TextureRect2" type="TextureRect" parent="Control/HBoxContainer2"]
+clip_contents = true
+layout_mode = 2
+texture = ExtResource("2_mp8ij")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/HBoxContainer2/TextureRect2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/HBoxContainer2/TextureRect2/MarginContainer"]
+clip_contents = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/HBoxContainer2/TextureRect2/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(20, 10)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 9
+text = "cot"
+autowrap_mode = 2
+autowrap_trim_flags = 0
+
+[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("2_mp8ij")
 
 [node name="next_day" type="TextureButton" parent="Control"]
 layout_mode = 0
@@ -55,30 +94,6 @@ offset_bottom = 49.06833
 scale = Vector2(0.6456232, -0.98130405)
 text = "proximo dia"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
-layout_mode = 0
-offset_left = 564.00006
-offset_top = 73.0
-offset_right = 1126.0
-offset_bottom = 382.0
-scale = Vector2(0.91999996, 0.88)
-theme_override_constants/separation = 20
-
-[node name="progresso" type="TextureButton" parent="Control/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-texture_normal = ExtResource("2_mp8ij")
-stretch_mode = 0
-script = ExtResource("5_qyqxq")
-
-[node name="avisos" type="TextureButton" parent="Control/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-texture_normal = ExtResource("2_mp8ij")
-stretch_mode = 0
-
 [node name="upgrades" type="TextureButton" parent="Control"]
 unique_name_in_owner = true
 layout_mode = 0
@@ -91,24 +106,44 @@ texture_normal = ExtResource("5_gmejt")
 stretch_mode = 0
 script = ExtResource("3_edoy7")
 
-[node name="contador_dia" type="Label" parent="Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 0
-offset_left = 46.0
-offset_top = 23.0
-offset_right = 448.0
-offset_bottom = 92.0
-text = "DIA:"
-script = ExtResource("9_b68ho")
+offset_right = 270.0
+offset_bottom = 50.0
 
-[node name="contador_dinheiro" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = 49.0
-offset_top = 60.0
-offset_right = 451.0
-offset_bottom = 129.0
-text = "DINHEIRO:"
+[node name="MarginContainer2" type="MarginContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+texture = ExtResource("10_66uvi")
+expand_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="contador_dinheiro" type="Label" parent="Control/VBoxContainer/MarginContainer2/MarginContainer"]
+layout_mode = 2
+text = "DINHEIRO:               "
 script = ExtResource("5_4adyp")
 
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("10_66uvi")
+expand_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="contador_dia" type="Label" parent="Control/VBoxContainer/MarginContainer/MarginContainer"]
+layout_mode = 2
+text = "DIA:                                "
+script = ExtResource("9_b68ho")
+
 [connection signal="pressed" from="Control/next_day" to="Control/next_day" method="_on_pressed"]
-[connection signal="pressed" from="Control/HBoxContainer/progresso" to="Control/HBoxContainer/progresso" method="_on_pressed"]
 [connection signal="pressed" from="Control/upgrades" to="Control/upgrades" method="_on_pressed"]
