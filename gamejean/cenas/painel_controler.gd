@@ -9,7 +9,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_Q:
 			print("Detecetei a tecla Q!") # Debug 1
-			#acionar_botao()
+			acionar_botao()
 
 func acionar_botao():
 	# Verificação 1: A variável foi preenchida?

@@ -17,7 +17,7 @@
 [node name="Node" type="Node" parent="."]
 
 [node name="onibus" parent="Node" node_paths=PackedStringArray("grid_onibus") instance=ExtResource("1_ttexq")]
-position = Vector2(-15, 5)
+position = Vector2(-13, 5)
 scale = Vector2(1, 1.001)
 grid_onibus = NodePath("../Onibus/itemGrid")
 

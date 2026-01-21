@@ -1,30 +1,23 @@
 extends Node2D
 
-# --- MOVIMENTAÇÃO (CANVAS LAYER) ---
+# --- REFERÊNCIAS ESSENCIAIS ---
 @onready var canvas_pai = get_parent()
-@export var posicao_escondida: float = -720.0 
-@export var posicao_final: float = 0.0
-
-# --- REFERÊNCIAS DO JOGO ---
+@export var grid_onibus: GridContainer # <--- ARRASTE O GRID DO ÔNIBUS AQUI NO INSPECTOR
+@export var grid_ponto: GridContainer  # <--- ARRASTE O GRID DO PONTO AQUI
 @export var timer: Timer
-@export var grid_ponto: GridContainer
+
+# --- CONFIGURAÇÕES VISUAIS ---
+@export var posicao_escondida: float = -720.0 
+@export var posicao_final: float = 90.0
+
+# --- REFERÊNCIAS DE SPAWN ---
 @export var alunos_resources: Array[ItemData] 
 @export var scene_item: PackedScene 
 
-# --- ESTADOS ---
 var esta_aberto: bool = false
 var em_animacao: bool = false
 
-func _ready():
-	# Configura a posição inicial do CanvasLayer imediatamente
-	if canvas_pai is CanvasLayer:
-		canvas_pai.offset.y = posicao_escondida
-	else:
-		printerr("ERRO CRÍTICO: O pai do PontoDeOnibus DEVE ser um CanvasLayer!")
-
-	if timer: timer.stop()
-
-# --- FUNÇÃO MESTRA (CHAMADA PELO 'Q') ---
+# --- FUNÇÃO MESTRA ---
 func alternar_painel():
 	if em_animacao: return
 	
@@ -33,67 +26,87 @@ func alternar_painel():
 	else:
 		descer_painel()
 
-# --- ANIMAÇÃO DE DESCIDA ---
+# --- ABRE O PONTO (E GERA NOVOS ALUNOS) ---
 func descer_painel():
 	if not (canvas_pai is CanvasLayer): return
-	
 	em_animacao = true
-	var tween = create_tween().set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 	
-	# Move o CanvasLayer inteiro
+	# 1. LÓGICA: Gera os alunos ANTES do painel aparecer
+	# Assim, quando ele descer, os alunos já estarão lá esperando.
+	print("Chegando no ponto... Gerando novos alunos.")
+	encher_ponto() 
+	
+	# 2. VISUAL: Animação de descida
+	var tween = create_tween().set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 	tween.tween_property(canvas_pai, "offset:y", posicao_final, 1.0)
 	
-	# CALLBACK: O que acontece quando o painel termina de descer?
 	tween.tween_callback(func():
-		print("Painel desceu. Iniciando jogo...")
-		encher_ponto() # Gera os alunos
-		if timer: timer.start() # Inicia a contagem
+		if timer: timer.start()
 		esta_aberto = true
 		em_animacao = false
 	)
 
-# --- ANIMAÇÃO DE SUBIDA ---
+# --- FECHA O PONTO (E SALVA A VIAGEM) ---
 func subir_painel():
 	if not (canvas_pai is CanvasLayer): return
-
 	em_animacao = true
-	if timer: timer.stop() # Para o tempo se fechar manualmente
 	
+	if timer: timer.stop()
+	
+	# 1. LÓGICA: Salva o estado do ônibus ANTES de ir embora
+	# Isso garante que quem está sentado fica travado.
+	if grid_onibus:
+		print("Saindo do ponto... Consolidando viagem.")
+		
+		# Trava os alunos nos assentos
+		if grid_onibus.has_method("consolidar_viagem"):
+			grid_onibus.consolidar_viagem()
+			
+		# Opcional: Força o save no Global imediatamente
+		if grid_onibus.has_method("salvar_dados_no_global"):
+			grid_onibus.salvar_dados_no_global()
+	else:
+		printerr("ERRO: Grid do Ônibus não atribuído no Inspector do Ponto!")
+
+	# 2. VISUAL: Animação de subida
 	var tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
-	
-	# Move o CanvasLayer de volta pra cima
 	tween.tween_property(canvas_pai, "offset:y", posicao_escondida, 1.0)
 	
-	# CALLBACK: O que acontece quando o painel termina de subir?
 	tween.tween_callback(func():
-		print("Painel subiu.")
 		esta_aberto = false
 		em_animacao = false
-		
-		# Limpa os alunos para economizar memória (opcional)
-		limpar_alunos()
+		# Limpa o ponto visualmente para economizar memória
+		limpar_alunos_do_ponto()
 	)
 
-# --- LÓGICA DE ALUNOS ---
+# --- LÓGICA DE GERENCIAMENTO DE ALUNOS ---
+
 func encher_ponto():
-	limpar_alunos()
+	limpar_alunos_do_ponto()
+	await get_tree().process_frame # Espera limpeza
 	
-	# Pequeno delay para garantir limpeza
-	await get_tree().process_frame
+	if scene_item == null:
+		printerr("ERRO CRÍTICO: Você esqueceu de colocar o 'inventory_item.tscn' na variável 'Scene Item' do Inspector!")
+		return
 	
 	if not grid_ponto: return
 
+	# Cria 10 alunos novos
 	for i in range(10): 
 		var novo_aluno = scene_item.instantiate()
 		if alunos_resources.size() > 0:
 			novo_aluno.data = alunos_resources.pick_random()
 		
 		grid_ponto.add_child(novo_aluno)
-		var conseguiu = grid_ponto.attempt_to_add_item_data(novo_aluno)
-		if not conseguiu:
+		# Tenta encaixar; se não der, deleta
+		if not grid_ponto.attempt_to_add_item_data(novo_aluno):
 			novo_aluno.queue_free()
 
-func limpar_alunos():
+func limpar_alunos_do_ponto():
 	if grid_ponto:
 		for child in grid_ponto.get_children():
 			child.queue_free()
+			
+		# 2. Limpeza LÓGICA (Zera o array slot_data) <--- ADICIONE ISSO
+		if grid_ponto.has_method("reset_grid_data"):
+			grid_ponto.reset_grid_data()
