@@ -3,6 +3,7 @@ using System;
 
 public partial class BusController : PathFollow3D
 {	
+	[Export] public Node2D PainelPonto;
 	[Export] public NodePath MeshInstancePath;
 		
 	[Export] public float Speed = 10f;
@@ -82,8 +83,12 @@ public partial class BusController : PathFollow3D
 			}
 		}
 		else if (Progress >= Mathf.Abs(ProgressStops[nextStop] - StoppingDistance)) {
-			stop = true;
-			nextStop++;
+			if (!stop) {
+				stop = true;
+				if (PainelPonto != null && PainelPonto.HasMethod("descer_painel")) {
+					PainelPonto.Call("descer_painel");
+				}
+			}
 		}
 	}
 	
@@ -107,7 +112,12 @@ public partial class BusController : PathFollow3D
 	}
 	
 	public void RestartPath() {
-		stop = approachingStop = false;
+		if (PainelPonto != null && PainelPonto.HasMethod("subir_painel")) {
+			PainelPonto.Call("subir_painel");
+		}
+		stop = false;
+		approachingStop = false;
+		nextStop++;
 	}
 	
 	async void OnHitObstacle(Node body) {
