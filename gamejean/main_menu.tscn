@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://bjc5koh8o4xw3"]
+
+[ext_resource type="Shader" uid="uid://e2ygoqlv00dk" path="res://SCROLL.gdshader" id="1_fu7sn"]
+[ext_resource type="Texture2D" uid="uid://c0cd7r01xatqv" path="res://assets/UI/BG_MANU.png" id="2_jix8l"]
+[ext_resource type="Texture2D" uid="uid://dg6ew4tlrbgbx" path="res://assets/UI/MENU_BUTTON.png" id="3_glbon"]
+[ext_resource type="Script" uid="uid://40ony4ahvkfe" path="res://b_jogar.gd" id="4_jix8l"]
+[ext_resource type="Script" uid="uid://sk6cejy2d7uq" path="res://b_sair.gd" id="5_glbon"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nlkkf"]
+shader = ExtResource("1_fu7sn")
+
+[node name="main menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="TextureRect" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_nlkkf")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.0313033, 1.0100002)
+texture = ExtResource("2_jix8l")
+
+[node name="BUTTONS" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(2.0028024, 1.9748892)
+texture = ExtResource("3_glbon")
+
+[node name="B_jogar" type="Button" parent="."]
+layout_mode = 0
+offset_left = 387.0
+offset_top = 353.0
+offset_right = 395.0
+offset_bottom = 361.0
+scale = Vector2(41.36985, 8.043056)
+script = ExtResource("4_jix8l")
+
+[node name="B_sair" type="Button" parent="."]
+layout_mode = 0
+offset_left = 384.00003
+offset_top = 495.0
+offset_right = 392.00003
+offset_bottom = 503.0
+scale = Vector2(41.34339, 7.3717203)
+script = ExtResource("5_glbon")
+
+[connection signal="pressed" from="B_jogar" to="B_jogar" method="_on_pressed"]
+[connection signal="pressed" from="B_sair" to="B_sair" method="_on_pressed"]
