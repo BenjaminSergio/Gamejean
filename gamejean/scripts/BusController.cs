@@ -1,74 +1,102 @@
 using Godot;
 using System;
 
-public partial class BusController : CharacterBody3D
-{
-	[Export] public float Speed = 15f;
-	[Export] public float LaneChangeSpeed = 8f;
-	
-	[Export] public float LanesDistance = 4.5f;
+public partial class BusController : PathFollow3D
+{	
+	[Export] public NodePath MeshInstancePath;
+		
+	[Export] public float Speed = 10f;
+
+	[Export] public float LaneOffset = 2f;
+	[Export] public float LaneChangeSpeed = 5f;
 	
 	[Export] public float MaxSteerAngle = 8f;
-	[Export] public float SteerSpeed = 6f;
-	[Export] public float ReturnSpeed = 8f;
+	[Export] public float SteerSpeed = 5f;
+	[Export] public float ReturnSpeed = 6f;
 	
-	[Export] public NodePath MeshInstancePath;
+	[Export] public float[] ProgressStops;
+	[Export] public float ApproachingDistance = 10f;
+	[Export] public float StoppingDistance = 2f;
+
+	private float targetOffset;
+	private int nextStop = 0;
+	private bool approachingStop = false;
+	private bool stop = false;
 	
 	private MeshInstance3D mesh;
-	private float steeringSide = 0;
-	private float targetZ;
-	private bool inRightLane = true;
-	
-	
-	public override void _Ready() {
+
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+		targetOffset = HOffset;
 		mesh = GetNode<MeshInstance3D>(MeshInstancePath);
-		targetZ = Position.Z;
+		
+		GetNode<Area3D>("Area3D").BodyEntered += OnHitObstacle;
 	}
 
-	public override void _PhysicsProcess(double delta)
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
 	{
-		InputHandling();
-		Move((float)delta);
+		HandleStops();
+		HandleInput();
+		MoveBus((float)delta);
 		VisualSteering((float)delta);
 	}
 	
-	private void InputHandling() {
-		if (Input.IsActionJustPressed("left") && inRightLane) {
-			targetZ = Position.Z - LanesDistance;
-			steeringSide = 1f;
-			inRightLane = false;
-		}
-		else if (Input.IsActionJustPressed("right") && !inRightLane) {
-			targetZ = Position.Z + LanesDistance;
-			steeringSide = -1f;
-			inRightLane = true;
-		}
-	}
-	
-	private void Move(float delta) {
-		Vector3 pos = Position;
+	void MoveBus(float delta) {
+		if (!stop) Progress += Speed * delta;
 		
-		pos.X += Speed * delta;
-		pos.Z = Mathf.MoveToward(
-			pos.Z,
-			targetZ,
+		float currOffset = HOffset;
+		HOffset = Mathf.MoveToward(
+			currOffset,
+			targetOffset,
 			LaneChangeSpeed * delta
 		);
-		
-		Position = pos;
 	}
 	
-	private void VisualSteering(float delta) {
-		float targetAngle = steeringSide * MaxSteerAngle;
+	void HandleInput() {
+		if (Input.IsActionJustPressed("debug")) {
+			RestartPath();
+		}
 		
+		if (approachingStop) return;
+		
+		if (Progress >= 246f && Progress <= 308f) return;
+		else if (Progress >= 541f && Progress <= 603f) return;
+		else if (Progress >= 861f && Progress <= 923f) return;
+		else if (Progress >= 1157f && Progress <= 1220f) return;
+		
+		if (Input.IsActionJustPressed("left") && !stop) {
+			targetOffset = -LaneOffset;
+		}
+		else if (Input.IsActionJustPressed("right") && !stop) {
+			targetOffset = LaneOffset;
+		}
+	}
+	
+	void HandleStops() {
+		if (ProgressStops.Length > 0 && !approachingStop) {
+			if (Progress >= Mathf.Abs(ProgressStops[nextStop] - ApproachingDistance)) {
+				approachingStop = true;
+				targetOffset = LaneOffset;
+			}
+		}
+		else if (Progress >= Mathf.Abs(ProgressStops[nextStop] - StoppingDistance)) {
+			stop = true;
+			nextStop++;
+		}
+	}
+	
+	void VisualSteering(float delta) {
+		float targetAngle = HOffset > 0 ? MaxSteerAngle : -MaxSteerAngle;
+
 		float currentYaw = mesh.RotationDegrees.Y;
 		
-		if (Mathf.Abs(targetZ - Position.Z) > 0.5f) {
+		if (Mathf.Abs(targetOffset - HOffset) > 0.05f) {
 			currentYaw = Mathf.Lerp(currentYaw, targetAngle, SteerSpeed * delta);
 		}
 		else {
 			currentYaw = Mathf.Lerp(currentYaw, 0f, ReturnSpeed * delta);
-			steeringSide = 0;
 		}
 		
 		mesh.RotationDegrees = new Vector3(
@@ -76,5 +104,18 @@ public partial class BusController : CharacterBody3D
 			currentYaw,
 			mesh.RotationDegrees.Z
 		);
+	}
+	
+	public void RestartPath() {
+		stop = approachingStop = false;
+	}
+	
+	async void OnHitObstacle(Node body) {
+		stop = true;
+		body.QueueFree();
+		
+		await ToSignal(GetTree().CreateTimer(2.0f), "timeout");
+		
+		stop = false;
 	}
 }

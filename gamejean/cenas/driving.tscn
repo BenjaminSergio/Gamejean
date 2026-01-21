@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://mk177ru3qcdd"]
+[gd_scene load_steps=56 format=4 uid="uid://mk177ru3qcdd"]
 
 [ext_resource type="PackedScene" uid="uid://d063iuc30x7b8" path="res://assets/models/labs.glb" id="3_fx61g"]
 [ext_resource type="PackedScene" uid="uid://b7q557r62ruqg" path="res://assets/models/quadra.glb" id="3_qm8n8"]
@@ -14,14 +14,26 @@
 [ext_resource type="PackedScene" uid="uid://lwcp2db7flqi" path="res://assets/models/passagem_coberta.glb" id="14_nkdee"]
 [ext_resource type="PackedScene" uid="uid://bi38nreb4hye7" path="res://assets/models/restaurante.glb" id="15_64xg6"]
 [ext_resource type="PackedScene" uid="uid://cdi2ebfqkiqri" path="res://assets/models/salas_eixo3.glb" id="16_u7ur8"]
+[ext_resource type="PackedScene" uid="uid://bmatrxybuy1xn" path="res://assets/models/biblioteca.glb" id="17_dlmq2"]
 [ext_resource type="PackedScene" uid="uid://c06rb3v7r58n7" path="res://assets/models/salas2_eixo3.glb" id="17_wq8xl"]
 [ext_resource type="Texture2D" uid="uid://bwqvy3bmerlep" path="res://assets/models/mapa_UFES Map - Almost Finished.png" id="18_s0d4q"]
 [ext_resource type="PackedScene" uid="uid://bnaq5st1lwkqg" path="res://assets/models/labs1_eixo3.glb" id="18_wq8xl"]
 [ext_resource type="PackedScene" uid="uid://bn61fgubory5e" path="res://assets/models/arvore1.glb" id="19_64xg6"]
 [ext_resource type="PackedScene" uid="uid://dha3qflitiyo3" path="res://assets/models/arvore2.glb" id="20_l7ta8"]
 [ext_resource type="PackedScene" uid="uid://bl5xeilbunxjs" path="res://assets/models/arvore3.glb" id="21_dlmq2"]
-[ext_resource type="Script" uid="uid://cl8yq1ixqjnca" path="res://cenas/PathFollow3d.cs" id="22_64xg6"]
+[ext_resource type="Script" uid="uid://cl8yq1ixqjnca" path="res://scripts/BusController.cs" id="22_64xg6"]
 [ext_resource type="PackedScene" uid="uid://bpenu5digg4y1" path="res://assets/models/arvore4.glb" id="22_wit5h"]
+[ext_resource type="PackedScene" uid="uid://btp7vyh5akaxt" path="res://assets/models/placa_ponto.glb" id="24_wit5h"]
+[ext_resource type="Script" uid="uid://dxolvnvmspeuu" path="res://scripts/ObstacleSpawner.cs" id="25_4xmh2"]
+[ext_resource type="PackedScene" uid="uid://cidltcw73lyru" path="res://cenas/Ponto_Onibus.tscn" id="23_wit5h"]
+[ext_resource type="Script" uid="uid://crikgrue8o68i" path="res://inventory grid/Scripts/ponto_onibus.gd" id="24_4xmh2"]
+[ext_resource type="Script" uid="uid://dd3d6sj1j6dlh" path="res://cenas/painel_controler.gd" id="25_gtd4h"]
+[ext_resource type="Resource" uid="uid://bvdbq3ffeq2hb" path="res://inventory grid/Alunos/Aluna_normal.tres" id="25_j1fcb"]
+[ext_resource type="Script" uid="uid://cuppmy2b1ulx7" path="res://inventory grid/Scripts/iten_data.gd" id="25_p7so1"]
+[ext_resource type="Resource" uid="uid://b76i1eglijis3" path="res://inventory grid/Alunos/Aluno_Alto.tres" id="26_uel1p"]
+[ext_resource type="Resource" uid="uid://b7s70kmpoapj1" path="res://inventory grid/Alunos/Aluno_curvado.tres" id="27_p7so1"]
+[ext_resource type="Resource" uid="uid://vl41k4yw73ft" path="res://inventory grid/Alunos/Aluno_Gordo.tres" id="28_nla6i"]
+[ext_resource type="PackedScene" uid="uid://coxlhccnj2t66" path="res://inventory grid/Scenes/inventory_item.tscn" id="29_uel1p"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mc62g"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -36,7 +48,6 @@ sky = SubResource("Sky_qmf8j")
 tonemap_mode = 2
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qhq13"]
-load_path = "res://.godot/imported/mapa_UFES Map - Almost Finished.png-f39346a5209658a70344df90fca6d378.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28kmg"]
 resource_name = "UFES Map - Almost Finished"
@@ -409,7 +420,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_olgon")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wq8xl"]
-size = Vector3(2.643692, 3.5687332, 12.929443)
+size = Vector3(2.2073598, 3.5017893, 12.282963)
 
 [node name="Pilotando" type="Node3D"]
 
@@ -427,7 +438,7 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -194.81148, 3.3256097, 116.840775)
 
 [node name="Auditorio" parent="Predios" instance=ExtResource("4_r7c5w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120.46276, 3.8050835, 69.559875)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.632454, 3.8050835, 80.73207)
 
 [node name="Salas - Eixo 1" parent="Predios" instance=ExtResource("5_pnm4b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -132.98369, 2.7595956, 52.090633)
@@ -482,6 +493,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122.56659, 5.152479, -17.162
 
 [node name="DCEL" parent="Predios" instance=ExtResource("9_mrieo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128.61221, 4.9249277, -79.92495)
+
+[node name="biblioteca" parent="Predios" instance=ExtResource("17_dlmq2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.95639, 0.41104126, -132.52649)
 
 [node name="Mapa" type="Node3D" parent="."]
 
@@ -716,46 +730,118 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 199.22824, 3.1845245, 79.0442
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122.21444, 0.44817734, 100.15466)
 curve = SubResource("Curve3D_l7ta8")
 
-[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(-4.371043e-08, 0, -0.99997807, 0, 1, 0, 0.99997807, 0, -4.371043e-08, -8.742278e-08, 0, 2)
+[node name="Onibus" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(-4.371042e-08, 0, -0.9999778, 0, 1, 0, 0.9999778, 0, -4.371042e-08, -8.742278e-08, -1.26, 2)
 h_offset = 2.0
+v_offset = -1.26
 script = ExtResource("22_64xg6")
-MeshInstancePath = NodePath("CharacterBody3D/Mesh")
+MeshInstancePath = NodePath("Mesh")
 Speed = 14.0
+SteerSpeed = 6.0
 ProgressStops = PackedFloat32Array(240, 425, 750, 1090)
 ApproachingDistance = 20.0
 StoppingDistance = 4.0
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="Path3D/PathFollow3D"]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.3626817, -1.2215486, -1.8308069)
-
-[node name="Mesh" type="MeshInstance3D" parent="Path3D/PathFollow3D/CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.684342e-14, 0, -11.026986)
+[node name="Mesh" type="MeshInstance3D" parent="Path3D/Onibus"]
+transform = Transform3D(-0.99999994, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -0.99999994, -1.0583501, 0, 9.252392e-08)
 mesh = SubResource("ArrayMesh_qogg0")
 skeleton = NodePath("")
 
-[node name="Roda 1" type="MeshInstance3D" parent="Path3D/PathFollow3D/CharacterBody3D/Mesh"]
+[node name="Roda 1" type="MeshInstance3D" parent="Path3D/Onibus/Mesh"]
 mesh = SubResource("ArrayMesh_bnuse")
 skeleton = NodePath("")
 
-[node name="Roda 2" type="MeshInstance3D" parent="Path3D/PathFollow3D/CharacterBody3D/Mesh"]
+[node name="Roda 2" type="MeshInstance3D" parent="Path3D/Onibus/Mesh"]
 mesh = SubResource("ArrayMesh_f5rex")
 skeleton = NodePath("")
 
-[node name="Roda 3" type="MeshInstance3D" parent="Path3D/PathFollow3D/CharacterBody3D/Mesh"]
+[node name="Roda 3" type="MeshInstance3D" parent="Path3D/Onibus/Mesh"]
 mesh = SubResource("ArrayMesh_dwumu")
 skeleton = NodePath("")
 
-[node name="Roda 4" type="MeshInstance3D" parent="Path3D/PathFollow3D/CharacterBody3D/Mesh"]
+[node name="Roda 4" type="MeshInstance3D" parent="Path3D/Onibus/Mesh"]
 mesh = SubResource("ArrayMesh_2e1qa")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Path3D/PathFollow3D/CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.217392, 3.0819054, 0.98083496)
+[node name="Area3D" type="Area3D" parent="Path3D/Onibus"]
+transform = Transform3D(0.99999994, 0, 3.5527137e-15, 0, 1, 0, -3.5527137e-15, 0, 0.99999994, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Path3D/Onibus/Area3D"]
+transform = Transform3D(-0.9999851, 0, -8.742154e-08, 0, 1, 0, 8.742154e-08, 0, -0.9999851, 0.22883606, 3.0840662, -0.9689789)
 shape = SubResource("BoxShape3D_wq8xl")
 
-[node name="Camera3D" type="Camera3D" parent="Path3D/PathFollow3D/CharacterBody3D"]
-transform = Transform3D(-1, -2.5229694e-08, -9.543894e-08, -7.5689066e-08, 0.81661135, 0.57718796, 6.337425e-08, 0.57718796, -0.81661135, -1.0962522e-06, 10.869724, -24.992754)
+[node name="Camera3D" type="Camera3D" parent="Path3D/Onibus"]
+transform = Transform3D(1.000022, 0, 0, 0, 0.849024, 0.528372, 0, -0.52836806, 0.84903026, -2.6782663, 7.089015, 11.064203)
+
+[node name="Ponto 1" parent="." instance=ExtResource("24_wit5h")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 119.06524, 2.3162904, 104.883965)
+
+[node name="Ponto 2" parent="." instance=ExtResource("24_wit5h")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 166.29276, 2.2156792, -48.896378)
+
+[node name="Ponto 4" parent="." instance=ExtResource("24_wit5h")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -174.96092, 2.294653, -2.1692657)
+
+[node name="Ponto 3" parent="." instance=ExtResource("24_wit5h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.906452, 2.2887297, -207.43282)
+
+[node name="Spawner de Obstáculos" type="Node3D" parent="."]
+script = ExtResource("25_4xmh2")
+
+[node name="Obstaculos" type="Node3D" parent="Spawner de Obstáculos"]
+
+[node name="Spawns" type="Node3D" parent="Spawner de Obstáculos"]
+
+[node name="Spawn 1" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -103.31465, 1.6, 102.70497)
+
+[node name="Spawn 2" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.41171, 1.6, 102.70497)
+
+[node name="Spawn 3" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68.911545, 1.6, 102.70497)
+
+[node name="Spawn 4" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.822243, 1.6, 102.70497)
+
+[node name="Spawn 5" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.4429, 1.6, 102.70497)
+
+
+[node name="Spawn 6" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45658112, 1.6, 102.70497)
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 161.24484, 0.48004073, 30.057)
+
+[node name="UI" type="CanvasLayer" parent="."]
+offset = Vector2(175, -750)
+scale = Vector2(1.5, 1.5)
+transform = Transform2D(1.5, 0, 0, 1.5, 175, -750)
+
+[node name="Node" parent="UI" node_paths=PackedStringArray("grid_onibus", "grid_ponto") instance=ExtResource("23_wit5h")]
+position = Vector2(2, 0)
+script = ExtResource("24_4xmh2")
+grid_onibus = NodePath("Node/Onibus/itemGrid")
+grid_ponto = NodePath("Node/Ponto de Onibus/itemGrid")
+alunos_resources = Array[ExtResource("25_p7so1")]([ExtResource("25_j1fcb"), ExtResource("26_uel1p"), ExtResource("27_p7so1"), ExtResource("28_nla6i")])
+scene_item = ExtResource("29_uel1p")
+
+[node name="onibus" parent="UI/Node/Node" index="0"]
+position = Vector2(-15, 0)
+
+[node name="ReferenceRect" type="ReferenceRect" parent="UI"]
+offset_left = -9.333336
+offset_top = -4.0
+offset_right = 566.66675
+offset_bottom = 324.66666
+border_color = Color(0.7122476, 0.48108792, 0.12648025, 1)
+border_width = 5.0
+editor_only = false
+
+[node name="painel controler" type="Node" parent="." node_paths=PackedStringArray("painel_ponto")]
+script = ExtResource("25_gtd4h")
+painel_ponto = NodePath("../UI/Node")
+
+[editable path="UI/Node"]
+[editable path="UI/Node/Node/Onibus/itemGrid/InventorySlot"]

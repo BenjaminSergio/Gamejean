@@ -23,44 +23,40 @@ func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 			var held_item = get_tree().get_first_node_in_group("held_items")
+			
+			# LÓGICA DE PEGAR (Mantém igual)
 			if !held_item:
-				#var index = get_slot_index_from_coords(get_global_mouse_position())
 				var slot_index = get_slot_index_from_coords(get_global_mouse_position())
 				var item = slot_data[slot_index]
-				if !item:
-					return 
-
-				if "sentado" in item and item.sentado:
-					return
+				if !item: return 
+				if "sentado" in item and item.sentado: return
 				
 				item.get_picked_up()
 				remove_item_from_slot_data(item)
-			else:
 
-				if !held_item_intersects:
-					return
+			else:
+				if !held_item_intersects: return
 
 				clear_highlights()
 				
 				var offset = Vector2(SLOT_SIZE, SLOT_SIZE) / 2
 				var index = get_slot_index_from_coords(held_item.anchor_point + offset)
 				
-				if !is_within_bounds(index, held_item.data):
-					return
-				
+				if !is_within_bounds(index, held_item.data): return
 				var items = items_in_area(index, held_item.data)
 
-				if items.size()>0:
-					# if items.size() == 1:
-					# 	held_item.reparent(self)
-					# 	held_item.get_placed(get_coords_from_slot_index(index))
-					# 	remove_item_from_slot_data(items[0])
-					# 	add_item_to_slot_data(held_item, index)
-					# 	items[0].get_picked_up()
-					return
+				if items.size()>0: return
+				
+				if not item_fits(index, held_item.data.dimensions, held_item.data):
+					return # Se não couber (por qualquer motivo), cancela o drop
+				
+				# -----------------------------------------------------------------
+				
+				# Se passou no item_fits, pode colocar:
 				held_item.reparent(self)
 				held_item.get_placed(get_coords_from_slot_index(index))
 				add_item_to_slot_data(held_item, index)
+
 	if event is InputEventMouseMotion:
 		var held_item = get_tree().get_first_node_in_group("held_items")
 		if held_item:
@@ -112,9 +108,6 @@ func highlight_preview(held_item: Node) -> void:
 				
 				var slot_visual = get_child(slot_index)
 				
-				# Lógica de Cor:
-				# Verde (Green) se estiver livre.
-				# Vermelho (Red) se estiver ocupado ou bloqueado.
 				var is_occupied = slot_data[slot_index] != null
 				
 				if is_occupied:
@@ -133,6 +126,8 @@ func detect_held_item_intersection(held_item : Node) -> void:
 
 
 func remove_item_from_slot_data(item: Node) -> void:
+	if not is_instance_valid(item):
+		return # Se for um item fantasma, ignora
 	for i in slot_data.size():
 		var slot_valor = slot_data[i]
 		if not (slot_valor is Node):
@@ -163,6 +158,11 @@ func is_within_bounds(index: int, data: ItemData) -> bool:
 			if (index + x) / columns != index / columns:
 				return false
 				
+			var slot_visual = get_child(curr_index)
+
+			if "is_blocked" in slot_visual and slot_visual.is_blocked:
+				return false
+				
 	return true
 
 func items_in_area(index: int, item_data: ItemData) -> Array:
@@ -178,7 +178,6 @@ func items_in_area(index: int, item_data: ItemData) -> Array:
 
 			if slot_index < 0 or slot_index >= slot_data.size():
 				continue
-
 			if (index + x) / columns != index / columns:
 				continue
 			var item = slot_data[slot_index]
@@ -217,20 +216,40 @@ func attempt_to_add_item_data(item: Node) -> bool:
 
 func item_fits(index: int, dimensions: Vector2i, data: ItemData = null) -> bool:
 	if index < 0 or index >= slot_data.size(): return false
+	
 	for x in dimensions.x:
 		for y in dimensions.y:
+			# Se o item tiver um buraco no formato (não é solido ali), ignora
 			if data and !data.is_solid(x, y):
 				continue
+			
 			var curr_index = index + x + y * columns
+			
 			if curr_index >= slot_data.size():
 				return false
+			
+			if "is_blocked" in get_child(curr_index) and get_child(curr_index).is_blocked:
+				return false
+			
+			# 2. Verifica se já tem item (lógica)
 			if slot_data[curr_index] != null:
 				return false
+				
+			var slot_visual = get_child(curr_index)
+			
+			if "is_blocked" in slot_visual and slot_visual.is_blocked:
+				return false
+
 			var splitX = index / columns != (index + x) / columns
 
 			if splitX:
 				return false
+
+			else:
+				return true
+				
 	return true
+
 func get_slot_index_from_coords(coords: Vector2i) -> int:
 	coords -= Vector2i(self.global_position)
 	coords = coords / SLOT_SIZE
@@ -305,6 +324,9 @@ func carregar_dados_do_global():
 			if info.get("sentado", false):
 				novo_aluno.travar_no_assento()
 			
+func reset_grid_data():
+	# Preenche todo o array de dados com 'null', esquecendo os itens antigos
+	slot_data.fill(null)
 
 func _exit_tree():
 	if e_o_grid_do_onibus:
