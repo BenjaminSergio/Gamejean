@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://srvr8rv3t0or"]
+[gd_scene load_steps=17 format=3 uid="uid://srvr8rv3t0or"]
 
 [ext_resource type="Texture2D" uid="uid://cbd4y5ad5chnm" path="res://assets/2d/caixa loja.png" id="1_pfxg8"]
 [ext_resource type="Texture2D" uid="uid://dc6rbox5inh1i" path="res://assets/UI/voltar_001.png" id="2_ixwyd"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://bxqmpsuogsmmt" path="res://cenas/tempo.gd" id="10_jijqv"]
 [ext_resource type="Texture2D" uid="uid://ben0mt8x4l831" path="res://assets/UI/block-0006.png" id="10_n74om"]
 [ext_resource type="Texture2D" uid="uid://dlqm4lky2jey3" path="res://assets/UI/dialogo textura aaaaaaaaaaa.png" id="14_kodsi"]
+[ext_resource type="Script" uid="uid://ctfwhxdpg3ugw" path="res://cenas/label_loja.gd" id="15_xdaqw"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jfcjw"]
 font_size = 22
@@ -26,6 +27,35 @@ scale = Vector2(2, 2)
 offset_right = 575.5
 offset_bottom = 324.5
 texture = ExtResource("1_pfxg8")
+
+[node name="Control2" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Control2"]
+layout_mode = 0
+offset_left = 163.5
+offset_top = 201.00002
+offset_right = 227.5
+offset_bottom = 249.00002
+scale = Vector2(5.774367, 2.3538148)
+texture = ExtResource("14_kodsi")
+script = ExtResource("15_xdaqw")
+
+[node name="Label" type="Label" parent="Control2/TextureRect"]
+custom_minimum_size = Vector2(700, 100)
+layout_mode = 0
+offset_left = 1.8183823
+offset_top = 1.2745228
+offset_right = 41.818382
+offset_bottom = 24.274523
+scale = Vector2(0.08510654, 0.25872698)
+label_settings = SubResource("LabelSettings_jfcjw")
+autowrap_mode = 2
+clip_text = true
+text_overrun_behavior = 2
 
 [node name="volta" type="TextureButton" parent="."]
 offset_left = 9.5
@@ -109,27 +139,6 @@ offset_bottom = 104.0
 scale = Vector2(0.5886779, 0.5841425)
 texture_normal = ExtResource("10_n74om")
 stretch_mode = 0
-
-[node name="TextureRect" type="TextureRect" parent="."]
-offset_left = 163.5
-offset_top = 201.00002
-offset_right = 227.5
-offset_bottom = 249.00002
-scale = Vector2(5.774367, 2.3538148)
-texture = ExtResource("14_kodsi")
-
-[node name="Label" type="Label" parent="TextureRect"]
-custom_minimum_size = Vector2(700, 100)
-layout_mode = 0
-offset_left = 1.8183823
-offset_top = 1.2745228
-offset_right = 41.818382
-offset_bottom = 24.274523
-scale = Vector2(0.08510654, 0.25872698)
-label_settings = SubResource("LabelSettings_jfcjw")
-autowrap_mode = 2
-clip_text = true
-text_overrun_behavior = 2
 
 [connection signal="pressed" from="volta" to="volta" method="_on_pressed"]
 [connection signal="mouse_entered" from="Control/passagem" to="Control/passagem" method="_on_mouse_entered"]
