@@ -1,17 +1,29 @@
 extends TextureButton
 @onready var label: Label = $"../../Control2/TextureRect/Label"
 @onready var painel = $"../../Control2"
+@onready var nivel: int =1
+
 
 func _ready():
 	painel.visible = false
 	
 func _on_mouse_entered() -> void:
 	painel.visible = !painel.visible
-	label.text = "almenta o time!"
+	label.text = "aumenta o tempo!"
+	if nivel >= 5:
+		label.text = "BLOQUEADO"
 
 func _on_mouse_exited() -> void:
 	painel.visible = !painel.visible
 
 
 func _on_pressed() -> void:
-	pass # Replace with function body.
+	if VariaveisGLobais.dinheiro_total>=(nivel*5):
+		print(nivel)
+		VariaveisGLobais.tempo_parada+=5
+		nivel+=1
+		VariaveisGLobais.dinheiro_total -= (nivel * 5)
+		print(VariaveisGLobais.tempo_parada)
+		if nivel >= 11:
+			self.disabled = true
+			label.text = "BLOQUEADO"
