@@ -26,8 +26,8 @@ func _on_timer_timeout():
 
 	# 2. Avança o dia
 	# (Verifica se o Singleton existe para não crashar se mudar de nome)
-	if typeof(VariaveisGLobais) != TYPE_NIL:
-		VariaveisGLobais.avancar_dia()
+	# if typeof(VariaveisGLobais) != TYPE_NIL:
+	# 	VariaveisGLobais.avancar_dia()
 	
 	# 3. CHAMA O ÔNIBUS (C#) PARA SAIR
 	if controlador_onibus:

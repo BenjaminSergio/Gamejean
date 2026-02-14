@@ -8,12 +8,14 @@ var preco_passagem:float =2.00
 var cota:float= 20.00
 var tempo_parada:float =15.0
 var aviso:int = 2
-
+var alunos_embarcados: int = 0
+var obstaculos_atingidos: int = 0
 var persistencia_onibus: Dictionary = {}
 
 
 func avancar_dia():
 	dia_atual += 1
+	
 
 func strike():
 	if dinheiro_total<cota:
