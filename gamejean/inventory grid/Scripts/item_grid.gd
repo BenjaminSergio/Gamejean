@@ -17,7 +17,8 @@ func _ready() -> void:
 
 	if e_o_grid_do_onibus:
 		await get_tree().process_frame
-		carregar_dados_do_global()
+		#Opcional: Carregar os dados do Global aqui, para já aparecerem os alunos no ponto de ônibus se voltar da cena do covil
+		#carregar_dados_do_global()
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -267,6 +268,7 @@ func consolidar_viagem() -> void:
 	for child in get_children():
 		if "sentado" in child:
 			child.travar_no_assento()
+			VariaveisGLobais.alunos_embarcados += 1
 
 
 func salvar_dados_no_global():

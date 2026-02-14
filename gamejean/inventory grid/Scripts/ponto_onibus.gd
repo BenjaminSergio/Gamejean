@@ -15,6 +15,11 @@ extends Node2D
 @export var alunos_resources: Array[ItemData] 
 @export var scene_item: PackedScene 
 
+#--- ESTADOS E CONTROLE ---
+@export var tempo_no_ponto: int = 5 
+@export var numero_paradas: int = -2
+@export var numero_paradas_para_covil: int = 3
+@export var  obstaculosAtingidos: int = 0
 # Estados
 var esta_aberto: bool = false
 var em_animacao: bool = false
@@ -26,6 +31,7 @@ var cancelar_contagem: bool = false
 func _ready() -> void:
 	if label_tempo: label_tempo.text = "Aguardando"
 	subir_painel() # Começa fechado
+	
 
 # (Removemos o _process e o _on_timer_timeout, não são mais necessários)
 
@@ -39,6 +45,9 @@ func descer_painel():
 	if not (canvas_pai is CanvasLayer): return
 	em_animacao = true
 	
+	print("Descendo alunos")
+	esvaziar_onibus()
+
 	print("Chegando... Gerando alunos.")
 	encher_ponto() 
 	
@@ -53,7 +62,7 @@ func descer_painel():
 	em_animacao = false
 	
 	# --- INICIA O LOOP DE TEMPO ---
-	iniciar_contagem(5) # 5 segundos
+	iniciar_contagem(tempo_no_ponto) # 5 segundos
 
 # --- NOVA FUNÇÃO DE TEMPO (AWAIT) ---
 func iniciar_contagem(segundos: int):
@@ -78,15 +87,9 @@ func finalizar_estadia():
 	print("Tempo esgotado! Encerrando...")
 	pode_interagir = false
 	
-	# 1. Salvar
 	if grid_onibus and grid_onibus.has_method("salvar_dados_no_global"):
 		grid_onibus.salvar_dados_no_global()
 	
-	# 2. Avançar Dia
-	if typeof(VariaveisGLobais) != TYPE_NIL:
-		VariaveisGLobais.avancar_dia()
-	
-	# 3. Chamar C# para sair
 	if controlador_onibus and controlador_onibus.has_method("RestartPath"):
 		controlador_onibus.RestartPath()
 	else:
@@ -96,27 +99,30 @@ func finalizar_estadia():
 func subir_painel():
 	if not (canvas_pai is CanvasLayer): return
 	
-	# IMPORTANTE: Avisa o loop do await para parar, senão ele continua contando no fundo
-	cancelar_contagem = true 
-	
 	em_animacao = true
 	pode_interagir = false
 	
 	if label_tempo: label_tempo.text = "Viajando..."
-	
-	# Salva de segurança
-	if grid_onibus:
-		if grid_onibus.has_method("consolidar_viagem"): grid_onibus.consolidar_viagem()
-		if grid_onibus.has_method("salvar_dados_no_global"): grid_onibus.salvar_dados_no_global()
 
 	var tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
 	tween.tween_property(canvas_pai, "offset:y", posicao_escondida, 1.0)
 	
 	await tween.finished
 	
+	numero_paradas += 1
+	
 	esta_aberto = false
 	em_animacao = false
+	consolidar_viagem()
 	limpar_alunos_do_ponto()
+	if numero_paradas >= numero_paradas_para_covil:
+		VariaveisGLobais.avancar_dia()
+		get_tree().change_scene_to_file("res://cenas/covil_sg.tscn")
+		
+func consolidar_viagem():
+	if grid_onibus:
+		if grid_onibus.has_method("consolidar_viagem"): grid_onibus.consolidar_viagem()
+		if grid_onibus.has_method("salvar_dados_no_global"): grid_onibus.salvar_dados_no_global()
 
 # --- GERENCIAMENTO DE ITENS ---
 func encher_ponto():
@@ -131,6 +137,7 @@ func encher_ponto():
 		grid_ponto.add_child(novo_aluno)
 		if not grid_ponto.attempt_to_add_item_data(novo_aluno): novo_aluno.queue_free()
 
+	
 func limpar_alunos_do_ponto():
 	if grid_ponto:
 		for i in range(grid_ponto.slot_data.size()):
@@ -139,3 +146,46 @@ func limpar_alunos_do_ponto():
 				item.queue_free()
 				grid_ponto.slot_data[i] = null
 		if grid_ponto.has_method("reset_grid_data"): grid_ponto.reset_grid_data()
+
+func esvaziar_onibus():
+	# 1. Rolar um número de 1 a 3 para a quantidade de alunos que descerão
+	var quantidade_para_descer = randi_range(1, 3)
+	
+	if not grid_onibus:
+		return
+
+	# 2. Identificar quais alunos estão atualmente no ônibus
+	# Filtramos apenas os filhos que são do tipo InventoryItem (os alunos visíveis)
+	var alunos_no_grid = []
+	for child in grid_onibus.get_children():
+		# Verificamos se o nó tem a propriedade 'data' que define um aluno/item
+		if child.get("data") is ItemData:
+			alunos_no_grid.append(child)
+
+	# Se não houver ninguém no ônibus, cancelamos a função
+	if alunos_no_grid.is_empty():
+		print("O ônibus já está vazio.")
+		return
+
+	# Ajustamos a quantidade caso o número sorteado seja maior que o total de alunos
+	quantidade_para_descer = min(quantidade_para_descer, alunos_no_grid.size())
+	print("Sorteado: ", quantidade_para_descer, " alunos descerão.")
+
+	# 3. Remover os alunos aleatoriamente
+	for i in range(quantidade_para_descer):
+		if alunos_no_grid.is_empty():
+			break
+			
+		# Sorteia um índice da lista de alunos presentes
+		var indice_aleatorio = randi() % alunos_no_grid.size()
+		var aluno_para_remover = alunos_no_grid[indice_aleatorio]
+		
+		# Removemos do sistema de grid (limpa os slots ocupados no slot_data)
+		if grid_onibus.has_method("remove_item"):
+			grid_onibus.remove_item(aluno_para_remover)
+		
+		# Removemos da lista temporária para não sortear o mesmo no próximo loop
+		alunos_no_grid.remove_at(indice_aleatorio)
+		
+		# Deletamos o aluno da cena
+		aluno_para_remover.queue_free()

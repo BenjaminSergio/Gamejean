@@ -62,7 +62,7 @@ public partial class BusController : PathFollow3D
 		
 		if (approachingStop) return;
 		
-		if (Progress >= 246f && Progress <= 308f) return;
+		if (Progress >= 245f && Progress <= 308f) return;
 		else if (Progress >= 541f && Progress <= 603f) return;
 		else if (Progress >= 861f && Progress <= 923f) return;
 		else if (Progress >= 1157f && Progress <= 1220f) return;
@@ -125,6 +125,10 @@ public partial class BusController : PathFollow3D
 		body.QueueFree();
 		
 		await ToSignal(GetTree().CreateTimer(2.0f), "timeout");
+		
+		var globals = GetNode("/root/VariaveisGLobais");
+		int atual = (int)globals.Get("obstaculos_atingidos");
+		globals.Set("obstaculos_atingidos", atual + 1);
 		
 		stop = false;
 	}
