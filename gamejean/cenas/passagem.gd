@@ -17,6 +17,7 @@ func _ready():
 func _on_mouse_entered() -> void:
 	painel.visible = !painel.visible # Replace with function body.
 	label.text = "aumenta o preço pago da passagem dos alunos"
+	
 	if nivel >= 10:
 		label.text = "BLOQUEADO"
 

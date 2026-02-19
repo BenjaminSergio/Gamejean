@@ -8,7 +8,7 @@ func _ready():
 
 func _on_mouse_entered() -> void:
 	painel.visible = true
-	label.text = "abaixa a cota diaria"
+	label.text = "abaixa a cota diaria, nivel atual do Upgrade :" + str(nivel)+"\n  preço do atual do upgrade: $" +str(nivel*15)
 	if nivel >= 5:
 		label.text = "BLOQUEADO"
 
