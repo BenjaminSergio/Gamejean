@@ -1,7 +1,7 @@
 extends Node2D
 
 var dia_atual: int = 1
-var dinheiro_total: float =0
+var dinheiro_total: float =5000
 var satisfacao:float =5.0
 
 var preco_passagem:float =2.00
@@ -12,9 +12,11 @@ var alunos_embarcados: int = 0
 var obstaculos_atingidos: int = 0
 var persistencia_onibus: Dictionary = {}
 var dinheiro_diario: float=0
+var saldo:float=0
 
 func avancar_dia():
 	print(dinheiro_diario)
+	saldo=dinheiro_diario
 	dia_atual += 1
 	if cota>dinheiro_diario:
 		aviso+=1
