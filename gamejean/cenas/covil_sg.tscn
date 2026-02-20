@@ -7,6 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://3f6achcqllbh" path="res://assets/UI/botão_avisos_011.png" id="2_mp8ij"]
 [ext_resource type="Script" uid="uid://1qgl4w6mx35u" path="res://cenas/upgrades_button.gd" id="3_edoy7"]
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+[ext_resource type="Script" uid="uid://d35tuvo8nknur" path="res://cenas/label.gd" id="4_66uvi"]
+>>>>>>> Stashed changes
 =======
 [ext_resource type="Script" uid="uid://d35tuvo8nknur" path="res://cenas/label.gd" id="4_66uvi"]
 >>>>>>> Stashed changes
