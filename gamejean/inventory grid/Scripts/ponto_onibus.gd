@@ -6,6 +6,9 @@ extends Node2D
 @export var grid_onibus: GridContainer
 @export var grid_ponto: GridContainer
 
+#----- Som do ponto -----
+@export var musica_saida: AudioStream
+
 # Arraste o nó BusController (C#) para cá no Inspector
 @export var controlador_onibus: Node 
 
@@ -117,6 +120,9 @@ func subir_painel():
 	limpar_alunos_do_ponto()
 	if numero_paradas >= numero_paradas_para_covil:
 		VariaveisGLobais.avancar_dia()
+		AudioManager.stop_all_sfx()
+		AudioManager.play_music_random(musica_saida)
+		AudioManager.alterar_volume_musica(0.25)
 		get_tree().change_scene_to_file("res://cenas/covil_sg.tscn")
 		
 func consolidar_viagem():

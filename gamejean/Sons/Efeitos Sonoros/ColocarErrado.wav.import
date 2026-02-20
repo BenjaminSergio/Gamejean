@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ckw78xqj6yegs"
+path="res://.godot/imported/ColocarErrado.wav-753a9b42138a5d34d040cafa5b97a38d.sample"
+
+[deps]
+
+source_file="res://Sons/Efeitos Sonoros/ColocarErrado.wav"
+dest_files=["res://.godot/imported/ColocarErrado.wav-753a9b42138a5d34d040cafa5b97a38d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
