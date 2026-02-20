@@ -6,7 +6,7 @@ func _ready():
 	painel.visible = false
 func _on_mouse_entered() -> void:
 	painel.visible = !painel.visible
-	label.text = "tira um strike!"
+	label.text = "tira um strike!, nivel atual do Upgrade :" + str(nivel)+"\n  preço do atual do upgrade: $" +str(nivel*15)
 	if nivel >= 5:
 		label.text = "BLOQUEADO"
 
@@ -16,15 +16,17 @@ func _on_mouse_exited() -> void:
 
 func _on_pressed() -> void:
 	if VariaveisGLobais.aviso==0:
+			label.text = "Voce não pode comprar esse upgrade, pois n tem avisos"
 			self.disabled = true
-			print("jamanta")
 	else:
 		if VariaveisGLobais.dinheiro_total>=(nivel*15):
 			VariaveisGLobais.aviso-=1
 			print(nivel)
-			nivel+=1
 			VariaveisGLobais.dinheiro_total -= (nivel * 15)
+			nivel+=1
 			print(VariaveisGLobais.aviso)
 			if nivel >= 5:
 				self.disabled = true
 				label.text = "BLOQUEADO"
+		else:
+			label.text = "Voce não tem dinheiro suficiente"

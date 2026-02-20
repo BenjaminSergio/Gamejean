@@ -72,6 +72,7 @@ func subir_painel():
 	var tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
 	tween.tween_property(canvas_pai, "offset:y", posicao_escondida, 1.0)
 	
+<<<<<<< Updated upstream
 	tween.tween_callback(func():
 		esta_aberto = false
 		em_animacao = false
@@ -80,6 +81,27 @@ func subir_painel():
 	)
 
 # --- LÓGICA DE GERENCIAMENTO DE ALUNOS ---
+=======
+	await tween.finished
+	
+	numero_paradas += 1
+	
+	esta_aberto = false
+	em_animacao = false
+	consolidar_viagem()
+	limpar_alunos_do_ponto()
+	if numero_paradas >= numero_paradas_para_covil:
+		VariaveisGLobais.dinheiro_diario=alunos_entraram*VariaveisGLobais.preco_passagem
+		print(VariaveisGLobais.preco_passagem)
+		VariaveisGLobais.avancar_dia()
+		
+		
+		
+func consolidar_viagem():
+	if grid_onibus:
+		if grid_onibus.has_method("consolidar_viagem"): grid_onibus.consolidar_viagem()
+		if grid_onibus.has_method("salvar_dados_no_global"): grid_onibus.salvar_dados_no_global()
+>>>>>>> Stashed changes
 
 func encher_ponto():
 	limpar_alunos_do_ponto()

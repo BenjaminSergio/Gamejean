@@ -21,9 +21,12 @@ func _on_pressed() -> void:
 			print("jamanta")
 	if VariaveisGLobais.dinheiro_total>=(nivel*15):
 		print(nivel)
-		nivel+=1
+		
 		VariaveisGLobais.dinheiro_total -= (nivel * 15)
 		print(VariaveisGLobais.dinheiro_total)
+		nivel+=1
 		if nivel >= 5:
 			self.disabled = true
 			label.text = "BLOQUEADO"
+	else:
+		label.text = "Voce não tem dinheiro suficiente"

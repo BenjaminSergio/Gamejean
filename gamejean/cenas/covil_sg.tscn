@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b4hq0qkn0celp"]
+[gd_scene load_steps=12 format=3 uid="uid://b4hq0qkn0celp"]
 
 [ext_resource type="Texture2D" uid="uid://h0u51iebg3mr" path="res://assets/UI/botão_vançar_dia_001.png" id="1_a58vu"]
 [ext_resource type="Texture2D" uid="uid://cdt04vj7w1btn" path="res://assets/2d/covil_bg_001.png" id="1_gmejt"]
@@ -6,6 +6,10 @@
 [ext_resource type="Script" uid="uid://dbwp0gx7l15dm" path="res://cenas/next_day_button.gd" id="2_865lq"]
 [ext_resource type="Texture2D" uid="uid://3f6achcqllbh" path="res://assets/UI/botão_avisos_011.png" id="2_mp8ij"]
 [ext_resource type="Script" uid="uid://1qgl4w6mx35u" path="res://cenas/upgrades_button.gd" id="3_edoy7"]
+<<<<<<< Updated upstream
+=======
+[ext_resource type="Script" uid="uid://d35tuvo8nknur" path="res://cenas/label.gd" id="4_66uvi"]
+>>>>>>> Stashed changes
 [ext_resource type="Script" uid="uid://bldsa3h7lb6tr" path="res://cenas/contador_dia.gd" id="5_4adyp"]
 [ext_resource type="Texture2D" uid="uid://c4rjtq7ic4ny2" path="res://assets/2d/porta_covil_0001.png" id="5_gmejt"]
 [ext_resource type="Script" path="res://cenas/contador_dinheiro.gd" id="9_b68ho"]
@@ -50,25 +54,33 @@ clip_contents = true
 layout_mode = 2
 texture = ExtResource("2_mp8ij")
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/HBoxContainer2/TextureRect2"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/margin_left = 1
-theme_override_constants/margin_top = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/HBoxContainer2/TextureRect2/MarginContainer"]
-clip_contents = true
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Control/HBoxContainer2/TextureRect2/MarginContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="Control/HBoxContainer2/TextureRect2"]
 custom_minimum_size = Vector2(20, 10)
-layout_mode = 2
+layout_mode = 0
+offset_left = 1.1718755
+offset_top = 42.045433
+offset_right = 40.171875
+offset_bottom = 79.04543
+scale = Vector2(0.18016562, 0.7526821)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 9
-text = "cot"
+theme_override_font_sizes/font_size = 27
+text = "preço da passagem:"
 autowrap_mode = 2
-autowrap_trim_flags = 0
+script = ExtResource("4_66uvi")
+
+[node name="Label" type="Label" parent="Control/HBoxContainer2/TextureRect2"]
+custom_minimum_size = Vector2(20, 10)
+layout_mode = 0
+offset_left = 1.0
+offset_top = 6.5
+offset_right = 40.0
+offset_bottom = 19.5
+scale = Vector2(0.18016562, 0.7526821)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 27
+text = "cota :"
+autowrap_mode = 2
+script = ExtResource("4_66uvi")
 
 [node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer2"]
 layout_mode = 2

@@ -16,7 +16,12 @@ func _ready():
 
 func _on_mouse_entered() -> void:
 	painel.visible = !painel.visible # Replace with function body.
+<<<<<<< Updated upstream
 	label.text = "aumenta o preço pago da passagem dos alunos"
+=======
+	label.text = "aumenta o preço pago da passagem dos alunos, nivel atual do Upgrade :" + str(nivel)+"\n  preço do atual do upgrade: $" +str(nivel*10)
+	
+>>>>>>> Stashed changes
 	if nivel >= 10:
 		label.text = "BLOQUEADO"
 
@@ -29,11 +34,12 @@ func _on_pressed() -> void:
 			print("jamanta")
 	if VariaveisGLobais.dinheiro_total>=(nivel*10):
 		print(nivel)
-		nivel+=1
 		VariaveisGLobais.dinheiro_total -= (nivel * 10)
 		VariaveisGLobais.preco_passagem=VariaveisGLobais.preco_passagem+(nivel * 0.25)
 		print(VariaveisGLobais.preco_passagem)
+		nivel+=1
 		if nivel >= 11:
 			self.disabled = true
 			label.text = "BLOQUEADO"
-		
+	else:
+		label.text = "Voce não tem dinheiro suficiente"
