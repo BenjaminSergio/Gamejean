@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bagw2nl3ytsoy"
+path="res://.godot/imported/Mecanico.wav-6ed32ab07c65325b403c01b949fe4868.sample"
+
+[deps]
+
+source_file="res://Sons/Efeitos Sonoros/Mecanico.wav"
+dest_files=["res://.godot/imported/Mecanico.wav-6ed32ab07c65325b403c01b949fe4868.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

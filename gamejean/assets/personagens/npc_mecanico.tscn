@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://n2kh3n763gdx"]
+[gd_scene load_steps=5 format=3 uid="uid://n2kh3n763gdx"]
 
 [ext_resource type="Script" uid="uid://bx823u7jtp1ly" path="res://npc_mecanico.gd" id="1_ptr5x"]
 [ext_resource type="Texture2D" uid="uid://dlqm4lky2jey3" path="res://assets/UI/dialogo textura aaaaaaaaaaa.png" id="2_drape"]
+[ext_resource type="AudioStream" uid="uid://bagw2nl3ytsoy" path="res://Sons/Efeitos Sonoros/Mecanico.wav" id="2_nfdsf"]
 [ext_resource type="Texture2D" uid="uid://d1wimborrvl11" path="res://assets/personagens/mecanico_002.png" id="2_xgypf"]
 
 [node name="NPC_mecanico" type="Node2D"]
 script = ExtResource("1_ptr5x")
+son_botao = ExtResource("2_nfdsf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 

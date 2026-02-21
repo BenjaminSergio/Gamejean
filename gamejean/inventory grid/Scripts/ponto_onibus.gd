@@ -6,6 +6,9 @@ extends Node2D
 @export var grid_onibus: GridContainer
 @export var grid_ponto: GridContainer
 
+#----- Som do ponto -----
+@export var musica_saida: AudioStream
+
 # Arraste o nó BusController (C#) para cá no Inspector
 @export var controlador_onibus: Node 
 
@@ -17,7 +20,7 @@ extends Node2D
 
 #--- ESTADOS E CONTROLE ---
 @export var tempo_no_ponto: int = 5 
-@export var numero_paradas: int = -2
+@export var numero_paradas: int = -3
 @export var numero_paradas_para_covil: int = 3
 @export var  obstaculosAtingidos: int = 0
 var alunos_entraram: int = 0 # contador de alunos que entraram no ônibus
@@ -25,6 +28,7 @@ var alunos_entraram: int = 0 # contador de alunos que entraram no ônibus
 var esta_aberto: bool = false
 var em_animacao: bool = false
 var pode_interagir: bool = false
+var paradas_consolidada: int = 0
 
 # Variável de controle para cancelar o await se o painel subir antes da hora
 var cancelar_contagem: bool = false 
@@ -91,7 +95,6 @@ func finalizar_estadia():
 	
 	if grid_onibus and grid_onibus.has_method("salvar_dados_no_global"):
 		grid_onibus.salvar_dados_no_global()
-	
 	if controlador_onibus and controlador_onibus.has_method("RestartPath"):
 		controlador_onibus.RestartPath()
 	else:
@@ -120,6 +123,10 @@ func subir_painel():
 	if numero_paradas >= numero_paradas_para_covil:
 		VariaveisGLobais.dinheiro_diario=alunos_entraram*VariaveisGLobais.preco_passagem
 		VariaveisGLobais.avancar_dia()
+		AudioManager.stop_all_sfx()
+		AudioManager.play_music_random(musica_saida)
+		AudioManager.alterar_volume_musica(0.25)
+		get_tree().change_scene_to_file("res://cenas/covil_sg.tscn")
 		
 		
 		

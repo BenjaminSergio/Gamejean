@@ -1,16 +1,18 @@
-[gd_scene load_steps=17 format=3 uid="uid://srvr8rv3t0or"]
+[gd_scene load_steps=19 format=3 uid="uid://srvr8rv3t0or"]
 
 [ext_resource type="Texture2D" uid="uid://cbd4y5ad5chnm" path="res://assets/2d/caixa loja.png" id="1_pfxg8"]
 [ext_resource type="Texture2D" uid="uid://dc6rbox5inh1i" path="res://assets/UI/voltar_001.png" id="2_ixwyd"]
 [ext_resource type="Texture2D" uid="uid://b8apoa6h5d8ol" path="res://assets/UI/voltar_out_001.png" id="3_uux2s"]
-[ext_resource type="Script" uid="uid://c8uflpmcldv40" path="res://cenas/lova_volta.gd" id="4_ixwyd"]
+[ext_resource type="Script" path="res://cenas/lova_volta.gd" id="4_ixwyd"]
 [ext_resource type="Texture2D" uid="uid://bx2soeh7e88mb" path="res://assets/UI/dinheiroUP.png" id="5_rl664"]
 [ext_resource type="Texture2D" uid="uid://df4v6r22hecgt" path="res://assets/UI/timeUP.png" id="6_cincn"]
 [ext_resource type="Texture2D" uid="uid://td34oli2iata" path="res://assets/UI/cotaUP.png" id="6_cmh7x"]
 [ext_resource type="Script" uid="uid://locixy2j8neb" path="res://cenas/passagem.gd" id="6_e4qvm"]
 [ext_resource type="Texture2D" uid="uid://c6chykt6ibj43" path="res://assets/UI/strkeUP.png" id="8_ikp2j"]
 [ext_resource type="Script" uid="uid://dateis3ehf1ak" path="res://cenas/cota.gd" id="8_xdaqw"]
+[ext_resource type="AudioStream" uid="uid://cra3ydx5vi6vy" path="res://Sons/Efeitos Sonoros/PowerUp1.wav" id="9_kodsi"]
 [ext_resource type="Script" uid="uid://cgdeyag5yosey" path="res://cenas/strike.gd" id="9_ncs8o"]
+[ext_resource type="AudioStream" uid="uid://b5irqivn5eyui" path="res://Sons/Efeitos Sonoros/PowerUpBloqueado.wav" id="10_jfcjw"]
 [ext_resource type="Script" uid="uid://bxqmpsuogsmmt" path="res://cenas/tempo.gd" id="10_jijqv"]
 [ext_resource type="Texture2D" uid="uid://ben0mt8x4l831" path="res://assets/UI/block-0006.png" id="10_n74om"]
 [ext_resource type="Texture2D" uid="uid://dlqm4lky2jey3" path="res://assets/UI/dialogo textura aaaaaaaaaaa.png" id="14_kodsi"]
@@ -86,6 +88,8 @@ scale = Vector2(0.60949737, 0.5350726)
 texture_normal = ExtResource("5_rl664")
 stretch_mode = 4
 script = ExtResource("6_e4qvm")
+son_upgrade = ExtResource("9_kodsi")
+son_jamanta = ExtResource("10_jfcjw")
 
 [node name="cota" type="TextureButton" parent="Control"]
 layout_mode = 0
@@ -97,6 +101,8 @@ scale = Vector2(0.6496447, 0.54901284)
 texture_normal = ExtResource("6_cmh7x")
 stretch_mode = 0
 script = ExtResource("8_xdaqw")
+son_upgrade = ExtResource("9_kodsi")
+son_jamanta = ExtResource("10_jfcjw")
 
 [node name="tempo" type="TextureButton" parent="Control"]
 layout_mode = 0
@@ -108,17 +114,21 @@ scale = Vector2(0.58095115, 0.5641425)
 texture_normal = ExtResource("6_cincn")
 stretch_mode = 0
 script = ExtResource("10_jijqv")
+son_upgrade = ExtResource("9_kodsi")
+son_jamanta = ExtResource("10_jfcjw")
 
 [node name="strike" type="TextureButton" parent="Control"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 8.5
 offset_right = 47.5
-offset_bottom = 47.5
+offset_bottom = 51.99199
 scale = Vector2(0.6086798, 0.5748185)
 texture_normal = ExtResource("8_ikp2j")
 stretch_mode = 0
 script = ExtResource("9_ncs8o")
+son_upgrade = ExtResource("9_kodsi")
+son_jamanta = ExtResource("10_jfcjw")
 
 [node name="block" type="TextureButton" parent="Control"]
 layout_mode = 0
