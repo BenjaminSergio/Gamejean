@@ -23,6 +23,7 @@ extends Node2D
 @export var numero_paradas: int = -3
 @export var numero_paradas_para_covil: int = 3
 @export var  obstaculosAtingidos: int = 0
+var alunos_entraram: int = 0 # contador de alunos que entraram no ônibus
 # Estados
 var esta_aberto: bool = false
 var em_animacao: bool = false
@@ -35,7 +36,8 @@ var cancelar_contagem: bool = false
 func _ready() -> void:
 	if label_tempo: label_tempo.text = "Aguardando"
 	subir_painel() # Começa fechado
-	
+	if grid_onibus:
+		grid_onibus.child_entered_tree.connect(_on_aluno_entrou_onibus)
 
 # (Removemos o _process e o _on_timer_timeout, não são mais necessários)
 
@@ -119,11 +121,14 @@ func subir_painel():
 	consolidar_viagem()
 	limpar_alunos_do_ponto()
 	if numero_paradas >= numero_paradas_para_covil:
+		VariaveisGLobais.dinheiro_diario=alunos_entraram*VariaveisGLobais.preco_passagem
 		VariaveisGLobais.avancar_dia()
 		AudioManager.stop_all_sfx()
 		AudioManager.play_music_random(musica_saida)
 		AudioManager.alterar_volume_musica(0.25)
 		get_tree().change_scene_to_file("res://cenas/covil_sg.tscn")
+		
+		
 		
 func consolidar_viagem():
 	if grid_onibus:
@@ -195,3 +200,10 @@ func esvaziar_onibus():
 		
 		# Deletamos o aluno da cena
 		aluno_para_remover.queue_free()
+
+
+func _on_aluno_entrou_onibus(node):
+	# verifica se o objeto que entrou é um aluno
+	if node.get("data") is ItemData:
+		alunos_entraram += 1
+		print("Aluno entrou no ônibus! Total:", alunos_entraram)
