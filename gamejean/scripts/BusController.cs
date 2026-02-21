@@ -3,28 +3,31 @@ using System;
 
 public partial class BusController : PathFollow3D
 {	
-	[Export] public Node2D PainelPonto;
-	[Export] public NodePath MeshInstancePath;
+	[Export] Node2D PainelPonto;
+	[Export] NodePath MeshInstancePath;
 		
-	[Export] public float Speed = 10f;
+	[Export] float MaxSpeed = 10f;
+	[Export] float MinSpeed = 5f;
+	[Export] float SpeedChangeStep = 2f;
 
-	[Export] public float LaneOffset = 2f;
-	[Export] public float LaneChangeSpeed = 5f;
+	[Export] float LaneOffset = 2f;
+	[Export] float LaneChangeSpeed = 5f;
 	
-	[Export] public float MaxSteerAngle = 8f;
-	[Export] public float SteerSpeed = 5f;
-	[Export] public float ReturnSpeed = 6f;
+	[Export] float MaxSteerAngle = 8f;
+	[Export] float SteerSpeed = 5f;
+	[Export] float ReturnSpeed = 6f;
 	
-	[Export] public float[] ProgressStops;
-	[Export] public float ApproachingDistance = 10f;
-	[Export] public float StoppingDistance = 2f;
+	[Export] float[] ProgressStops;
+	[Export] float ApproachingDistance = 10f;
+	[Export] float StoppingDistance = 2f;
 
-	private float targetOffset;
-	private int nextStop = 0;
-	private bool approachingStop = false;
-	private bool stop = false;
+	float targetOffset;
+	int nextStop = 0;
+	bool approachingStop = false;
+	bool stop = false;
+	float currentSpeed;
 	
-	private MeshInstance3D mesh;
+	MeshInstance3D mesh;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -33,6 +36,8 @@ public partial class BusController : PathFollow3D
 		mesh = GetNode<MeshInstance3D>(MeshInstancePath);
 		
 		GetNode<Area3D>("Area3D").BodyEntered += OnHitObstacle;
+		
+		currentSpeed = MinSpeed;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -45,7 +50,7 @@ public partial class BusController : PathFollow3D
 	}
 	
 	void MoveBus(float delta) {
-		if (!stop) Progress += Speed * delta;
+		if (!stop) Progress += currentSpeed * delta;
 		
 		float currOffset = HOffset;
 		HOffset = Mathf.MoveToward(
@@ -73,10 +78,20 @@ public partial class BusController : PathFollow3D
 		else if (Input.IsActionJustPressed("right") && !stop) {
 			targetOffset = LaneOffset;
 		}
+		else if (Input.IsActionJustPressed("accelerate") && !stop) {
+			currentSpeed = currentSpeed + SpeedChangeStep > MaxSpeed ? 
+				currentSpeed : currentSpeed + SpeedChangeStep;
+		}
+		else if (Input.IsActionJustPressed("decelerate") && !stop) {
+			currentSpeed = currentSpeed - SpeedChangeStep < MinSpeed ?
+				currentSpeed : currentSpeed - SpeedChangeStep;
+		}
 	}
 	
 	void HandleStops() {
 		if (ProgressStops.Length > 0 && !approachingStop) {
+			if (Progress >= 225) {
+			}
 			if (Progress >= Mathf.Abs(ProgressStops[nextStop] - ApproachingDistance)) {
 				approachingStop = true;
 				targetOffset = LaneOffset;
@@ -121,6 +136,7 @@ public partial class BusController : PathFollow3D
 	}
 	
 	async void OnHitObstacle(Node body) {
+		GD.Print("COLIDIU COM: ", body.Name);
 		stop = true;
 		body.QueueFree();
 		

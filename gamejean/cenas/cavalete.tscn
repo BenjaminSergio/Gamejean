@@ -126,6 +126,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_o3r2w")
 
 [node name="Obstaculo" type="Node3D"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.336, 0, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
