@@ -20,13 +20,14 @@ extends Node2D
 
 #--- ESTADOS E CONTROLE ---
 @export var tempo_no_ponto: int = 5 
-@export var numero_paradas: int = -2
+@export var numero_paradas: int = -3
 @export var numero_paradas_para_covil: int = 3
 @export var  obstaculosAtingidos: int = 0
 # Estados
 var esta_aberto: bool = false
 var em_animacao: bool = false
 var pode_interagir: bool = false
+var paradas_consolidada: int = 0
 
 # Variável de controle para cancelar o await se o painel subir antes da hora
 var cancelar_contagem: bool = false 
@@ -92,7 +93,6 @@ func finalizar_estadia():
 	
 	if grid_onibus and grid_onibus.has_method("salvar_dados_no_global"):
 		grid_onibus.salvar_dados_no_global()
-	
 	if controlador_onibus and controlador_onibus.has_method("RestartPath"):
 		controlador_onibus.RestartPath()
 	else:

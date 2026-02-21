@@ -752,7 +752,7 @@ SonBatida = ExtResource("26_ebakm")
 SonPorta = ExtResource("27_ppjhr")
 Musica = ExtResource("28_ebakm")
 Speed = 14.0
-ProgressStops = PackedFloat32Array(240, 425, 750, 1090)
+ProgressStops = PackedFloat32Array(240, 240, 425, 750, 1090)
 
 [node name="Mesh" type="MeshInstance3D" parent="Path3D/Onibus"]
 transform = Transform3D(-0.99999994, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -0.99999994, -1.0583501, 0, 9.252392e-08)
