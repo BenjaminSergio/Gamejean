@@ -9,6 +9,9 @@ var highlighted_slots: Array[Node] = []
 
 @export var e_o_grid_do_onibus: bool = false
 @export var scene_item: PackedScene
+@export var som_colocar: AudioStream
+@export var som_pegar: AudioStream
+@export var som_colocar_falha: AudioStream
 
 func _ready() -> void:
 	self.columns = dimensions.x
@@ -17,7 +20,8 @@ func _ready() -> void:
 
 	if e_o_grid_do_onibus:
 		await get_tree().process_frame
-		carregar_dados_do_global()
+		#Opcional: Carregar os dados do Global aqui, para já aparecerem os alunos no ponto de ônibus se voltar da cena do covil
+		#carregar_dados_do_global()
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -32,6 +36,7 @@ func _gui_input(event: InputEvent) -> void:
 				if "sentado" in item and item.sentado: return
 				
 				item.get_picked_up()
+				AudioManager.play_sfx(som_pegar)
 				remove_item_from_slot_data(item)
 
 			else:
@@ -42,17 +47,22 @@ func _gui_input(event: InputEvent) -> void:
 				var offset = Vector2(SLOT_SIZE, SLOT_SIZE) / 2
 				var index = get_slot_index_from_coords(held_item.anchor_point + offset)
 				
-				if !is_within_bounds(index, held_item.data): return
+				if !is_within_bounds(index, held_item.data): 
+					AudioManager.play_sfx(som_colocar_falha)
+					return
 				var items = items_in_area(index, held_item.data)
 
-				if items.size()>0: return
+				if items.size()>0: 
+					AudioManager.play_sfx(som_colocar_falha)
+					return
 				
 				if not item_fits(index, held_item.data.dimensions, held_item.data):
+					AudioManager.play_sfx(som_colocar_falha)
 					return # Se não couber (por qualquer motivo), cancela o drop
 				
 				# -----------------------------------------------------------------
 				
-				# Se passou no item_fits, pode colocar:
+				AudioManager.play_sfx(som_colocar)
 				held_item.reparent(self)
 				held_item.get_placed(get_coords_from_slot_index(index))
 				add_item_to_slot_data(held_item, index)
@@ -267,6 +277,7 @@ func consolidar_viagem() -> void:
 	for child in get_children():
 		if "sentado" in child:
 			child.travar_no_assento()
+			VariaveisGLobais.alunos_embarcados += 1
 
 
 func salvar_dados_no_global():

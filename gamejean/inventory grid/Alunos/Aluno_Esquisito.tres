@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://b1q2ok8lk051a"]
+
+[ext_resource type="Script" uid="uid://cuppmy2b1ulx7" path="res://inventory grid/Scripts/iten_data.gd" id="1_g26p6"]
+[ext_resource type="Texture2D" uid="uid://b50ojf02utloh" path="res://assets/alunos/aluno 2x3.png" id="2_6ut34"]
+
+[resource]
+script = ExtResource("1_g26p6")
+texture = ExtResource("2_6ut34")
+dimensions = Vector2i(3, 2)
+metadata/_custom_type_script = "uid://cuppmy2b1ulx7"

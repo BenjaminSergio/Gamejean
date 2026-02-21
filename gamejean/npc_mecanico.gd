@@ -12,6 +12,7 @@ extends Node2D
 	2: "Já estamos no segundo dia.",
 	3: "O tempo passa rápido..."
 }
+@export var son_botao: AudioStream
 
 
 
@@ -27,6 +28,7 @@ func _ready():
 
 func _on_area_2d_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed:
+		AudioManager.play_sfx(son_botao)
 		if not dialogo_visivel:
 			abrir_dialogo()
 

@@ -3,8 +3,19 @@ using System;
 
 public partial class BusController : PathFollow3D
 {	
-	[Export] Node2D PainelPonto;
-	[Export] NodePath MeshInstancePath;
+	[Export] public Node2D PainelPonto;
+
+	[Export] public NodePath MeshInstancePath;
+
+	[Export] public AudioStream SonOnibusAndando;
+
+	[Export] public AudioStream SonOnibusParado;
+
+	[Export] public AudioStream SonBatida;
+
+	[Export] public AudioStream SonPorta;
+
+	[Export] public AudioStream Musica;
 		
 	[Export] float MaxSpeed = 10f;
 	[Export] float MinSpeed = 5f;
@@ -20,6 +31,8 @@ public partial class BusController : PathFollow3D
 	[Export] float[] ProgressStops;
 	[Export] float ApproachingDistance = 10f;
 	[Export] float StoppingDistance = 2f;
+  
+  [Export] public float Volume  = 0.25f;
 
 	float targetOffset;
 	int nextStop = 0;
@@ -34,10 +47,16 @@ public partial class BusController : PathFollow3D
 	{
 		targetOffset = HOffset;
 		mesh = GetNode<MeshInstance3D>(MeshInstancePath);
-		
+
+		var audioManager = GetNode("/root/AudioManager");
+		audioManager.Call("alterar_volume_musica", Volume);
+		audioManager.Call("play_music", Musica);
+
 		GetNode<Area3D>("Area3D").BodyEntered += OnHitObstacle;
 		
 		currentSpeed = MinSpeed;
+
+		TocarSomAndando();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -67,7 +86,7 @@ public partial class BusController : PathFollow3D
 		
 		if (approachingStop) return;
 		
-		if (Progress >= 246f && Progress <= 308f) return;
+		if (Progress >= 245f && Progress <= 308f) return;
 		else if (Progress >= 541f && Progress <= 603f) return;
 		else if (Progress >= 861f && Progress <= 923f) return;
 		else if (Progress >= 1157f && Progress <= 1220f) return;
@@ -103,6 +122,9 @@ public partial class BusController : PathFollow3D
 				if (PainelPonto != null && PainelPonto.HasMethod("descer_painel")) {
 					PainelPonto.Call("descer_painel");
 				}
+				var audioManager = GetNode("/root/AudioManager");
+				audioManager.Call("play_loop_sfx", SonOnibusParado);
+				TocarSomPorta(0f);
 			}
 		}
 	}
@@ -130,18 +152,38 @@ public partial class BusController : PathFollow3D
 		if (PainelPonto != null && PainelPonto.HasMethod("subir_painel")) {
 			PainelPonto.Call("subir_painel");
 		}
+		TocarSomPorta(1f);
+		TocarSomAndando();
 		stop = false;
 		approachingStop = false;
 		nextStop++;
+	}
+
+	public void TocarSomAndando() {
+		var audioManager = GetNode("/root/AudioManager");
+		audioManager.Call("play_loop_sfx", SonOnibusAndando);
+	}
+
+	public void TocarSomPorta(float tempo)
+	{
+		var audioManager = GetNode("/root/AudioManager");
+		audioManager.Call("play_sfx_from_position", SonPorta, tempo);
 	}
 	
 	async void OnHitObstacle(Node body) {
 		GD.Print("COLIDIU COM: ", body.Name);
 		stop = true;
 		body.QueueFree();
+		var audioManager = GetNode("/root/AudioManager");
+    	audioManager.Call("play_sfx", SonBatida);
 		
 		await ToSignal(GetTree().CreateTimer(2.0f), "timeout");
 		
+		var globals = GetNode("/root/VariaveisGLobais");
+		int atual = (int)globals.Get("obstaculos_atingidos");
+		globals.Set("obstaculos_atingidos", atual + 1);
+		
+
 		stop = false;
 	}
 }

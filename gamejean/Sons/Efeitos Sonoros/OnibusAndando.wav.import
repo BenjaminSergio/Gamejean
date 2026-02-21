@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ben8b77vl4mf2"
+path="res://.godot/imported/OnibusAndando.wav-8262fe47755cb11833632767b1a6c702.sample"
+
+[deps]
+
+source_file="res://Sons/Efeitos Sonoros/OnibusAndando.wav"
+dest_files=["res://.godot/imported/OnibusAndando.wav-8262fe47755cb11833632767b1a6c702.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
