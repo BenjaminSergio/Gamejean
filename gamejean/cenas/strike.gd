@@ -8,7 +8,11 @@ func _ready():
 	painel.visible = false
 func _on_mouse_entered() -> void:
 	painel.visible = !painel.visible
-	label.text = "tira um strike!"
+	label.text = "tira um strike!\nvoce pode comprar esse upgrade " + str(6-nivel)+" veses\npreço do atual do upgrade: $" +str(nivel*15)
+	if VariaveisGLobais.aviso<=0:
+			self.disabled = true
+			print("jamanta")
+			label.text = "voce n possui avisos"
 	if nivel >= 5:
 		label.text = "BLOQUEADO"
 
@@ -19,18 +23,22 @@ func _on_mouse_exited() -> void:
 func _on_pressed() -> void:
 	if VariaveisGLobais.aviso==0:
 			self.disabled = true
+			label.text = "voce n possui avisos"
 			AudioManager.play_sfx(son_jamanta)
 			print("jamanta")
 	else:
 		if VariaveisGLobais.dinheiro_total>=(nivel*15):
 			VariaveisGLobais.aviso-=1
-			print(nivel)
-			nivel+=1
-			VariaveisGLobais.dinheiro_total -= (nivel * 15)
 			print(VariaveisGLobais.aviso)
+			VariaveisGLobais.dinheiro_total -= (nivel * 15)
+			nivel+=1
 			if nivel >= 5:
 				self.disabled = true
 				label.text = "BLOQUEADO"
+			else:
+				label.text = "tira um strike!\nvoce pode comprar esse upgrade " + str(6-nivel)+" veses\npreço do atual do upgrade: $" +str(nivel*15)
+		else:
+			label.text ="voce não possui dinheiro suficiente"
 				AudioManager.play_sfx(son_jamanta)
 				return
 			AudioManager.play_sfx(son_upgrade)
