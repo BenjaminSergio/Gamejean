@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://1d1tieml4doc"]
+[gd_scene load_steps=7 format=3 uid="uid://1d1tieml4doc"]
 
 [ext_resource type="Texture2D" uid="uid://dmpdie5ixf8eo" path="res://assets/2d/oficina_001.png" id="1_lxg0x"]
 [ext_resource type="Texture2D" uid="uid://dc6rbox5inh1i" path="res://assets/UI/voltar_001.png" id="2_t8dhu"]
 [ext_resource type="Texture2D" uid="uid://b8apoa6h5d8ol" path="res://assets/UI/voltar_out_001.png" id="3_fpdsc"]
 [ext_resource type="Script" uid="uid://bjx074r6nalew" path="res://cenas/mecanica_volta.gd" id="4_68h8d"]
 [ext_resource type="PackedScene" uid="uid://n2kh3n763gdx" path="res://assets/personagens/npc_mecanico.tscn" id="5_lxg0x"]
+[ext_resource type="AudioStream" uid="uid://cuwrq2c6sd62b" path="res://Sons/Efeitos Sonoros/Boto.wav" id="6_t8dhu"]
 
 [node name="mecanica" type="Node2D"]
 scale = Vector2(1.0045503, 0.9873593)
@@ -27,5 +28,6 @@ texture_normal = ExtResource("2_t8dhu")
 texture_pressed = ExtResource("3_fpdsc")
 texture_hover = ExtResource("3_fpdsc")
 script = ExtResource("4_68h8d")
+son_botao = ExtResource("6_t8dhu")
 
 [connection signal="pressed" from="mecanica_volta" to="mecanica_volta" method="_on_pressed"]

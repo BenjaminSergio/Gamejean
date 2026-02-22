@@ -2,6 +2,8 @@ extends TextureButton
 @onready var label: Label = $"../../Control2/TextureRect/Label"
 @onready var painel = $"../../Control2"
 @onready var nivel: int =1
+@export var son_upgrade: AudioStream
+@export var son_jamanta: AudioStream
 func _ready():
 	painel.visible = false
 func _on_mouse_entered() -> void:
@@ -22,6 +24,8 @@ func _on_pressed() -> void:
 	if VariaveisGLobais.aviso==0:
 			self.disabled = true
 			label.text = "voce n possui avisos"
+			AudioManager.play_sfx(son_jamanta)
+			print("jamanta")
 	else:
 		if VariaveisGLobais.dinheiro_total>=(nivel*15):
 			VariaveisGLobais.aviso-=1
@@ -35,3 +39,6 @@ func _on_pressed() -> void:
 				label.text = "tira um strike!\nvoce pode comprar esse upgrade " + str(6-nivel)+" veses\npreço do atual do upgrade: $" +str(nivel*15)
 		else:
 			label.text ="voce não possui dinheiro suficiente"
+				AudioManager.play_sfx(son_jamanta)
+				return
+			AudioManager.play_sfx(son_upgrade)

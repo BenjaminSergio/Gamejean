@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=4 uid="uid://mk177ru3qcdd"]
+[gd_scene load_steps=68 format=4 uid="uid://mk177ru3qcdd"]
 
 [ext_resource type="PackedScene" uid="uid://d063iuc30x7b8" path="res://assets/models/labs.glb" id="3_fx61g"]
 [ext_resource type="PackedScene" uid="uid://b7q557r62ruqg" path="res://assets/models/quadra.glb" id="3_qm8n8"]
@@ -23,19 +23,28 @@
 [ext_resource type="PackedScene" uid="uid://bl5xeilbunxjs" path="res://assets/models/arvore3.glb" id="21_dlmq2"]
 [ext_resource type="Script" uid="uid://cl8yq1ixqjnca" path="res://scripts/BusController.cs" id="22_64xg6"]
 [ext_resource type="PackedScene" uid="uid://bpenu5digg4y1" path="res://assets/models/arvore4.glb" id="22_wit5h"]
-[ext_resource type="PackedScene" uid="uid://cidltcw73lyru" path="res://cenas/Ponto_Onibus.tscn" id="23_wit5h"]
+[ext_resource type="PackedScene" path="res://cenas/Ponto_Onibus.tscn" id="23_wit5h"]
 [ext_resource type="Script" uid="uid://crikgrue8o68i" path="res://inventory grid/Scripts/ponto_onibus.gd" id="24_4xmh2"]
+[ext_resource type="Script" uid="uid://dxolvnvmspeuu" path="res://cenas/ObstacleSpawner.cs" id="24_skkwp"]
 [ext_resource type="PackedScene" uid="uid://btp7vyh5akaxt" path="res://assets/models/placa_ponto.glb" id="24_wit5h"]
+[ext_resource type="AudioStream" uid="uid://ben8b77vl4mf2" path="res://Sons/Efeitos Sonoros/OnibusAndando.wav" id="24_xghhf"]
 [ext_resource type="Script" uid="uid://dxolvnvmspeuu" path="res://scripts/ObstacleSpawner.cs" id="25_4xmh2"]
 [ext_resource type="Script" uid="uid://dd3d6sj1j6dlh" path="res://cenas/painel_controler.gd" id="25_gtd4h"]
 [ext_resource type="Resource" uid="uid://bvdbq3ffeq2hb" path="res://inventory grid/Alunos/Aluna_normal.tres" id="25_j1fcb"]
+[ext_resource type="PackedScene" uid="uid://f6xtar0xhmt4" path="res://cenas/cavalete.tscn" id="25_owok6"]
 [ext_resource type="Script" uid="uid://cuppmy2b1ulx7" path="res://inventory grid/Scripts/iten_data.gd" id="25_p7so1"]
+[ext_resource type="AudioStream" uid="uid://caj58gh54xs7n" path="res://Sons/Efeitos Sonoros/OnibusParado.wav" id="25_ppjhr"]
+[ext_resource type="AudioStream" uid="uid://cor7b43a08f7l" path="res://Sons/Efeitos Sonoros/Batida.wav" id="26_ebakm"]
 [ext_resource type="Resource" uid="uid://b76i1eglijis3" path="res://inventory grid/Alunos/Aluno_Alto.tres" id="26_uel1p"]
+[ext_resource type="PackedScene" uid="uid://5vwrot46adjm" path="res://cenas/ufo.tscn" id="26_xoh3d"]
 [ext_resource type="Resource" uid="uid://b7s70kmpoapj1" path="res://inventory grid/Alunos/Aluno_curvado.tres" id="27_p7so1"]
+[ext_resource type="AudioStream" uid="uid://dufj1n4s3dwax" path="res://Sons/Efeitos Sonoros/SonPortaAbreFecha.wav" id="27_ppjhr"]
+[ext_resource type="AudioStream" uid="uid://diysu42otp2qh" path="res://Sons/musicas/MusicaOnibus.wav" id="28_ebakm"]
 [ext_resource type="Resource" uid="uid://vl41k4yw73ft" path="res://inventory grid/Alunos/Aluno_Gordo.tres" id="28_nla6i"]
 [ext_resource type="PackedScene" uid="uid://coxlhccnj2t66" path="res://inventory grid/Scenes/inventory_item.tscn" id="29_uel1p"]
 [ext_resource type="Resource" uid="uid://cwv6hklfeumst" path="res://inventory grid/Alunos/Aluno_Atarracado.tres" id="31_xoh3d"]
 [ext_resource type="Resource" uid="uid://cjvtbqjjhgjic" path="res://inventory grid/Alunos/Aluno_Azul.tres" id="32_ful1u"]
+[ext_resource type="AudioStream" uid="uid://c5yfc7ohbjnip" path="res://Sons/musicas/Cartola_-_Preciso_Me_Encontrar_(mp3.pm).mp3" id="33_hfa21"]
 [ext_resource type="Resource" uid="uid://b1q2ok8lk051a" path="res://inventory grid/Alunos/Aluno_Esquisito.tres" id="34_wttsa"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mc62g"]
@@ -734,14 +743,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122.21444, 0.44817734, 100.1
 curve = SubResource("Curve3D_l7ta8")
 
 [node name="Onibus" type="PathFollow3D" parent="Path3D" node_paths=PackedStringArray("PainelPonto")]
-transform = Transform3D(-4.371042e-08, 0, -0.9999778, 0, 1, 0, 0.9999778, 0, -4.371042e-08, -8.742278e-08, -1.26, 2)
+transform = Transform3D(0, 0, -0.99997824, 0, 1.000002, 0, 0.99997824, 0, 0, 0, -1.26, 2)
 h_offset = 2.0
 v_offset = -1.26
+rotation_mode = 4
 script = ExtResource("22_64xg6")
 PainelPonto = NodePath("../../UI/Node")
 MeshInstancePath = NodePath("Mesh")
+SonOnibusAndando = ExtResource("24_xghhf")
+SonOnibusParado = ExtResource("25_ppjhr")
+SonBatida = ExtResource("26_ebakm")
+SonPorta = ExtResource("27_ppjhr")
+Musica = ExtResource("28_ebakm")
+
 Speed = 14.0
-ProgressStops = PackedFloat32Array(240, 425, 750, 1090)
+MaxSpeed = 18.0
+MinSpeed = 8.0
+SpeedChangeStep = 3.33
+
+ProgressStops = PackedFloat32Array(235, 235, 425, 750, 1090)
 
 [node name="Mesh" type="MeshInstance3D" parent="Path3D/Onibus"]
 transform = Transform3D(-0.99999994, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -0.99999994, -1.0583501, 0, 9.252392e-08)
@@ -773,6 +793,20 @@ shape = SubResource("BoxShape3D_wq8xl")
 
 [node name="Camera3D" type="Camera3D" parent="Path3D/Onibus"]
 transform = Transform3D(1.000022, 0, 0, 0, 0.849024, 0.528372, 0, -0.52836806, 0.84903026, -2.6782663, 7.089015, 11.064203)
+
+[node name="ObstacleSpawner" type="Node3D" parent="Path3D" node_paths=PackedStringArray("Path")]
+script = ExtResource("24_skkwp")
+Path = NodePath("..")
+FixedObstacleScene = ExtResource("25_owok6")
+UFOScene = ExtResource("26_xoh3d")
+PathStartClearance = 30.0
+MinDistanceBetween = 18.0
+MaxDistanceBetween = 25.0
+SafeDistanceFromCurve = 20.0
+SafeDistanceFromStop = 20.0
+CurveStarts = PackedFloat32Array(246, 541, 861, 1157)
+CurveEnds = PackedFloat32Array(308, 603, 923, 1220)
+StopPoints = PackedFloat32Array(235, 425, 750, 1090)
 
 [node name="Ponto 1" parent="." instance=ExtResource("24_wit5h")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 119.06524, 2.3162904, 104.883965)
@@ -843,7 +877,6 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 161.
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 161.24484, 0.48004073, 30.057)
-
 [node name="UI" type="CanvasLayer" parent="."]
 offset = Vector2(175, -750)
 scale = Vector2(1.5, 1.5)
@@ -854,6 +887,7 @@ position = Vector2(2, 0)
 script = ExtResource("24_4xmh2")
 grid_onibus = NodePath("Node/Onibus/itemGrid")
 grid_ponto = NodePath("Node/Ponto de Onibus/itemGrid")
+musica_saida = ExtResource("33_hfa21")
 controlador_onibus = NodePath("../../Path3D/Onibus")
 alunos_resources = Array[ExtResource("25_p7so1")]([ExtResource("25_j1fcb"), ExtResource("26_uel1p"), ExtResource("31_xoh3d"), ExtResource("32_ful1u"), ExtResource("27_p7so1"), ExtResource("34_wttsa"), ExtResource("28_nla6i")])
 scene_item = ExtResource("29_uel1p")
