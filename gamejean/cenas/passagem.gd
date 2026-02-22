@@ -16,8 +16,7 @@ func _ready():
 
 func _on_mouse_entered() -> void:
 	painel.visible = !painel.visible # Replace with function body.
-	label.text = "aumenta o preço pago da passagem dos alunos"
-	
+	label.text = "aumenta o preço pago da passagem dos alunos,\nnivel atual do Upgrade :" + str(nivel)+"\npreço do atual do upgrade: $" +str(nivel*10)
 	if nivel >= 10:
 		label.text = "BLOQUEADO"
 
@@ -27,14 +26,15 @@ func _on_mouse_exited() -> void:
 
 func _on_pressed() -> void:
 	if nivel>=10:
-			print("jamanta")
+			self.disabled = true
+			label.text = "BLOQUEADO"
 	if VariaveisGLobais.dinheiro_total>=(nivel*10):
 		print(nivel)
-		nivel+=1
 		VariaveisGLobais.dinheiro_total -= (nivel * 10)
 		VariaveisGLobais.preco_passagem=VariaveisGLobais.preco_passagem+(nivel * 0.25)
 		print(VariaveisGLobais.preco_passagem)
-		if nivel >= 11:
-			self.disabled = true
-			label.text = "BLOQUEADO"
-		
+		nivel+=1
+		if nivel <= 10:
+			label.text = "aumenta o preço pago da passagem dos alunos,\nnivel atual do Upgrade :" + str(nivel)+"\npreço do atual do upgrade: $" +str(nivel*10)
+	else:
+		label.text ="voce não possui dinheiro suficiente"

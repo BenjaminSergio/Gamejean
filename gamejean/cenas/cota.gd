@@ -8,7 +8,7 @@ func _ready():
 
 func _on_mouse_entered() -> void:
 	painel.visible = true
-	label.text = "abaixa a cota diaria,\nnivel atual do Upgrade :" + str(nivel)+"\npreço do atual do upgrade: $" +str(nivel*15)
+	label.text = "abaixa a 5% * o nivel do upgrade a cota diaria cota diaria,\nnivel atual do Upgrade :" + str(nivel)+"\npreço do atual do upgrade: $" +str(nivel*15)
 	if nivel >= 5:
 		label.text = "BLOQUEADO"
 
@@ -24,9 +24,10 @@ func _on_pressed() -> void:
 	if VariaveisGLobais.dinheiro_total>=(nivel*15):
 		print(nivel)
 		VariaveisGLobais.dinheiro_total -= (nivel * 15)
-		VariaveisGLobais.cota=VariaveisGLobais.cota*(1-0.05*nivel)
+		VariaveisGLobais.cota=VariaveisGLobais.cota*(1-(0.05*nivel))
 		nivel+=1
 		print(VariaveisGLobais.dinheiro_total)
 		if nivel<=5:
 			label.text = "abaixa a 5% * o nivel do upgrade a cota diaria cota diaria,\nnivel atual do Upgrade :" + str(nivel)+"\npreço do atual do upgrade: $" +str(nivel*15)
-		
+	else:
+		label.text ="voce não possui dinheiro suficiente"
