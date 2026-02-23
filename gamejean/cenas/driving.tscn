@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=4 uid="uid://mk177ru3qcdd"]
+[gd_scene load_steps=67 format=4 uid="uid://mk177ru3qcdd"]
 
 [ext_resource type="PackedScene" uid="uid://d063iuc30x7b8" path="res://assets/models/labs.glb" id="3_fx61g"]
 [ext_resource type="PackedScene" uid="uid://b7q557r62ruqg" path="res://assets/models/quadra.glb" id="3_qm8n8"]
@@ -23,23 +23,18 @@
 [ext_resource type="PackedScene" uid="uid://bl5xeilbunxjs" path="res://assets/models/arvore3.glb" id="21_dlmq2"]
 [ext_resource type="Script" uid="uid://cl8yq1ixqjnca" path="res://scripts/BusController.cs" id="22_64xg6"]
 [ext_resource type="PackedScene" uid="uid://bpenu5digg4y1" path="res://assets/models/arvore4.glb" id="22_wit5h"]
-[ext_resource type="PackedScene" path="res://cenas/Ponto_Onibus.tscn" id="23_wit5h"]
+[ext_resource type="PackedScene" uid="uid://cidltcw73lyru" path="res://cenas/Ponto_Onibus.tscn" id="23_wit5h"]
 [ext_resource type="Script" uid="uid://crikgrue8o68i" path="res://inventory grid/Scripts/ponto_onibus.gd" id="24_4xmh2"]
-[ext_resource type="Script" uid="uid://dxolvnvmspeuu" path="res://cenas/ObstacleSpawner.cs" id="24_skkwp"]
+[ext_resource type="Script" uid="uid://cpkqtms7nc1j7" path="res://scripts/ObstaclesCleanup.cs" id="24_ppjhr"]
 [ext_resource type="PackedScene" uid="uid://btp7vyh5akaxt" path="res://assets/models/placa_ponto.glb" id="24_wit5h"]
-[ext_resource type="AudioStream" uid="uid://ben8b77vl4mf2" path="res://Sons/Efeitos Sonoros/OnibusAndando.wav" id="24_xghhf"]
-[ext_resource type="Script" uid="uid://dxolvnvmspeuu" path="res://scripts/ObstacleSpawner.cs" id="25_4xmh2"]
+[ext_resource type="Script" uid="uid://dxolvnvmspeuu" path="res://cenas/ObstacleSpawner.cs" id="25_4xmh2"]
 [ext_resource type="Script" uid="uid://dd3d6sj1j6dlh" path="res://cenas/painel_controler.gd" id="25_gtd4h"]
 [ext_resource type="Resource" uid="uid://bvdbq3ffeq2hb" path="res://inventory grid/Alunos/Aluna_normal.tres" id="25_j1fcb"]
 [ext_resource type="PackedScene" uid="uid://f6xtar0xhmt4" path="res://cenas/cavalete.tscn" id="25_owok6"]
 [ext_resource type="Script" uid="uid://cuppmy2b1ulx7" path="res://inventory grid/Scripts/iten_data.gd" id="25_p7so1"]
-[ext_resource type="AudioStream" uid="uid://caj58gh54xs7n" path="res://Sons/Efeitos Sonoros/OnibusParado.wav" id="25_ppjhr"]
-[ext_resource type="AudioStream" uid="uid://cor7b43a08f7l" path="res://Sons/Efeitos Sonoros/Batida.wav" id="26_ebakm"]
 [ext_resource type="Resource" uid="uid://b76i1eglijis3" path="res://inventory grid/Alunos/Aluno_Alto.tres" id="26_uel1p"]
 [ext_resource type="PackedScene" uid="uid://5vwrot46adjm" path="res://cenas/ufo.tscn" id="26_xoh3d"]
 [ext_resource type="Resource" uid="uid://b7s70kmpoapj1" path="res://inventory grid/Alunos/Aluno_curvado.tres" id="27_p7so1"]
-[ext_resource type="AudioStream" uid="uid://dufj1n4s3dwax" path="res://Sons/Efeitos Sonoros/SonPortaAbreFecha.wav" id="27_ppjhr"]
-[ext_resource type="AudioStream" uid="uid://diysu42otp2qh" path="res://Sons/musicas/MusicaOnibus.wav" id="28_ebakm"]
 [ext_resource type="Resource" uid="uid://vl41k4yw73ft" path="res://inventory grid/Alunos/Aluno_Gordo.tres" id="28_nla6i"]
 [ext_resource type="PackedScene" uid="uid://coxlhccnj2t66" path="res://inventory grid/Scenes/inventory_item.tscn" id="29_uel1p"]
 [ext_resource type="Resource" uid="uid://cwv6hklfeumst" path="res://inventory grid/Alunos/Aluno_Atarracado.tres" id="31_xoh3d"]
@@ -434,6 +429,9 @@ shadow_mesh = SubResource("ArrayMesh_olgon")
 [sub_resource type="BoxShape3D" id="BoxShape3D_wq8xl"]
 size = Vector3(2.2073598, 3.5017893, 12.282963)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ebakm"]
+size = Vector3(7.8642273, 4.2285156, 3.5203247)
+
 [node name="Pilotando" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -750,17 +748,9 @@ rotation_mode = 4
 script = ExtResource("22_64xg6")
 PainelPonto = NodePath("../../UI/Node")
 MeshInstancePath = NodePath("Mesh")
-SonOnibusAndando = ExtResource("24_xghhf")
-SonOnibusParado = ExtResource("25_ppjhr")
-SonBatida = ExtResource("26_ebakm")
-SonPorta = ExtResource("27_ppjhr")
-Musica = ExtResource("28_ebakm")
-
-Speed = 14.0
 MaxSpeed = 18.0
 MinSpeed = 8.0
 SpeedChangeStep = 3.33
-
 ProgressStops = PackedFloat32Array(235, 235, 425, 750, 1090)
 
 [node name="Mesh" type="MeshInstance3D" parent="Path3D/Onibus"]
@@ -784,18 +774,25 @@ skeleton = NodePath("")
 mesh = SubResource("ArrayMesh_2e1qa")
 skeleton = NodePath("")
 
-[node name="Area3D" type="Area3D" parent="Path3D/Onibus"]
+[node name="ObstaclesCollision" type="Area3D" parent="Path3D/Onibus"]
 transform = Transform3D(0.99999994, 0, 3.5527137e-15, 0, 1, 0, -3.5527137e-15, 0, 0.99999994, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Path3D/Onibus/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Path3D/Onibus/ObstaclesCollision"]
 transform = Transform3D(-0.9999851, 0, -8.742154e-08, 0, 1, 0, 8.742154e-08, 0, -0.9999851, 0.22883606, 3.0840662, -0.9689789)
 shape = SubResource("BoxShape3D_wq8xl")
 
 [node name="Camera3D" type="Camera3D" parent="Path3D/Onibus"]
 transform = Transform3D(1.000022, 0, 0, 0, 0.849024, 0.528372, 0, -0.52836806, 0.84903026, -2.6782663, 7.089015, 11.064203)
 
+[node name="ObstaclesCleanup" type="Area3D" parent="Path3D/Onibus"]
+script = ExtResource("24_ppjhr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Path3D/Onibus/ObstaclesCleanup"]
+transform = Transform3D(0.99998, 0, 0, 0, 1, 0, 0, 0, 0.99998, -1.623642, 1.6142578, 11.429253)
+shape = SubResource("BoxShape3D_ebakm")
+
 [node name="ObstacleSpawner" type="Node3D" parent="Path3D" node_paths=PackedStringArray("Path")]
-script = ExtResource("24_skkwp")
+script = ExtResource("25_4xmh2")
 Path = NodePath("..")
 FixedObstacleScene = ExtResource("25_owok6")
 UFOScene = ExtResource("26_xoh3d")
@@ -820,63 +817,6 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -174
 [node name="Ponto 3" parent="." instance=ExtResource("24_wit5h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.906452, 2.2887297, -207.43282)
 
-[node name="Spawner de Obstáculos" type="Node3D" parent="."]
-script = ExtResource("25_4xmh2")
-
-[node name="Obstaculos" type="Node3D" parent="Spawner de Obstáculos"]
-
-[node name="Spawns" type="Node3D" parent="Spawner de Obstáculos"]
-
-[node name="Spawn 1" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.435, 1.6, 100.68503)
-
-[node name="Spawn 2" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.87489, 1.6, 100.685)
-
-[node name="Spawn 3" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.506874, 1.6, 100.685)
-
-[node name="Spawn 4" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.743843, 1.6, 100.685)
-
-[node name="Spawn 5" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.4429, 1.6, 102.70497)
-
-[node name="Spawn 6" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.318554, 1.6, 100.685)
-
-[node name="Spawn 7" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.527565, 1.6, 100.685)
-
-[node name="Spawn 8" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.92875, 1.6, 100.685)
-
-[node name="Spawn 10" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 161.29636, 1.6, 56.959686)
-
-[node name="Spawn 11" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 161.29636, 1.6, 32.6)
-
-[node name="Spawn 12" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 161.29636, 1.6, 3.1207542)
-
-[node name="Spawn 13" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 161.29636, 1.6, -23.275795)
-
-[node name="Spawn 14" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 161.29636, 1.6, -77.740166)
-
-[node name="Spawn 15" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 161.29636, 1.6, -97.78168)
-
-[node name="Spawn 16" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 161.29636, 1.6, -117.10999)
-
-[node name="Spawn 17" type="Node3D" parent="Spawner de Obstáculos/Spawns"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 161.29636, 1.6, -132.57916)
-
-[node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 161.24484, 0.48004073, 30.057)
 [node name="UI" type="CanvasLayer" parent="."]
 offset = Vector2(175, -750)
 scale = Vector2(1.5, 1.5)

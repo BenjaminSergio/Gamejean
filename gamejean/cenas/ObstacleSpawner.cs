@@ -67,8 +67,9 @@ public partial class ObstacleSpawner : Node3D
 		
 		PackedScene scene = spawnUFO ? UFOScene : FixedObstacleScene;
 		Node3D obstacle = scene.Instantiate<Node3D>();
-
+		
 		PathFollow3D follow = new PathFollow3D();
+		follow.AddToGroup("obstacles");
 		
 		follow.CallDeferred("add_child", obstacle);
 		Path.CallDeferred("add_child", follow);

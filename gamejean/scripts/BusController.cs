@@ -52,7 +52,7 @@ public partial class BusController : PathFollow3D
 		audioManager.Call("alterar_volume_musica", Volume);
 		audioManager.Call("play_music", Musica);
 
-		GetNode<Area3D>("Area3D").BodyEntered += OnHitObstacle;
+		GetNode<Area3D>("ObstaclesCollision").BodyEntered += OnHitObstacle;
 		
 		currentSpeed = MinSpeed;
 
@@ -171,11 +171,10 @@ public partial class BusController : PathFollow3D
 	}
 	
 	async void OnHitObstacle(Node body) {
-		GD.Print("COLIDIU COM: ", body.Name);
 		stop = true;
 		body.QueueFree();
 		var audioManager = GetNode("/root/AudioManager");
-    	audioManager.Call("play_sfx", SonBatida);
+		audioManager.Call("play_sfx", SonBatida);
 		
 		await ToSignal(GetTree().CreateTimer(2.0f), "timeout");
 		
