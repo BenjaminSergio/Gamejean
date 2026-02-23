@@ -1,9 +1,12 @@
+[gd_scene load_steps=8 format=3 uid="uid://dfishrvs3jr82"]
 [gd_scene load_steps=10 format=3 uid="uid://dfishrvs3jr82"]
 
 [ext_resource type="Shader" path="res://SCROLL.gdshader" id="1_fu7sn"]
 [ext_resource type="Texture2D" uid="uid://c0cd7r01xatqv" path="res://assets/UI/BG_MANU.png" id="2_jix8l"]
 [ext_resource type="Texture2D" uid="uid://dg6ew4tlrbgbx" path="res://assets/UI/MENU_BUTTON.png" id="3_glbon"]
 [ext_resource type="Script" uid="uid://40ony4ahvkfe" path="res://b_jogar.gd" id="4_jix8l"]
+[ext_resource type="Script" uid="uid://sk6cejy2d7uq" path="res://b_sair.gd" id="5_glbon"]
+[ext_resource type="Script" uid="uid://daevqxq2wxpm8" path="res://b_carregar.gd" id="6_nlkkf"]
 [ext_resource type="AudioStream" uid="uid://b4y0g543ksqlg" path="res://Sons/musicas/musicaInicial.wav" id="5_8qtwp"]
 [ext_resource type="Script" uid="uid://sk6cejy2d7uq" path="res://b_sair.gd" id="5_glbon"]
 [ext_resource type="AudioStream" uid="uid://c5yfc7ohbjnip" path="res://Sons/musicas/Cartola_-_Preciso_Me_Encontrar_(mp3.pm).mp3" id="5_nlkkf"]
@@ -41,10 +44,10 @@ texture = ExtResource("3_glbon")
 
 [node name="B_jogar" type="Button" parent="."]
 layout_mode = 0
-offset_left = 387.0
-offset_top = 353.0
-offset_right = 395.0
-offset_bottom = 361.0
+offset_left = 385.99997
+offset_top = 319.0
+offset_right = 394.145
+offset_bottom = 327.0
 scale = Vector2(41.36985, 8.043056)
 script = ExtResource("4_jix8l")
 music = ExtResource("5_8qtwp")
@@ -52,13 +55,24 @@ music_proxima = ExtResource("5_nlkkf")
 son_botao = ExtResource("6_qe12f")
 
 [node name="B_sair" type="Button" parent="."]
+self_modulate = Color(1, 0, 0, 1)
 layout_mode = 0
-offset_left = 384.00003
-offset_top = 495.0
-offset_right = 392.00003
-offset_bottom = 503.0
+offset_left = 381.00003
+offset_top = 527.99994
+offset_right = 389.39316
+offset_bottom = 535.99994
 scale = Vector2(41.34339, 7.3717203)
 script = ExtResource("5_glbon")
 
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 393.00003
+offset_top = 425.0
+offset_right = 417.28986
+offset_bottom = 433.0
+scale = Vector2(13.544772, 8.057198)
+script = ExtResource("6_nlkkf")
+
 [connection signal="pressed" from="B_jogar" to="B_jogar" method="_on_pressed"]
 [connection signal="pressed" from="B_sair" to="B_sair" method="_on_pressed"]
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

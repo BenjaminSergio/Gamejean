@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b4hq0qkn0celp"]
+[gd_scene load_steps=16 format=3 uid="uid://b4hq0qkn0celp"]
 
 [ext_resource type="Texture2D" uid="uid://h0u51iebg3mr" path="res://assets/UI/botão_vançar_dia_001.png" id="1_a58vu"]
 [ext_resource type="Texture2D" uid="uid://cdt04vj7w1btn" path="res://assets/2d/covil_bg_001.png" id="1_gmejt"]
@@ -7,7 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://3f6achcqllbh" path="res://assets/UI/botão_avisos_011.png" id="2_mp8ij"]
 [ext_resource type="Script" uid="uid://1qgl4w6mx35u" path="res://cenas/upgrades_button.gd" id="3_edoy7"]
 [ext_resource type="Script" uid="uid://bldsa3h7lb6tr" path="res://cenas/contador_dia.gd" id="5_4adyp"]
+[ext_resource type="Script" uid="uid://3w6d55u44h8u" path="res://cenas/label_covil_saldo.gd" id="5_6liko"]
 [ext_resource type="Texture2D" uid="uid://c4rjtq7ic4ny2" path="res://assets/2d/porta_covil_0001.png" id="5_gmejt"]
+[ext_resource type="Script" uid="uid://jccr8xkj1cw2" path="res://cenas/label_covil_preço.gd" id="6_hqhip"]
+[ext_resource type="Script" uid="uid://bkw2p70721a54" path="res://cenas/label_covil_aviso.gd" id="7_y47kq"]
+[ext_resource type="Script" uid="uid://b5pkr51uoswix" path="res://cenas/h_box_container_avisos.gd" id="8_6liko"]
+[ext_resource type="Script" uid="uid://dnhgc5ayingmy" path="res://cenas/contador_dinheiro.gd" id="9_b68ho"]
 [ext_resource type="AudioStream" uid="uid://cuwrq2c6sd62b" path="res://Sons/Efeitos Sonoros/Boto.wav" id="6_66uvi"]
 [ext_resource type="Script" path="res://cenas/contador_dinheiro.gd" id="9_b68ho"]
 [ext_resource type="Texture2D" uid="uid://c3gg0031ulwuy" path="res://assets/UI/label dia.png" id="10_66uvi"]
@@ -51,25 +56,74 @@ clip_contents = true
 layout_mode = 2
 texture = ExtResource("2_mp8ij")
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/HBoxContainer2/TextureRect2"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/margin_left = 1
-theme_override_constants/margin_top = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/HBoxContainer2/TextureRect2/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/HBoxContainer2/TextureRect2"]
 clip_contents = true
-layout_mode = 2
+layout_mode = 0
+offset_left = 0.39064026
+offset_top = 1.2727432
+offset_right = 39.39064
+offset_bottom = 67.27274
+scale = Vector2(0.1328125, 1)
 
-[node name="Label" type="Label" parent="Control/HBoxContainer2/TextureRect2/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(20, 10)
+[node name="cota" type="Label" parent="Control/HBoxContainer2/TextureRect2/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 9
-text = "cot"
-autowrap_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "cota diaria: "
 autowrap_trim_flags = 0
+justification_flags = 0
+script = ExtResource("4_mv2vc")
+
+[node name="saldo" type="Label" parent="Control/HBoxContainer2/TextureRect2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 28
+text = "saldo do dia anterio: "
+autowrap_trim_flags = 0
+justification_flags = 0
+script = ExtResource("5_6liko")
+
+[node name="preço" type="Label" parent="Control/HBoxContainer2/TextureRect2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 28
+text = "preço da passagem: "
+autowrap_trim_flags = 0
+justification_flags = 0
+script = ExtResource("6_hqhip")
+
+[node name="aviso" type="Label" parent="Control/HBoxContainer2/TextureRect2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 28
+text = "AVISOS:  "
+autowrap_trim_flags = 0
+justification_flags = 0
+script = ExtResource("7_y47kq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/HBoxContainer2/TextureRect2"]
+layout_mode = 0
+offset_left = 15.234375
+offset_top = 138.63626
+offset_right = 83.234375
+offset_bottom = 178.63626
+scale = Vector2(0.28124952, 0.71324307)
+script = ExtResource("8_6liko")
+
+[node name="ColorRect" type="ColorRect" parent="Control/HBoxContainer2/TextureRect2/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+color = Color(1, 0, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="Control/HBoxContainer2/TextureRect2/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+color = Color(1, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Control/HBoxContainer2/TextureRect2/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+color = Color(1, 0, 0, 1)
 
 [node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer2"]
 layout_mode = 2
