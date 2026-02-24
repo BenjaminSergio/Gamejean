@@ -3,13 +3,13 @@ const SAVE_PATH = "user://savegame.json"
 
 
 var dia_atual: int = 1
-var dinheiro_total: float =0
+var dinheiro_total: float =1650
 var satisfacao:float =5.0
 
 var preco_passagem:float =2.00
 var cota:float= 10.00
 var tempo_parada:float =15.0
-var aviso:int = 0
+var aviso:int = 2
 var alunos_embarcados: int = 0
 var obstaculos_atingidos: int = 0
 var persistencia_onibus: Dictionary = {}
@@ -107,15 +107,18 @@ func carregar_jogo():
 
 func resetar_variaveis():
 	dia_atual = 1
-	dinheiro_total = 0.0
+	dinheiro_total = 2650.0
 	satisfacao = 5.0
 	preco_passagem = 2.00
 	cota = 10.00
 	tempo_parada = 15.0
-	aviso = 0
+	aviso = 2
 	alunos_embarcados = 0
 	obstaculos_atingidos = 0
 	persistencia_onibus = {}
 	dinheiro_diario = 0.0
 	saldo = 0.0
 	print("Variáveis resetadas para o padrão de Novo Jogo!")
+	
+func ir_para_covil():
+	get_tree().change_scene_to_file("res://cenas/covil_sg.tscn")

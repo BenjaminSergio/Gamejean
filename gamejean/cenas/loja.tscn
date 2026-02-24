@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cbd4y5ad5chnm" path="res://assets/2d/caixa loja.png" id="1_pfxg8"]
 [ext_resource type="Texture2D" uid="uid://dc6rbox5inh1i" path="res://assets/UI/voltar_001.png" id="2_ixwyd"]
 [ext_resource type="Texture2D" uid="uid://b8apoa6h5d8ol" path="res://assets/UI/voltar_out_001.png" id="3_uux2s"]
-[ext_resource type="Script" path="res://cenas/lova_volta.gd" id="4_ixwyd"]
+[ext_resource type="Script" uid="uid://c8uflpmcldv40" path="res://cenas/lova_volta.gd" id="4_ixwyd"]
 [ext_resource type="Texture2D" uid="uid://bx2soeh7e88mb" path="res://assets/UI/dinheiroUP.png" id="5_rl664"]
 [ext_resource type="Texture2D" uid="uid://df4v6r22hecgt" path="res://assets/UI/timeUP.png" id="6_cincn"]
 [ext_resource type="Texture2D" uid="uid://td34oli2iata" path="res://assets/UI/cotaUP.png" id="6_cmh7x"]

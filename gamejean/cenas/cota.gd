@@ -29,6 +29,7 @@ func _on_pressed() -> void:
 		VariaveisGLobais.cota=VariaveisGLobais.cota*(1-(0.05*nivel))
 		nivel+=1
 		print(VariaveisGLobais.dinheiro_total)
+		AudioManager.play_sfx(son_upgrade)
 		if nivel<=5:
 			label.text = "abaixa a 5% * o nivel do upgrade a cota diaria cota diaria,\nnivel atual do Upgrade :" + str(nivel)+"\npreço do atual do upgrade: $" +str(nivel*15)
 	else:
@@ -37,5 +38,3 @@ func _on_pressed() -> void:
 			self.disabled = true
 			label.text = "BLOQUEADO"
 			AudioManager.play_sfx(son_jamanta)
-			return
-		AudioManager.play_sfx(son_upgrade)

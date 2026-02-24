@@ -126,7 +126,8 @@ func subir_painel():
 		AudioManager.stop_all_sfx()
 		AudioManager.play_music_random(musica_saida)
 		AudioManager.alterar_volume_musica(0.25)
-		get_tree().change_scene_to_file("res://cenas/covil_sg.tscn")
+		#get_tree().change_scene_to_file("res://cenas/covil_sg.tscn")
+		VariaveisGLobais.ir_para_covil()
 		
 		
 		

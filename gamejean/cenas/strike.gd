@@ -32,13 +32,15 @@ func _on_pressed() -> void:
 			print(VariaveisGLobais.aviso)
 			VariaveisGLobais.dinheiro_total -= (nivel * 15)
 			nivel+=1
+			AudioManager.play_sfx(son_upgrade)
 			if nivel >= 5:
 				self.disabled = true
 				label.text = "BLOQUEADO"
+				AudioManager.play_sfx(son_jamanta)
 			else:
 				label.text = "tira um strike!\nvoce pode comprar esse upgrade " + str(6-nivel)+" veses\npreço do atual do upgrade: $" +str(nivel*15)
 		else:
 			label.text ="voce não possui dinheiro suficiente"
-				AudioManager.play_sfx(son_jamanta)
-				return
-			AudioManager.play_sfx(son_upgrade)
+			AudioManager.play_sfx(son_jamanta)
+			
+			

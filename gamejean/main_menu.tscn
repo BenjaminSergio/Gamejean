@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dfishrvs3jr82"]
-[gd_scene load_steps=10 format=3 uid="uid://dfishrvs3jr82"]
+[gd_scene load_steps=11 format=3 uid="uid://dfishrvs3jr82"]
 
-[ext_resource type="Shader" path="res://SCROLL.gdshader" id="1_fu7sn"]
+[ext_resource type="Shader" uid="uid://e2ygoqlv00dk" path="res://SCROLL.gdshader" id="1_fu7sn"]
 [ext_resource type="Texture2D" uid="uid://c0cd7r01xatqv" path="res://assets/UI/BG_MANU.png" id="2_jix8l"]
 [ext_resource type="Texture2D" uid="uid://dg6ew4tlrbgbx" path="res://assets/UI/MENU_BUTTON.png" id="3_glbon"]
 [ext_resource type="Script" uid="uid://40ony4ahvkfe" path="res://b_jogar.gd" id="4_jix8l"]
@@ -10,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://b4y0g543ksqlg" path="res://Sons/musicas/musicaInicial.wav" id="5_8qtwp"]
 [ext_resource type="Script" uid="uid://sk6cejy2d7uq" path="res://b_sair.gd" id="5_glbon"]
 [ext_resource type="AudioStream" uid="uid://c5yfc7ohbjnip" path="res://Sons/musicas/Cartola_-_Preciso_Me_Encontrar_(mp3.pm).mp3" id="5_nlkkf"]
+[ext_resource type="Script" uid="uid://daevqxq2wxpm8" path="res://b_carregar.gd" id="6_nlkkf"]
 [ext_resource type="AudioStream" uid="uid://cuwrq2c6sd62b" path="res://Sons/Efeitos Sonoros/Boto.wav" id="6_qe12f"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nlkkf"]

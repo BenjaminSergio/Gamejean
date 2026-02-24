@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dbwp0gx7l15dm" path="res://cenas/next_day_button.gd" id="2_865lq"]
 [ext_resource type="Texture2D" uid="uid://3f6achcqllbh" path="res://assets/UI/botão_avisos_011.png" id="2_mp8ij"]
 [ext_resource type="Script" uid="uid://1qgl4w6mx35u" path="res://cenas/upgrades_button.gd" id="3_edoy7"]
+[ext_resource type="Script" uid="uid://tloh7e4k1txq" path="res://cenas/label_covil_cota.gd" id="4_mv2vc"]
 [ext_resource type="Script" uid="uid://bldsa3h7lb6tr" path="res://cenas/contador_dia.gd" id="5_4adyp"]
 [ext_resource type="Script" uid="uid://3w6d55u44h8u" path="res://cenas/label_covil_saldo.gd" id="5_6liko"]
 [ext_resource type="Texture2D" uid="uid://c4rjtq7ic4ny2" path="res://assets/2d/porta_covil_0001.png" id="5_gmejt"]
@@ -13,8 +14,6 @@
 [ext_resource type="Script" uid="uid://bkw2p70721a54" path="res://cenas/label_covil_aviso.gd" id="7_y47kq"]
 [ext_resource type="Script" uid="uid://b5pkr51uoswix" path="res://cenas/h_box_container_avisos.gd" id="8_6liko"]
 [ext_resource type="Script" uid="uid://dnhgc5ayingmy" path="res://cenas/contador_dinheiro.gd" id="9_b68ho"]
-[ext_resource type="AudioStream" uid="uid://cuwrq2c6sd62b" path="res://Sons/Efeitos Sonoros/Boto.wav" id="6_66uvi"]
-[ext_resource type="Script" path="res://cenas/contador_dinheiro.gd" id="9_b68ho"]
 [ext_resource type="Texture2D" uid="uid://c3gg0031ulwuy" path="res://assets/UI/label dia.png" id="10_66uvi"]
 
 [node name="covil SG" type="Node2D"]
@@ -138,7 +137,6 @@ offset_bottom = 661.0
 scale = Vector2(5.272786, -2.800333)
 texture_normal = ExtResource("1_a58vu")
 script = ExtResource("2_865lq")
-son_botao = ExtResource("6_66uvi")
 
 [node name="Label" type="Label" parent="Control/next_day"]
 custom_minimum_size = Vector2(1, 0)
@@ -161,7 +159,6 @@ size_flags_horizontal = 3
 texture_normal = ExtResource("5_gmejt")
 stretch_mode = 0
 script = ExtResource("3_edoy7")
-son_botao = ExtResource("6_66uvi")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 0
