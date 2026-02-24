@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=4 uid="uid://mk177ru3qcdd"]
+[gd_scene load_steps=76 format=4 uid="uid://mk177ru3qcdd"]
 
 [ext_resource type="PackedScene" uid="uid://d063iuc30x7b8" path="res://assets/models/labs.glb" id="3_fx61g"]
 [ext_resource type="PackedScene" uid="uid://b7q557r62ruqg" path="res://assets/models/quadra.glb" id="3_qm8n8"]
@@ -18,9 +18,14 @@
 [ext_resource type="PackedScene" uid="uid://c06rb3v7r58n7" path="res://assets/models/salas2_eixo3.glb" id="17_wq8xl"]
 [ext_resource type="Texture2D" uid="uid://bwqvy3bmerlep" path="res://assets/models/mapa_UFES Map - Almost Finished.png" id="18_s0d4q"]
 [ext_resource type="PackedScene" uid="uid://bnaq5st1lwkqg" path="res://assets/models/labs1_eixo3.glb" id="18_wq8xl"]
+[ext_resource type="AudioStream" uid="uid://ben8b77vl4mf2" path="res://Sons/Efeitos Sonoros/OnibusAndando.wav" id="20_a4um2"]
+[ext_resource type="AudioStream" uid="uid://caj58gh54xs7n" path="res://Sons/Efeitos Sonoros/OnibusParado.wav" id="21_cj7cf"]
 [ext_resource type="Script" uid="uid://cl8yq1ixqjnca" path="res://scripts/BusController.cs" id="22_64xg6"]
+[ext_resource type="AudioStream" uid="uid://cor7b43a08f7l" path="res://Sons/Efeitos Sonoros/Batida.wav" id="22_qw3qb"]
+[ext_resource type="AudioStream" uid="uid://dufj1n4s3dwax" path="res://Sons/Efeitos Sonoros/SonPortaAbreFecha.wav" id="23_80ktc"]
 [ext_resource type="PackedScene" uid="uid://cidltcw73lyru" path="res://cenas/Ponto_Onibus.tscn" id="23_wit5h"]
 [ext_resource type="Script" uid="uid://crikgrue8o68i" path="res://inventory grid/Scripts/ponto_onibus.gd" id="24_4xmh2"]
+[ext_resource type="AudioStream" uid="uid://diysu42otp2qh" path="res://Sons/musicas/MusicaOnibus.wav" id="24_a1owq"]
 [ext_resource type="Script" uid="uid://cpkqtms7nc1j7" path="res://scripts/ObstaclesCleanup.cs" id="24_ppjhr"]
 [ext_resource type="PackedScene" uid="uid://btp7vyh5akaxt" path="res://assets/models/placa_ponto.glb" id="24_wit5h"]
 [ext_resource type="Script" uid="uid://dxolvnvmspeuu" path="res://cenas/ObstacleSpawner.cs" id="25_4xmh2"]
@@ -435,10 +440,10 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_olgon")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wq8xl"]
-size = Vector3(2.2073598, 3.5017893, 12.282963)
+size = Vector3(1.9258634, 3.5017893, 0.6566782)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ebakm"]
-size = Vector3(7.8642273, 4.2285156, 3.5203247)
+size = Vector3(11.568354, 4.2285156, 3.5203247)
 
 [node name="Pilotando" type="Node3D"]
 
@@ -533,20 +538,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122.21444, 0.44817734, 100.1
 curve = SubResource("Curve3D_l7ta8")
 
 [node name="Onibus" type="PathFollow3D" parent="Bus Path" node_paths=PackedStringArray("PainelPonto")]
-transform = Transform3D(0, 0, -0.9999783, 0, 1.0000021, 0, 0.9999783, 0, 0, 0, -1.26, 2)
-h_offset = 2.0
+transform = Transform3D(0, 0, 0.99997836, 0, 1.0000021, 0, -0.99997836, 0, 0, 0, -1.26, 2)
+h_offset = -2.0
 v_offset = -1.26
 rotation_mode = 4
+use_model_front = true
 script = ExtResource("22_64xg6")
 PainelPonto = NodePath("../../UI/Node")
 MeshInstancePath = NodePath("Mesh")
+SonOnibusAndando = ExtResource("20_a4um2")
+SonOnibusParado = ExtResource("21_cj7cf")
+SonBatida = ExtResource("22_qw3qb")
+SonPorta = ExtResource("23_80ktc")
+Musica = ExtResource("24_a1owq")
 MaxSpeed = 18.0
 MinSpeed = 8.0
 SpeedChangeStep = 3.33
 ProgressStops = PackedFloat32Array(235, 235, 425, 750, 1090)
 
 [node name="Mesh" type="MeshInstance3D" parent="Bus Path/Onibus"]
-transform = Transform3D(-0.99999994, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -0.99999994, -1.0583501, 0, 9.252392e-08)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5928999, 0, 9.252392e-08)
 mesh = SubResource("ArrayMesh_qogg0")
 skeleton = NodePath("")
 
@@ -570,17 +581,18 @@ skeleton = NodePath("")
 transform = Transform3D(0.99999994, 0, 3.5527137e-15, 0, 1, 0, -3.5527137e-15, 0, 0.99999994, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bus Path/Onibus/ObstaclesCollision"]
-transform = Transform3D(-0.9999851, 0, -8.742154e-08, 0, 1, 0, 8.742154e-08, 0, -0.9999851, 0.22883606, 3.0840662, -0.9689789)
+transform = Transform3D(-0.9999851, 0, -8.742154e-08, 0, 1, 0, 8.742154e-08, 0, -0.9999851, 0.21129608, 3.084068, 6.8656693)
 shape = SubResource("BoxShape3D_wq8xl")
 
 [node name="Camera3D" type="Camera3D" parent="Bus Path/Onibus"]
-transform = Transform3D(1.000022, 0, 0, 0, 0.849024, 0.528372, 0, -0.52836806, 0.84903026, -2.6782663, 7.089015, 11.064203)
+transform = Transform3D(-1.000022, -3.0616327e-08, 8.1887684e-08, 0, 0.936679, 0.3502125, -8.74247e-08, 0.35020992, -0.9366859, 0, 9.392, -11.087)
 
 [node name="ObstaclesCleanup" type="Area3D" parent="Bus Path/Onibus"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2953897, 0, -20.63206)
 script = ExtResource("24_ppjhr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bus Path/Onibus/ObstaclesCleanup"]
-transform = Transform3D(0.99998, 0, 0, 0, 1, 0, 0, 0, 0.99998, -1.623642, 1.6142578, 11.429253)
+transform = Transform3D(0.99996096, 0, -8.7396756e-13, 0, 1, 0, 8.7396756e-13, 0, 0.99996096, -0.15011597, 1.6142578, 11.429245)
 shape = SubResource("BoxShape3D_ebakm")
 
 [node name="ObstacleSpawner" type="Node3D" parent="Bus Path" node_paths=PackedStringArray("Path")]
