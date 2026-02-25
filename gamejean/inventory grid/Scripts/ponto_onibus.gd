@@ -34,6 +34,7 @@ var paradas_consolidada: int = 0
 var cancelar_contagem: bool = false 
 
 func _ready() -> void:
+	tempo_no_ponto=VariaveisGLobais.tempo_parada
 	if label_tempo: label_tempo.text = "Aguardando"
 	subir_painel() # Começa fechado
 	if grid_onibus:

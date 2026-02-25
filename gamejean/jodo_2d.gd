@@ -8,7 +8,7 @@ extends Node2D
 @export var grid_onibus: GridContainer
 
 func _ready():
-	timer.wait_time = 5.00  # segundos
+	timer.wait_time = VariaveisGLobais.tempo_parada  # segundos
 	timer.one_shot = true
 	timer.start()
 

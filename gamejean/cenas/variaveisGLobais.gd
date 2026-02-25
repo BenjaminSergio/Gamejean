@@ -8,7 +8,7 @@ var satisfacao:float =5.0
 
 var preco_passagem:float =2.00
 var cota:float= 10.00
-var tempo_parada:float =15.0
+var tempo_parada:float =5.0
 var aviso:int = 0
 var alunos_embarcados: int = 0
 var obstaculos_atingidos: int = 0
@@ -64,7 +64,7 @@ func load_save_stats(dados: Dictionary):
 	satisfacao = dados.get("satisfacao", 5.0)
 	preco_passagem = dados.get("preco_passagem", 2.0)
 	cota = dados.get("cota", 10.0)
-	tempo_parada = dados.get("tempo_parada", 15.0)
+	tempo_parada = dados.get("tempo_parada", 5.0)
 	aviso = dados.get("aviso", 0)
 	alunos_embarcados = dados.get("alunos_embarcados", 0)
 	obstaculos_atingidos = dados.get("obstaculos_atingidos", 0)
@@ -96,7 +96,7 @@ func carregar_jogo():
 		satisfacao = dados.get("satisfacao", 5.0)
 		preco_passagem = dados.get("preco_passagem", 2.00)
 		cota = dados.get("cota", 10.00)
-		tempo_parada = dados.get("tempo_parada", 15.0)
+		tempo_parada = dados.get("tempo_parada", 5.0)
 		aviso = dados.get("aviso", 0)
 		alunos_embarcados = dados.get("alunos_embarcados", 0)
 		obstaculos_atingidos = dados.get("obstaculos_atingidos", 0)
@@ -111,7 +111,7 @@ func resetar_variaveis():
 	satisfacao = 5.0
 	preco_passagem = 2.00
 	cota = 10.00
-	tempo_parada = 15.0
+	tempo_parada = 5.0
 	aviso = 0
 	alunos_embarcados = 0
 	obstaculos_atingidos = 0
