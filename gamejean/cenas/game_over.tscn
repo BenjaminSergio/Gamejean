@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://iowqsi04fbcu"]
+
+[ext_resource type="Texture2D" uid="uid://cdt04vj7w1btn" path="res://assets/2d/covil_bg_001.png" id="1_un0q3"]
+[ext_resource type="Texture2D" uid="uid://c4rjtq7ic4ny2" path="res://assets/2d/porta_covil_0001.png" id="2_jcnxb"]
+[ext_resource type="Texture2D" uid="uid://c2kdxp3skffrk" path="res://assets/UI/demitido.png" id="3_poob8"]
+[ext_resource type="Texture2D" uid="uid://b5mqn7pm575yp" path="res://assets/UI/SAIR .png" id="4_qov6d"]
+[ext_resource type="Script" uid="uid://dtnm2c0tu88hr" path="res://cenas/texture_button_2.gd" id="5_2obsk"]
+[ext_resource type="Texture2D" uid="uid://dc67vdita7vl7" path="res://assets/UI/BUTAO MENU.png" id="5_5kvw5"]
+[ext_resource type="Script" uid="uid://b8byoq2fljd6a" path="res://cenas/b_menu.gd" id="7_6eamb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2obsk"]
+bg_color = Color(0.6, 0.6, 0.6, 0.5803922)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_top = -1.0
+offset_right = 1151.0
+offset_bottom = 645.0
+texture = ExtResource("1_un0q3")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 144.0
+offset_top = 199.0
+offset_right = 297.0
+offset_bottom = 568.0
+texture = ExtResource("2_jcnxb")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+offset_right = 1154.0
+offset_bottom = 647.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2obsk")
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+offset_top = 33.0
+offset_right = 1154.0
+offset_bottom = 452.0
+
+[node name="Demitido" type="Sprite2D" parent="."]
+position = Vector2(585, 202)
+scale = Vector2(1.588, 1.605)
+texture = ExtResource("3_poob8")
+
+[node name="b_sair_go" type="TextureButton" parent="."]
+offset_left = 394.0
+offset_top = 458.0
+offset_right = 434.0
+offset_bottom = 498.0
+scale = Vector2(2.4895723, 1.1260151)
+texture_normal = ExtResource("4_qov6d")
+script = ExtResource("5_2obsk")
+
+[node name="b_menu" type="TextureButton" parent="."]
+offset_left = 398.0
+offset_top = 309.0
+offset_right = 648.0
+offset_bottom = 419.0
+scale = Vector2(1.473464, 1.0875015)
+texture_normal = ExtResource("5_5kvw5")
+script = ExtResource("7_6eamb")
+
+[connection signal="pressed" from="b_sair_go" to="b_sair_go" method="_on_pressed"]
+[connection signal="pressed" from="b_menu" to="b_menu" method="_on_pressed"]
