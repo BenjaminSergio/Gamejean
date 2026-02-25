@@ -7,7 +7,7 @@ custom_minimum_size = Vector2(16, 16)
 offset_right = 16.0
 offset_bottom = 16.0
 mouse_filter = 2
-color = Color(0.36659443, 0.36659467, 0.36659458, 1)
+color = Color(0.24591973, 0.24591973, 0.24591973, 0.43137255)
 script = ExtResource("1_pm4yg")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -17,3 +17,4 @@ offset_top = 1.0
 offset_right = 15.0
 offset_bottom = 15.0
 mouse_filter = 2
+color = Color(0.9116014, 0.9116014, 0.9116014, 0)

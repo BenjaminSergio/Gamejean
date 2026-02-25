@@ -534,13 +534,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.95639, 0.41104126, -132.5
 [node name="Mapa" type="Node3D" parent="."]
 
 [node name="UFES Map - Almost Finished" type="MeshInstance3D" parent="Mapa"]
-transform = Transform3D(479.9218, 0, 0, 0, 0.9998371, 0, 0, 0, 479.9218, 0.8355369, 0.4351395, 0.29624087)
+transform = Transform3D(479.9218, 0, 0, 0, 0.9998371, 0, 0, 0, 479.9218, 0, 0.428, 0)
 mesh = SubResource("ArrayMesh_02fbc")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_nkdee")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Mapa"]
-transform = Transform3D(10000, 0, 0, 0, -0.0004371139, 10000, 0, -10000, -0.0004371139, 0, -1.1025543, 4.819418e-08)
+transform = Transform3D(10000, 0, 0, 0, -0.0004371139, 10000, 0, -10000, -0.0004371139, 0.043, 0.197, -0.059)
 material_override = SubResource("StandardMaterial3D_hfa21")
 mesh = SubResource("QuadMesh_shj60")
 
@@ -586,6 +586,7 @@ MaxSpeed = 18.0
 MinSpeed = 8.0
 SpeedChangeStep = 3.33
 ProgressStops = PackedFloat32Array(235, 235, 425, 750, 1090)
+Volume = 0.15
 
 [node name="Mesh" type="MeshInstance3D" parent="Bus Path/Onibus"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5928999, 0, 9.252392e-08)
@@ -676,6 +677,9 @@ mouse_filter = 2
 
 [node name="Ponto de Onibus" parent="UI/Node/Node" index="2"]
 mouse_filter = 2
+
+[node name="itemGrid" parent="UI/Node/Node/Ponto de Onibus" index="0"]
+color_rect = Color(0, 0, 0, 0)
 
 [node name="ReferenceRect" type="ReferenceRect" parent="UI"]
 offset_left = -9.333336

@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://jccr8xkj1cw2" path="res://cenas/label_covil_preço.gd" id="6_hqhip"]
 [ext_resource type="Script" uid="uid://bkw2p70721a54" path="res://cenas/label_covil_aviso.gd" id="7_y47kq"]
 [ext_resource type="Script" uid="uid://b5pkr51uoswix" path="res://cenas/h_box_container_avisos.gd" id="8_6liko"]
-[ext_resource type="Script" uid="uid://dnhgc5ayingmy" path="res://cenas/contador_dinheiro.gd" id="9_b68ho"]
+[ext_resource type="Script" path="res://cenas/contador_dinheiro.gd" id="9_b68ho"]
 [ext_resource type="Texture2D" uid="uid://c3gg0031ulwuy" path="res://assets/UI/label dia.png" id="10_66uvi"]
 
 [node name="covil SG" type="Node2D"]
