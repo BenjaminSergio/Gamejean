@@ -128,6 +128,32 @@ color = Color(1, 0, 0, 1)
 layout_mode = 2
 texture = ExtResource("2_mp8ij")
 
+[node name="Label2" type="Label" parent="Control/HBoxContainer2/TextureRect"]
+layout_mode = 0
+offset_left = 3.859379
+offset_top = 130.68172
+offset_right = 140.33098
+offset_bottom = 292.6817
+scale = Vector2(0.31336904, 0.87892747)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 21
+text = "VOCE SERA PROMOVIDO SE SOBREVIVER 21 DIAS"
+autowrap_mode = 2
+autowrap_trim_flags = 0
+
+[node name="Label" type="Label" parent="Control/HBoxContainer2/TextureRect"]
+layout_mode = 0
+offset_left = 2.8828144
+offset_top = 26.136345
+offset_right = 238.45972
+offset_bottom = 131.49338
+scale = Vector2(0.203125, 0.6363639)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 21
+text = "3 avisos vc esta demitido!!!!!!!"
+autowrap_mode = 2
+autowrap_trim_flags = 0
+
 [node name="next_day" type="TextureButton" parent="Control"]
 layout_mode = 0
 offset_left = 448.0

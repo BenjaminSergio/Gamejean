@@ -8,9 +8,27 @@ extends Node2D
 
 
 @export var dialogos := {
-	1: "Olá, hoje é o primeiro dia, sou GILMAR o mecanico, sempre que sobrar um dinheiro vem conversar comigo, posso melhroar o seu onibus",
-	2: "Já estamos no segundo dia.",
-	3: "O tempo passa rápido..."
+1: "Olá, hoje é o primeiro dia. Sou GILMAR, o mecânico. Sempre que sobrar um dinheiro, venha conversar comigo; posso melhorar o seu ônibus.",
+2: "Já estamos no segundo dia. Se você me trouxer uns trocados, eu te mostro a minha FERRAMENTA.\n IR PARA LOJA????",
+3: "Quer um gole do meu suco de laranja????\n IR PARA LOJA????",
+4: "Sou apaixonado por carros. Você viu o novo Golf??? Tá um tesão.\n IR PARA LOJA????",
+5: "E, mano, hoje estou meio triste. Minha mulher me ligou; hoje não vou poder ver as crianças.\n IR PARA LOJA????",
+6: "Vamos tomar uma cerveja qualquer dia desses, mas fora do trabalho, viu.\n IR PARA LOJA????",
+7: "Eu gosto dessa garagem, fico em casa perto desses monstros.\n IR PARA LOJA????",
+8: "Rapaz, sempre vejo aquele filme Carros, e aquela Sally tem um belo bagageiro.\n IR PARA LOJA????",
+9: "Você sabia que eu já fui busólogo????\n IR PARA LOJA????",
+10: "Pô, a minha ex não aceita meu relacionamento com o Miguel.\n IR PARA LOJA????",
+11: "Sempre fui apaixonado por carros. Parei de andar de velotrol aos 16 anos, quando comprei minha primeira moto.\n IR PARA LOJA????",
+12: "Aiai, esses avisos... Você não pode deixar a peteca cair.\n IR PARA LOJA????",
+13: "Bora para a praia. O Miguel pode te dar carona.\n IR PARA LOJA????",
+14: "Rapaz, quando subo no Miguel... aaa, desculpa, isso é um pouco inapropriado.\n IR PARA LOJA????",
+15: "Nunca tomei um aviso, kkkk. Esse suco não tem álcool, só cachaça.\n IR PARA LOJA????",
+16: "Quando vi o Miguel pela primeira vez, ele tava lindo.\n IR PARA LOJA????",
+17: "Ônibus foi a minha paixão antes dos meus filhos e do Miguel.\n IR PARA LOJA????",
+18: "O Miguel fica lindo de vermelho. Vou levar ele na loja lá perto de casa.\n IR PARA LOJA????",
+19: "Vai tomar um pouco de suco. Esses dias têm sido difíceis.\n IR PARA LOJA????",
+20: "Troquei a pintura do Miguel. Espera, você não sabia que ele era um carro???\n IR PARA LOJA????",
+21: "Rapaz, você é realmente bom. Vou sentir a sua falta.\n IR PARA LOJA????"
 }
 @export var son_botao: AudioStream
 
