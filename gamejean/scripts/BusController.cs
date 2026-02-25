@@ -66,9 +66,6 @@ public partial class BusController : PathFollow3D
 		HandleInput();
 		MoveBus((float)delta);
 		VisualSteering((float)delta);
-		
-		GD.Print($"mesh {mesh.RotationDegrees}");
-		GD.Print($"node {RotationDegrees}");
 	}
 	
 	void MoveBus(float delta) {
