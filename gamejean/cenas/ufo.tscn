@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cmkmdsacs70uy" path="res://cenas/UFOObstacle.cs" id="1_unqgd"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_yntdj"]
-radius = 2.041313
+radius = 1.1400174
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2kayk"]
 resource_name = "Material.001"

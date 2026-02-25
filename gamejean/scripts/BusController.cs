@@ -66,6 +66,9 @@ public partial class BusController : PathFollow3D
 		HandleInput();
 		MoveBus((float)delta);
 		VisualSteering((float)delta);
+		
+		GD.Print($"mesh {mesh.RotationDegrees}");
+		GD.Print($"node {RotationDegrees}");
 	}
 	
 	void MoveBus(float delta) {
@@ -92,10 +95,10 @@ public partial class BusController : PathFollow3D
 		else if (Progress >= 1157f && Progress <= 1220f) return;
 		
 		if (Input.IsActionJustPressed("left") && !stop) {
-			targetOffset = -LaneOffset;
+			targetOffset = LaneOffset;
 		}
 		else if (Input.IsActionJustPressed("right") && !stop) {
-			targetOffset = LaneOffset;
+			targetOffset = -LaneOffset;
 		}
 		else if (Input.IsActionJustPressed("accelerate") && !stop) {
 			currentSpeed = currentSpeed + SpeedChangeStep > MaxSpeed ? 
@@ -113,7 +116,7 @@ public partial class BusController : PathFollow3D
 			}
 			if (Progress >= Mathf.Abs(ProgressStops[nextStop] - ApproachingDistance)) {
 				approachingStop = true;
-				targetOffset = LaneOffset;
+				targetOffset = -LaneOffset;
 			}
 		}
 		else if (Progress >= Mathf.Abs(ProgressStops[nextStop] - StoppingDistance)) {
@@ -130,7 +133,7 @@ public partial class BusController : PathFollow3D
 	}
 	
 	void VisualSteering(float delta) {
-		float targetAngle = HOffset > 0 ? MaxSteerAngle : -MaxSteerAngle;
+		float targetAngle = HOffset > 0 ? -MaxSteerAngle : MaxSteerAngle;
 
 		float currentYaw = mesh.RotationDegrees.Y;
 		
@@ -138,7 +141,7 @@ public partial class BusController : PathFollow3D
 			currentYaw = Mathf.Lerp(currentYaw, targetAngle, SteerSpeed * delta);
 		}
 		else {
-			currentYaw = Mathf.Lerp(currentYaw, 0f, ReturnSpeed * delta);
+			currentYaw = Mathf.Lerp(currentYaw, 0, ReturnSpeed * delta);
 		}
 		
 		mesh.RotationDegrees = new Vector3(
