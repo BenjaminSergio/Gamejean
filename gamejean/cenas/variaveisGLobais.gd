@@ -27,6 +27,7 @@ func avancar_dia():
 		dinheiro_diario=dinheiro_diario-cota
 		dinheiro_total=dinheiro_total+dinheiro_diario
 	print(dinheiro_diario)
+	aumentar_cota();
 	strike()
 	
 
@@ -122,3 +123,6 @@ func resetar_variaveis():
 	
 func ir_para_covil():
 	get_tree().change_scene_to_file("res://cenas/covil_sg.tscn")
+
+func aumentar_cota():
+	cota += 5
