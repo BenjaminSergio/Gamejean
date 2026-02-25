@@ -12,6 +12,7 @@ var highlighted_slots: Array[Node] = []
 @export var som_colocar: AudioStream
 @export var som_pegar: AudioStream
 @export var som_colocar_falha: AudioStream
+@export var color_rect: Color
 
 func _ready() -> void:
 	self.columns = dimensions.x
