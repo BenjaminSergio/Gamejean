@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=4 uid="uid://mk177ru3qcdd"]
+[gd_scene load_steps=79 format=4 uid="uid://mk177ru3qcdd"]
 
 [ext_resource type="PackedScene" uid="uid://d063iuc30x7b8" path="res://assets/models/labs.glb" id="3_fx61g"]
 [ext_resource type="PackedScene" uid="uid://b7q557r62ruqg" path="res://assets/models/quadra.glb" id="3_qm8n8"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://c06rb3v7r58n7" path="res://assets/models/salas2_eixo3.glb" id="17_wq8xl"]
 [ext_resource type="Texture2D" uid="uid://bwqvy3bmerlep" path="res://assets/models/mapa_UFES Map - Almost Finished.png" id="18_s0d4q"]
 [ext_resource type="PackedScene" uid="uid://bnaq5st1lwkqg" path="res://assets/models/labs1_eixo3.glb" id="18_wq8xl"]
+[ext_resource type="Texture2D" uid="uid://dxvhr00k4ts3n" path="res://assets/models/floresta.png" id="19_cj7cf"]
 [ext_resource type="AudioStream" uid="uid://ben8b77vl4mf2" path="res://Sons/Efeitos Sonoros/OnibusAndando.wav" id="20_a4um2"]
 [ext_resource type="AudioStream" uid="uid://caj58gh54xs7n" path="res://Sons/Efeitos Sonoros/OnibusParado.wav" id="21_cj7cf"]
 [ext_resource type="Script" uid="uid://cl8yq1ixqjnca" path="res://scripts/BusController.cs" id="22_64xg6"]
@@ -113,6 +114,16 @@ texture_filter = 1
 albedo_color = Color(0.4627451, 0.85882354, 0.45490196, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_shj60"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qw3qb"]
+transparency = 1
+albedo_texture = ExtResource("19_cj7cf")
+uv1_scale = Vector3(11.09, 1, 1)
+texture_filter = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_80ktc"]
+material = SubResource("StandardMaterial3D_qw3qb")
+size = Vector2(460, 20)
 
 [sub_resource type="Curve3D" id="Curve3D_l7ta8"]
 closed = true
@@ -523,15 +534,35 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.95639, 0.41104126, -132.5
 [node name="Mapa" type="Node3D" parent="."]
 
 [node name="UFES Map - Almost Finished" type="MeshInstance3D" parent="Mapa"]
-transform = Transform3D(479.9218, 0, 0, 0, 0.9998371, 0, 0, 0, 479.9218, -0.054782934, 0.48715314, -0.008812854)
+transform = Transform3D(479.9218, 0, 0, 0, 0.9998371, 0, 0, 0, 479.9218, 0.8355369, 0.4351395, 0.29624087)
 mesh = SubResource("ArrayMesh_02fbc")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_nkdee")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Mapa"]
-transform = Transform3D(10000, 0, 0, 0, -0.0004371139, 10000, 0, -10000, -0.0004371139, 0, 0, 0)
+transform = Transform3D(10000, 0, 0, 0, -0.0004371139, 10000, 0, -10000, -0.0004371139, 0, -1.1025543, 4.819418e-08)
 material_override = SubResource("StandardMaterial3D_hfa21")
 mesh = SubResource("QuadMesh_shj60")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Mapa"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.99778795, 0, 8.826524, -219.47878)
+mesh = SubResource("QuadMesh_80ktc")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Mapa"]
+transform = Transform3D(-4.371139e-08, 0, -0.99778795, 0, 1, 0, 1, 0, -4.3614698e-08, 220.3601, 8.826524, 9.756287)
+mesh = SubResource("QuadMesh_80ktc")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Mapa"]
+transform = Transform3D(-4.371139e-08, 0, -0.99778795, 0, 1, 0, 1, 0, -4.3614698e-08, 220.36009, 8.826524, 460.65692)
+mesh = SubResource("QuadMesh_80ktc")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Mapa"]
+transform = Transform3D(-4.371139e-08, 0, 0.99778795, 0, 1, 0, -1, 0, -4.3614698e-08, -229.71927, 8.826524, 1.8940964)
+mesh = SubResource("QuadMesh_80ktc")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Mapa"]
+transform = Transform3D(-4.371139e-08, 0, 0.99778795, 0, 1, 0, -1, 0, -4.3614698e-08, -229.71925, 8.826524, 403.10455)
+mesh = SubResource("QuadMesh_80ktc")
 
 [node name="Bus Path" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122.21444, 0.44817734, 100.15466)
@@ -664,6 +695,7 @@ painel_ponto = NodePath("../UI/Node")
 script = ExtResource("38_wttsa")
 TreeScenes = Array[PackedScene]([ExtResource("39_hfa21"), ExtResource("40_shj60"), ExtResource("41_f81u5"), ExtResource("42_f6uwp")])
 Bus = NodePath("../Bus Path/Onibus")
+SpawnDistance = 200.0
 
 [node name="SpawnPoints" type="Node3D" parent="TreesStreamer"]
 
